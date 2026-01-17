@@ -1,14 +1,13 @@
 # NAICS GitHub Repository Classifier
 
-Automated classification of GitHub repositories into NAICS (North American Industry Classification System) sectors using semantic search and LLM-powered validation.
+Automated classification of GitHub repositories into NAICS (North American Industry Classification System) codes using semantic search and LLM-powered validation.
 
 ## Overview
 
-This project builds a training dataset for a NAICS classifier by:
-
+This project builds a training dataset for the ModernBERT NAICS classifier by:
 1. **Semantic Search**: Using BGE embeddings + FAISS to find repositories relevant to each NAICS sector
-2. **LLM Classification**: Using GPT-4 to validate and score whether repositories truly belong to their matched sectors
-3. **Dataset Creation**: Filtering high-confidence predictions (score >= 7) for training data
+2. **LLM Classification**: Using GPT-4 (via OpenAI API or GitHub Copilot API) to validate and score classifications
+3. **Dataset Creation**: Filtering high-confidence predictions for training data
 
 ## Project Structure
 
@@ -16,282 +15,250 @@ This project builds a training dataset for a NAICS classifier by:
 naics-github-classifier/
 ├── config/                 # Configuration files
 ├── data/
-│   ├── raw/               # Input data (repos parquet, NAICS definitions)
-│   ├── processed/         # Intermediate outputs (embeddings, FAISS indices)
-│   └── output/            # Final classification results
+│   ├── raw/               # Original input data
+│   ├── processed/         # Intermediate outputs (embeddings, indices)
+│   └── output/            # Final training datasets
 ├── src/
 │   ├── data/              # Data loading and preprocessing
 │   ├── embeddings/        # BGE encoder and FAISS indexing
 │   ├── classification/    # GPT classification pipeline
 │   └── utils/             # Utilities (logging, token counting)
-├── scripts/               # Pipeline execution scripts (01-05)
+├── scripts/               # Pipeline execution scripts
+├── notebooks/             # Jupyter notebooks for analysis
 ├── figures/               # Generated visualizations
 └── tests/                 # Unit tests
 ```
 
-## Requirements
-
-- Python 3.10+
-- NVIDIA GPU with CUDA support (recommended for embeddings)
-- ~16GB GPU memory for batch processing
-- OpenAI API key OR GitHub Copilot API access
-
 ## Installation
 
-### Step 1: Clone the Repository
-
 ```bash
+# Clone the repository
 git clone https://github.com/yourusername/naics-github-classifier.git
 cd naics-github-classifier
-```
 
-### Step 2: Create Conda Environment
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-```bash
-conda create -n naics-classifier python=3.10 -y
-conda activate naics-classifier
-```
+# Install dependencies
+pip install -r requirements.txt
 
-### Step 3: Install PyTorch with CUDA
-
-```bash
-# For CUDA 11.8 (check your CUDA version with: nvidia-smi)
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-```
-
-### Step 4: Install Dependencies
-
-```bash
-pip install sentence-transformers faiss-cpu tiktoken tqdm pandas pyarrow python-dotenv requests pyyaml matplotlib seaborn
-```
-
-### Step 5: Verify GPU Setup
-
-```bash
-python -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}'); print(f'GPU: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else \"N/A\"}')"
+# Install package in development mode
+pip install -e .
 ```
 
 ## Configuration
 
-### API Setup
-
-Create a `.env` file in the project root:
-
+1. Copy the environment template:
 ```bash
 cp .env.example .env
 ```
 
-**Option A: OpenAI API (General Public)**
+2. Add your API credentials to `.env`. Choose one of:
 
-If you have an OpenAI API key, add it to `.env`:
-
+**Option A: OpenAI API** (for external users)
 ```
-OPENAI_API_KEY=sk-your-openai-api-key-here
+OPENAI_API_KEY=your_openai_api_key_here
 ```
-
 Get your API key from: https://platform.openai.com/api-keys
 
-**Option B: GitHub Copilot API (GitHub Employees)**
-
-If you have access to GitHub's internal Copilot API:
-
+**Option B: GitHub Copilot API** (for GitHub employees)
 ```
-GITHUB_TOKEN=your-github-token-here
+GITHUB_TOKEN=your_github_token_here
 ```
 
-The classifier auto-detects which API to use based on available environment variables (OpenAI takes priority if both are set).
+3. Adjust parameters in `config/config.yaml` as needed.
 
-## Pipeline Overview
+## Usage
 
-The pipeline consists of 5 sequential steps:
-
-| Step | Script | Description | Time Estimate |
-|------|--------|-------------|---------------|
-| 1 | `01_generate_embeddings.py` | Convert README text to BGE vectors | ~10 min (GPU) |
-| 2 | `02_build_faiss_index.py` | Build searchable vector index | ~1 min |
-| 3 | `03_retrieve_by_naics.py` | Find candidate repos for each NAICS sector | ~2 min |
-| 4 | `04_classify_repos.py` | GPT-4 validates each repo-NAICS pair | ~5 sec/repo |
-| 5 | `05_filter_results.py` | Filter high-confidence results | ~1 min |
-
-## Running the Pipeline
-
-### Quick Start (Test Run)
-
-First, verify everything works with a small test:
-
+### Step 1: Generate Embeddings
 ```bash
-conda activate naics-classifier
-cd /path/to/naics-github-classifier
-
-# Step 1: Generate embeddings
-python scripts/01_generate_embeddings.py \
-    --input data/raw/repos_eu_sample_5pct.parquet \
-    --output data/processed/embeddings/repo_embeddings.parquet \
-    --batch-size 64
-
-# Step 2: Build FAISS index
-python scripts/02_build_faiss_index.py \
-    --vectors data/processed/embeddings/repo_embeddings_vectors.npy \
-    --embeddings data/processed/embeddings/repo_embeddings_metadata.parquet \
-    --output-index data/processed/faiss_indices/repos.index
-
-# Step 3: Retrieve repos by NAICS
-python scripts/03_retrieve_by_naics.py \
-    --index data/processed/faiss_indices/repos.index \
-    --metadata data/processed/embeddings/repo_embeddings_metadata.parquet \
-    --naics data/raw/naics_titles_by_group_6digit_clean.json \
-    --output data/processed/retrieved_repos_by_naics.parquet
-
-# Step 4: Classify with GPT (test with 50 repos)
-python scripts/04_classify_repos.py \
-    --input data/processed/retrieved_repos_by_naics.parquet \
-    --output-dir data/output/batch_csvs \
-    --limit 50
-
-# Step 5: Filter results
-python scripts/05_filter_results.py \
-    --input-dir data/output/batch_csvs \
-    --output data/output/naics_training_data_filtered.csv \
-    --min-score 7
+python scripts/01_generate_embeddings.py --input data/raw/repos_eu_531k.parquet
 ```
 
-### Full Classification Run
-
-To classify all retrieved repos (can take several hours):
-
+### Step 2: Build FAISS Index
 ```bash
-# Remove --limit to process all repos
-python scripts/04_classify_repos.py \
-    --input data/processed/retrieved_repos_by_naics.parquet \
-    --output-dir data/output/batch_csvs
+python scripts/02_build_faiss_index.py
 ```
 
-**Notes:**
-- Results are saved in batches of 500 repos
-- If interrupted, use `--start-idx` to resume from where you left off
-- Progress is logged to `data/output/classification_log.txt`
-
-### Selecting API Backend
-
-You can explicitly select which API to use:
-
+### Step 3: Retrieve Repositories by NAICS
 ```bash
-# Use OpenAI API
-python scripts/04_classify_repos.py --backend openai --input data/processed/retrieved_repos_by_naics.parquet
-
-# Use GitHub Copilot API
-python scripts/04_classify_repos.py --backend github --input data/processed/retrieved_repos_by_naics.parquet
-
-# Specify a different model
-python scripts/04_classify_repos.py --backend openai --model gpt-4o-mini --input data/processed/retrieved_repos_by_naics.parquet
+python scripts/03_retrieve_by_naics.py
 ```
 
-## Output Files
+### Step 4: Classify with GPT
+```bash
+# Auto-detect backend based on available API key
+python scripts/04_classify_repos.py
 
-After running the pipeline, you'll have:
+# Or explicitly specify backend
+python scripts/04_classify_repos.py --backend openai
+python scripts/04_classify_repos.py --backend github
 
-| File | Description |
-|------|-------------|
-| `data/processed/embeddings/` | BGE embeddings (vectors + metadata) |
-| `data/processed/faiss_indices/repos.index` | FAISS vector index |
-| `data/processed/retrieved_repos_by_naics.parquet` | Candidate repo-NAICS pairs |
-| `data/output/batch_csvs/` | Classification results (batched CSVs) |
-| `data/output/naics_training_data_filtered.csv` | Final training dataset |
-| `figures/` | Score distribution and NAICS visualizations |
+# Optionally specify model
+python scripts/04_classify_repos.py --backend openai --model gpt-4o
+```
 
-## Classification Output Format
+### Step 5: Filter Results
+```bash
+python scripts/05_filter_results.py --min-score 8
+```
 
-Each classified repo has:
+## Input Data Requirements
 
+The pipeline requires two input files in `data/raw/`:
+
+### 1. Repository Dataset (Parquet)
+
+A parquet file containing GitHub repository metadata. **Required columns:**
+
+| Column | Type | Description | Required |
+|--------|------|-------------|----------|
+| `nwo` | string | Repository identifier in "owner/repo" format (e.g., "microsoft/vscode") | **Yes** |
+| `readme_content` | string | Full README file content (markdown/text) | **Yes** |
+| `description` | string | Repository description from GitHub | Recommended |
+| `topics` | list/string | Repository topics/tags | Recommended |
+
+**Optional columns** (used for filtering/analysis):
+- `num_stars` - Star count
+- `is_fork` - Whether repo is a fork
+- `is_archived` - Whether repo is archived
+- `spdx_license` - License type
+- `num_commits` - Commit count
+- `last_commit_at` - Last commit timestamp
+
+**Example structure:**
+```
+nwo                     | description                          | readme_content
+------------------------|--------------------------------------|------------------
+microsoft/vscode        | Visual Studio Code                   | # Visual Studio Code...
+tensorflow/tensorflow   | An Open Source ML Framework          | # TensorFlow...
+```
+
+**Sample file:** `repos_eu_sample_5pct.parquet` (26,573 repos, 69MB)
+
+### 2. NAICS Definitions (JSON)
+
+A JSON file mapping 2-digit NAICS sector codes to their industry descriptions.
+
+**Format:**
 ```json
 {
-    "repo_url": "https://github.com/user/repo",
-    "naics_code": "11",
-    "match": true,
-    "score": 8,
-    "rationale": "This repository implements farm management software..."
+    "11": "Soybean Farming; Oilseed Farming; Wheat Farming; Corn Farming; ...",
+    "21": "Crude Petroleum Extraction; Natural Gas Extraction; Coal Mining; ...",
+    "22": "Electric Power Generation; Natural Gas Distribution; Water Supply; ...",
+    ...
 }
 ```
 
-**Scoring Guide:**
+**NAICS Sectors (20 total):**
+
+| Code | Sector Name |
+|------|-------------|
+| 11 | Agriculture, Forestry, Fishing and Hunting |
+| 21 | Mining, Quarrying, and Oil and Gas Extraction |
+| 22 | Utilities |
+| 23 | Construction |
+| 31-33 | Manufacturing |
+| 42 | Wholesale Trade |
+| 44-45 | Retail Trade |
+| 48-49 | Transportation and Warehousing |
+| 51 | Information |
+| 52 | Finance and Insurance |
+| 53 | Real Estate and Rental and Leasing |
+| 54 | Professional, Scientific, and Technical Services |
+| 55 | Management of Companies and Enterprises |
+| 56 | Administrative and Support Services |
+| 61 | Educational Services |
+| 62 | Health Care and Social Assistance |
+| 71 | Arts, Entertainment, and Recreation |
+| 72 | Accommodation and Food Services |
+| 81 | Other Services |
+| 92 | Public Administration |
+
+**Sample file:** `naics_titles_by_group_6digit_clean.json`
+
+### Preparing Your Own Data
+
+If you want to use your own repository dataset:
+
+1. **Export to parquet** with at minimum `nwo` and `readme_content` columns
+2. **Clean README content** - remove binary/corrupted entries
+3. **Filter repositories** - remove forks, archived repos, or those without READMEs if desired
+
+```python
+import pandas as pd
+
+# Example: Create input file from your data
+df = pd.DataFrame({
+    'nwo': ['owner/repo1', 'owner/repo2'],
+    'description': ['A cool project', 'Another project'],
+    'topics': [['python', 'ml'], ['web', 'api']],
+    'readme_content': ['# Project 1\nThis is...', '# Project 2\nThis does...']
+})
+df.to_parquet('data/raw/my_repos.parquet', index=False)
+```
+
+## Pipeline Architecture
+
+```
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│  Raw Repos      │────▶│  BGE Embeddings │────▶│  FAISS Index    │
+│  (531k parquet) │     │  (vectors)      │     │  (search)       │
+└─────────────────┘     └─────────────────┘     └─────────────────┘
+                                                        │
+                                                        ▼
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│  Training Data  │◀────│  Filter Score≥8 │◀────│  GPT-4 Classify │
+│  (CSV output)   │     │  (validation)   │     │  (API calls)    │
+└─────────────────┘     └─────────────────┘     └─────────────────┘
+```
+
+## Output Data Format
+
+### Classification Results (CSV)
+
+The final output `data/output/naics_training_data_filtered.csv` contains:
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `repo_url` | string | Full GitHub URL (e.g., "https://github.com/owner/repo") |
+| `naics_code` | string | Matched NAICS sector code (e.g., "11", "54") |
+| `match` | boolean | Whether GPT determined this is a true match |
+| `score` | integer | Confidence score (1-10) |
+| `rationale` | string | GPT's explanation for the classification |
+
+**Example output:**
+```csv
+repo_url,naics_code,match,score,rationale
+https://github.com/farm-ng/farm-ng-core,11,True,9,"Core robotics framework for agricultural automation..."
+https://github.com/openag/openag_brain,11,True,8,"Software for controlled environment agriculture..."
+```
+
+**Scoring interpretation:**
 - **9-10**: Core industry software with direct sector application
 - **7-8**: Strong sector relevance with clear industry use cases
 - **5-6**: Moderate sector connection
 - **3-4**: Weak sector relevance
 - **1-2**: No meaningful sector connection
 
-## Data Sources
+### Intermediate Files
 
-- **Repository Dataset**: GitHub repositories with README content (`repos_eu_sample_5pct.parquet` - 26,573 repos)
-- **NAICS Definitions**: 20 NAICS sectors with 6-digit industry descriptions (`naics_titles_by_group_6digit_clean.json`)
+| File | Description |
+|------|-------------|
+| `data/processed/embeddings/repo_embeddings_vectors.npy` | BGE embeddings (N x 1024 float32) |
+| `data/processed/embeddings/repo_embeddings_metadata.parquet` | Repository metadata with input text |
+| `data/processed/faiss_indices/repos.index` | FAISS index for similarity search |
+| `data/processed/retrieved_repos_by_naics.parquet` | Candidate repo-NAICS pairs from semantic search |
+| `data/output/batch_csvs/batch_*.csv` | Raw classification results (batched) |
 
-## Pipeline Architecture
+## Key Dependencies
 
-```
-┌─────────────────────┐
-│  Raw Repositories   │
-│  (parquet file)     │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐
-│  Step 1: BGE        │
-│  Embeddings         │
-│  (1024-dim vectors) │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐
-│  Step 2: FAISS      │
-│  Index              │
-│  (vector search)    │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐
-│  Step 3: Semantic   │
-│  Retrieval          │
-│  (per NAICS sector) │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐
-│  Step 4: GPT-4      │
-│  Classification     │
-│  (validate matches) │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐
-│  Step 5: Filter     │
-│  Score >= 7         │
-│  (training data)    │
-└─────────────────────┘
-```
-
-## Troubleshooting
-
-### CUDA Out of Memory
-
-Reduce batch size in Step 1:
-
-```bash
-python scripts/01_generate_embeddings.py --batch-size 32 --input ...
-```
-
-### API Rate Limits
-
-The classifier handles rate limits automatically with exponential backoff. If you hit persistent limits, reduce request frequency or use a different model.
-
-### Missing Dependencies
-
-```bash
-pip install sentence-transformers faiss-cpu tiktoken tqdm pandas pyarrow python-dotenv requests
-```
-
-### File Not Found Errors
-
-Make sure to run scripts from the project root directory, or use absolute paths.
+- `torch` - PyTorch for GPU support
+- `sentence-transformers` - BGE embedding model (BAAI/bge-large-en)
+- `faiss-cpu` - Vector similarity search
+- `tiktoken` - Token counting for LLM requests
+- `pandas` / `pyarrow` - Data handling
 
 ## License
 
