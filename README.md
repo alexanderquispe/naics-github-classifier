@@ -6,7 +6,7 @@ Automated classification of GitHub repositories into NAICS (North American Indus
 
 This project builds a training dataset for the ModernBERT NAICS classifier by:
 1. **Semantic Search**: Using BGE embeddings + FAISS to find repositories relevant to each NAICS sector
-2. **LLM Classification**: Using GPT-4 via GitHub Copilot API to validate and score classifications
+2. **LLM Classification**: Using GPT-4 (via OpenAI API or GitHub Copilot API) to validate and score classifications
 3. **Dataset Creation**: Filtering high-confidence predictions for training data
 
 ## Project Structure
@@ -54,7 +54,15 @@ pip install -e .
 cp .env.example .env
 ```
 
-2. Add your API credentials to `.env`:
+2. Add your API credentials to `.env`. Choose one of:
+
+**Option A: OpenAI API** (for external users)
+```
+OPENAI_API_KEY=your_openai_api_key_here
+```
+Get your API key from: https://platform.openai.com/api-keys
+
+**Option B: GitHub Copilot API** (for GitHub employees)
 ```
 GITHUB_TOKEN=your_github_token_here
 ```
@@ -80,7 +88,15 @@ python scripts/03_retrieve_by_naics.py
 
 ### Step 4: Classify with GPT
 ```bash
+# Auto-detect backend based on available API key
 python scripts/04_classify_repos.py
+
+# Or explicitly specify backend
+python scripts/04_classify_repos.py --backend openai
+python scripts/04_classify_repos.py --backend github
+
+# Optionally specify model
+python scripts/04_classify_repos.py --backend openai --model gpt-4o
 ```
 
 ### Step 5: Filter Results

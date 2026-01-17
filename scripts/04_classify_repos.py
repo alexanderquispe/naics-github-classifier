@@ -49,6 +49,11 @@ def parse_args():
     parser.add_argument("--log-file", type=str,
                         default="data/output/classification_log.txt",
                         help="Log file for classification results")
+    parser.add_argument("--backend", type=str, choices=["openai", "github"],
+                        default=None,
+                        help="API backend: 'openai' (OpenAI API) or 'github' (GitHub Copilot). Auto-detects if not specified.")
+    parser.add_argument("--model", type=str, default=None,
+                        help="Model name to use (default: gpt-4-turbo for OpenAI, gpt-4.1 for GitHub)")
     return parser.parse_args()
 
 
@@ -56,9 +61,9 @@ def main():
     args = parse_args()
     logger = setup_logger("classify_repos")
 
-    # Check for API token
-    if not os.getenv("GITHUB_TOKEN"):
-        logger.error("GITHUB_TOKEN not found in environment. Set it in .env file.")
+    # Check for API token (either OpenAI or GitHub)
+    if not os.getenv("OPENAI_API_KEY") and not os.getenv("GITHUB_TOKEN"):
+        logger.error("No API key found. Set OPENAI_API_KEY or GITHUB_TOKEN in .env file.")
         sys.exit(1)
 
     # Create output directories
@@ -91,7 +96,7 @@ def main():
 
     # Initialize classifier
     logger.info("Initializing GPT classifier...")
-    classifier = GPTClassifier()
+    classifier = GPTClassifier(backend=args.backend, model=args.model)
 
     # Process repos
     results = []

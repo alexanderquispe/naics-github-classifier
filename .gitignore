@@ -76,9 +76,7 @@ venv.bak/
 *.swo
 *~
 
-# Data files (large files - keep in cloud storage)
-data/raw/*.parquet
-data/raw/*.json
+# Data files (generated outputs - not tracked)
 data/processed/**/*.parquet
 data/processed/**/*.index
 data/output/**/*.csv
