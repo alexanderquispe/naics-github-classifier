@@ -1,0 +1,62 @@
+# NAICS GitHub Classifier Configuration
+
+# Data paths
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  output_dir: "data/output"
+  repos_file: "repos_eu_531k.parquet"
+  naics_file: "naics_titles_by_group_6digit_clean.json"
+
+# Embedding configuration
+embeddings:
+  model_name: "BAAI/bge-large-en"
+  batch_size: 1024
+  max_length: 512
+  use_half_precision: true
+  query_prefix: "Represent this document for retrieval: "
+  output_file: "eu_repos_with_embeddings_bge_531k.parquet"
+
+# FAISS configuration
+faiss:
+  index_type: "IndexFlatIP"  # Inner product for cosine similarity
+  use_gpu: true
+  index_file: "faiss_index_flatip_cosine_bge_eu_531k.index"
+  metadata_file: "repo_metadata_bge_eu_531k.parquet"
+
+# Retrieval configuration
+retrieval:
+  base_k: 400  # Target repos per NAICS group
+  min_k: 20    # Minimum repos per subindustry query
+  output_file: "retrieved_repos_by_naics_group_eu_531k.parquet"
+
+# Classification configuration
+classification:
+  model: "gpt-4.1"
+  api_endpoint: "https://api-model-lab.githubcopilot.com/chat/completions"
+  max_retries: 5
+  retry_delay: 2  # seconds
+  timeout: 60     # seconds
+  batch_size: 500
+  max_readme_tokens: 3000
+  output_dir: "batch_csvs"
+  log_file: "gpt_train_data_classification_log.txt"
+
+# Filtering configuration
+filtering:
+  min_score: 8
+  output_file: "naics_gpt_class_data_filtered.csv"
+
+# README preprocessing
+preprocessing:
+  max_chars: 1000           # For embedding input
+  max_tokens: 3000          # For GPT classification
+  remove_code_blocks: true
+  remove_html: true
+  remove_urls: true
+
+# Logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/pipeline.log"

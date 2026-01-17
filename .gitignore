@@ -1,0 +1,105 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Data files (large files - keep in cloud storage)
+data/raw/*.parquet
+data/raw/*.json
+data/processed/**/*.parquet
+data/processed/**/*.index
+data/output/**/*.csv
+data/output/**/*.parquet
+
+# Keep directory structure
+!data/raw/.gitkeep
+!data/processed/embeddings/.gitkeep
+!data/processed/faiss_indices/.gitkeep
+!data/output/batch_csvs/.gitkeep
+
+# Logs
+*.log
+logs/
+
+# Model files
+*.pt
+*.pth
+*.bin
+*.onnx
+
+# OS
+.DS_Store
+Thumbs.db
