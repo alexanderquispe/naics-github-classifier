@@ -86,7 +86,7 @@ def truncate_to_tokens(text: str, max_tokens: int = 3000, model: str = "gpt-4") 
 
 def create_input_text(
     description: Optional[str],
-    topics: Optional[str],
+    topics,
     readme: Optional[str],
     max_readme_chars: int = 1000
 ) -> str:
@@ -95,20 +95,30 @@ def create_input_text(
 
     Args:
         description: Repository description
-        topics: Repository topics (comma-separated)
+        topics: Repository topics (string, list, or array)
         readme: README content
         max_readme_chars: Maximum characters for README
 
     Returns:
         Combined input text
     """
+    import numpy as np
+
     parts = []
 
     if description and isinstance(description, str):
         parts.append(f"Description: {description}")
 
-    if topics and isinstance(topics, str):
-        parts.append(f"Topics: {topics}")
+    # Handle topics - can be string, list, or numpy array
+    if topics is not None:
+        if isinstance(topics, str):
+            if topics.strip():
+                parts.append(f"Topics: {topics}")
+        elif isinstance(topics, (list, np.ndarray)):
+            # Convert array/list to comma-separated string
+            topics_list = [str(t) for t in topics if t]
+            if topics_list:
+                parts.append(f"Topics: {', '.join(topics_list)}")
 
     if readme and isinstance(readme, str):
         cleaned_readme = clean_readme(readme)

@@ -1,0 +1,603 @@
+
+============================================================
+Repo: timflutre/PlantBreedGame
+NAICS: 11
+Match: True, Score: 7
+Rationale: The repository develops a game for teaching selective breeding, a concept relevant to crop and animal production within the agricultural sector. However, it is primarily educational and does not directly support agricultural operations or management.
+
+============================================================
+Repo: gardener-attic/vscode-gardener-tools
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository focuses on tools for managing projects in VSCode related to a software called 'Gardener', which is unrelated to the agricultural or farming activities described in NAICS Sector 11.
+
+============================================================
+Repo: joherma1/sia
+NAICS: 11
+Match: True, Score: 9
+Rationale: The repository develops an Agricultural Information System specifically designed to support agricultural activities, including IoT for monitoring and data collection, which is directly applicable to the NAICS sector 11, covering various farming and agricultural activities.
+
+============================================================
+Repo: fruchtfolge/Fruchtfolge
+NAICS: 11
+Match: True, Score: 9
+Rationale: The repository develops an open-source crop planning optimization tool, directly serving the needs of the agricultural sector (NAICS Code 11) by focusing on crop rotation and profitability, which are crucial for efficient farming operations.
+
+============================================================
+Repo: geopaparazzi/smash
+NAICS: 11
+Match: False, Score: 3
+Rationale: The SMASH app is designed for field mapping and GIS data collection, which could be tangentially useful for agricultural mapping in NAICS Sector 11. However, its primary features and focus do not specifically cater to the agricultural or farming activities outlined in this sector.
+
+============================================================
+Repo: fruxefarms/FruxePi
+NAICS: 11
+Match: True, Score: 9
+Rationale: The repository develops software specifically for indoor agriculture, aligning closely with 'Other Food Crops Grown Under Cover' within NAICS Sector 11. It provides sector-relevant functionality by automating and monitoring crop growth, which is essential for efficient indoor farming.
+
+============================================================
+Repo: earnaud/MetaShARK
+NAICS: 11
+Match: False, Score: 2
+Rationale: The MetaShARK app is designed to assist with metadata management in ecology, not directly related to the agricultural or animal production activities outlined in NAICS Sector 11.
+
+============================================================
+Repo: symflower/symflower
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository focuses on software development tools integrating static, dynamic, and symbolic analyses with LLMs, which is unrelated to the agricultural and animal production activities outlined in NAICS Sector 11.
+
+============================================================
+Repo: karripar/weedify-backend
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository is focused on a social recipe sharing application, which does not develop tools or functionalities specifically for the agricultural or farming sectors outlined in NAICS Sector 11.
+
+============================================================
+Repo: reidfalconer/agribrain
+NAICS: 11
+Match: True, Score: 9
+Rationale: AgriBrain is designed specifically for agriculture, focusing on crop lifecycle optimization through monitoring, analysis, and automation, directly addressing the needs of NAICS Sector 11 which includes various farming activities.
+
+============================================================
+Repo: m-posluszny/RssFeed
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository focuses on developing a GUI-driven RSS feed reader using Python, which is unrelated to the agricultural and farming activities outlined in NAICS Sector 11.
+
+============================================================
+Repo: Bio7/bio7
+NAICS: 11
+Match: False, Score: 2
+Rationale: Bio7 is focused on ecological modeling, statistical analysis, and scientific image analysis, which do not directly align with the agricultural and animal production activities outlined in NAICS Sector 11.
+
+============================================================
+Repo: sing-group/aibench-project
+NAICS: 11
+Match: False, Score: 1
+Rationale: The AIBench Project is a Java framework for developing GUI-based scientific applications, unrelated to the agricultural or animal production sectors covered by NAICS Sector 11.
+
+============================================================
+Repo: FieldRobotEvent/virtual_maize_field
+NAICS: 11
+Match: True, Score: 9
+Rationale: The repository develops a ROS package for generating virtual maize fields, directly serving the agricultural sector (NAICS Code 11) by providing simulation tools for crop farming, specifically maize, which is part of Corn Farming under this sector.
+
+============================================================
+Repo: ctu-mrs/mrs_octomap_tools
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository focuses on tools for visualization and manipulation of OctoMaps in robotics and simulation environments, which is unrelated to the agricultural and animal production activities outlined in NAICS Sector 11.
+
+============================================================
+Repo: chains-project/SBOM-2023
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository focuses on software development tools for Java, specifically for creating Software Bill of Materials, which is unrelated to the agricultural and animal production activities described in NAICS Sector 11.
+
+============================================================
+Repo: buckbeak99/Smart_Agro
+NAICS: 11
+Match: True, Score: 7
+Rationale: The repository focuses on using blockchain technology to ensure fair pricing for farmers, directly addressing a need within the agricultural sector (NAICS Sector 11). However, the core technology (Hyperledger Fabric) is not exclusive to agriculture, which limits the score.
+
+============================================================
+Repo: H-SAF/data_access
+NAICS: 11
+Match: False, Score: 2
+Rationale: The repository focuses on hydrology-related data tools, specifically for snow, precipitation, and soil moisture, which do not directly align with the agricultural and animal production activities listed in NAICS Sector 11.
+
+============================================================
+Repo: Ultragreen/appifier
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository focuses on application templating and management tools, which are not specifically designed for or relevant to the agricultural and related activities outlined in NAICS Sector 11.
+
+============================================================
+Repo: COM673/tools
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository focuses on software tools for Java developers, with no specific applications or relevance to the agricultural or farming sectors outlined in NAICS Code 11.
+
+============================================================
+Repo: stephenafamo/boilingseed
+NAICS: 11
+Match: False, Score: 1
+Rationale: BoilingSeed is a CLI tool for generating database seeding helpers, primarily for software development and not directly applicable to the agricultural activities listed in NAICS Sector 11.
+
+============================================================
+Repo: VEZY/sticRs
+NAICS: 11
+Match: True, Score: 9
+Rationale: The repository develops software specifically for managing and analyzing crop simulations, directly serving the needs of the agricultural sector (NAICS Code 11) by facilitating crop management and research.
+
+============================================================
+Repo: sinister-labs/growpanion
+NAICS: 11
+Match: False, Score: 2
+Rationale: GrowPanion is focused on cannabis cultivation, which does not align with the traditional crop and animal production categories listed under NAICS Sector 11.
+
+============================================================
+Repo: lucasmgpy/GreenSeedCRE
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository focuses on a software system for managing users, products, and orders, primarily deployed on Azure, with no direct connection to agricultural or farming activities as outlined in NAICS Sector 11.
+
+============================================================
+Repo: candYgene/pbg-ld
+NAICS: 11
+Match: True, Score: 7
+Rationale: The repository develops a platform for genomics and plant breeding, specifically mentioning Solanaceae species like tomatoes and potatoes, which are relevant to the NAICS sector 11 focusing on crop farming. However, its primary focus on genomics and data linking might not directly address broader agricultural practices covered in the sector.
+
+============================================================
+Repo: EarthyScience/REddyProc
+NAICS: 11
+Match: True, Score: 7
+Rationale: The repository focuses on processing data from Eddy-Covariance systems, which are crucial for measuring gas exchanges between ecosystems and the atmosphere, relevant to agricultural and forestry activities within NAICS Sector 11. However, it is not exclusively designed for agricultural applications but broadly applicable to various ecological research.
+
+============================================================
+Repo: JoeyPhoier/PwC3-A1-Team-6
+NAICS: 11
+Match: False, Score: 2
+Rationale: The repository is focused on a game development project involving farming simulation, which does not directly develop tools or software for actual agricultural activities covered under NAICS Sector 11. The functionality and data are relevant only within a gaming context, not real-world agriculture or farming.
+
+============================================================
+Repo: moguism/FarmInHouse
+NAICS: 11
+Match: False, Score: 2
+Rationale: The repository focuses on an e-commerce platform for selling fruits, vegetables, and meats, which does not directly involve the agricultural or farming activities listed in NAICS Sector 11. It is more aligned with retail and technology sectors rather than agriculture production.
+
+============================================================
+Repo: systelab/seed-angular
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository is focused on providing a seed project for Angular applications, specifically in patient management, and does not develop tools or functionalities relevant to the agricultural or animal production sectors listed in NAICS Code 11.
+
+============================================================
+Repo: multichannelsystems/McsMatlabDataTools
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository focuses on a Matlab Toolbox for working with HDF5 files from Multi Channel Systems, which is unrelated to the agricultural and animal production activities outlined in NAICS Sector 11.
+
+============================================================
+Repo: mcbeet/vscode-beet
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository is focused on developing a VSCode extension for Minecraft resource and datapack development, which is unrelated to the agricultural and farming activities outlined in NAICS Sector 11.
+
+============================================================
+Repo: surullabs/lint
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository focuses on software development tools for linting Go code, which is unrelated to the agricultural and farming activities described in NAICS Sector 11.
+
+============================================================
+Repo: analysis-tools-dev/dynamic-analysis
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository focuses on dynamic analysis tools and linters for programming, which are unrelated to the agricultural and farming activities outlined in NAICS Sector 11.
+
+============================================================
+Repo: analysis-tools-dev/website-old
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository is focused on developing a community website for analysis tools, which is unrelated to the agricultural and farming activities outlined in NAICS Sector 11.
+
+============================================================
+Repo: flifloo/ha_petlibro
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository focuses on a Home Assistant integration for a pet feeder device, which is unrelated to the agricultural and farming activities outlined in NAICS Sector 11.
+
+============================================================
+Repo: CoSci-LLC/KiLib-OSS
+NAICS: 11
+Match: True, Score: 5
+Rationale: KiLib-OSS provides tools for modeling and analyzing earth surface processes, which can be tangentially relevant to agricultural activities in NAICS sector 11, such as soil analysis and hydrology. However, it is not specifically designed for agricultural applications or directly addresses the primary activities of this sector.
+
+============================================================
+Repo: zacchiro/beangrep
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository is focused on a grep-like filter for Beancount, a plain text accounting system, which does not specifically cater to or serve the agricultural or farming sectors outlined in NAICS Sector 11.
+
+============================================================
+Repo: mathisdt/web-address-book-enhanced
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository focuses on an address book application, which is unrelated to the agricultural and farming activities outlined in NAICS Sector 11.
+
+============================================================
+Repo: querwurzel/BinPastes
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository is focused on creating a pastebin application, which is unrelated to the agricultural and farming activities outlined in NAICS Sector 11.
+
+============================================================
+Repo: TechIsFun/android-samples
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository focuses on Android app development with functionalities like file sharing, barcode scanning, and animations, which are unrelated to the agricultural and animal production activities outlined in NAICS Sector 11.
+
+============================================================
+Repo: janheinrichmerker/thuringian-field-names
+NAICS: 11
+Match: False, Score: 2
+Rationale: The repository is focused on a field name explorer for an archive, which does not directly develop tools or functionalities specific to the agricultural or farming sectors listed in NAICS Code 11.
+
+============================================================
+Repo: Abranidrees/Crop-Health-Monitoring
+NAICS: 11
+Match: True, Score: 9
+Rationale: The repository develops software specifically for crop health monitoring using remote sensing, which is directly applicable to the agricultural sector (NAICS Code 11) for improving crop management and yield.
+
+============================================================
+Repo: GeoStat-Framework/GSTools
+NAICS: 11
+Match: False, Score: 2
+Rationale: GSTools focuses on geostatistical analysis and modeling, which is not specifically designed for or targeted at the agricultural or animal production sectors listed in NAICS Code 11.
+
+============================================================
+Repo: Kumar-laxmi/Cropgenix
+NAICS: 11
+Match: True, Score: 8
+Rationale: The repository develops a web application aimed at automating tasks for farmers, directly aligning with the needs of the agricultural sector (NAICS Code 11). It uses machine learning to potentially optimize farming operations, which is relevant for improving productivity in various farming activities listed under this sector.
+
+============================================================
+Repo: sentinel-hub/EOBrowser
+NAICS: 11
+Match: False, Score: 2
+Rationale: The repository focuses on satellite imagery tools which are not specifically designed for or targeted at the agricultural or forestry sectors listed in NAICS Sector 11. Its primary function does not directly support activities such as farming, fishing, or forestry management.
+
+============================================================
+Repo: mikebgrep/fork.recipes
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository focuses on a web application for managing food recipes, which does not align with the agricultural and animal production activities outlined in NAICS Sector 11.
+
+============================================================
+Repo: Stratio/stratio-connector-hdfs
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository focuses on a software connector for HDFS and Apache Spark, which is unrelated to the agricultural and farming activities described in NAICS Sector 11.
+
+============================================================
+Repo: zbejas/Grains
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository focuses on enhancing the Minecraft gaming experience and does not develop tools or software for agricultural or animal production sectors as defined in NAICS Sector 11.
+
+============================================================
+Repo: Paul2708/spigot-plugin-resources
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository focuses on software and resources for Minecraft server management, which is unrelated to the agricultural and animal production activities outlined in NAICS Sector 11.
+
+============================================================
+Repo: fcharte/mldr
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository focuses on software for analyzing and manipulating multilabel datasets, which is unrelated to the agricultural and farming activities described in NAICS Sector 11.
+
+============================================================
+Repo: timflutre/PlantBreedGame
+NAICS: 11
+Match: True, Score: 7
+Rationale: The primary purpose of the repository is to provide a serious game designed to teach selective breeding of plants, which is directly applicable to educational aspects within NAICS Sector 11, specifically in areas like crop farming and nursery production. The game uses a plant species model to educate users, which aligns with Sector-Relevant Functionality and Industry Domain Applications criteria. It serves as an educational tool for those studying or working in agriculture, particularly in genetics and breeding, which are crucial for improving crop yields and quality. Although the repository is educational and might not be used directly in field operations, its focus on breeding and genetics is a core aspect of agricultural research and development, justifying its strong relevance to the sector.
+
+============================================================
+Repo: gardener-attic/vscode-gardener-tools
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to provide tools for managing Gardener projects within VSCode, which is a system for managing Kubernetes clusters and related resources. The functionalities described, such as managing shoots, plants, seeds, and backup resources, align with IT infrastructure management rather than direct agricultural activities. None of the features or intended uses of the software align with the specific activities listed in NAICS Sector 11, such as farming, cultivation, or any agricultural production processes. The repository's focus is on IT and software development tools, which do not meet the classification criteria for direct application or relevance to the agricultural sector as defined in NAICS Sector 11.
+
+============================================================
+Repo: joherma1/sia
+NAICS: 11
+Match: True, Score: 9
+Rationale: The primary purpose of the repository is to develop an Agricultural Information System (SIA) that integrates J2EE server technology, IoT (Internet of Things) for sensor and actuator networks, and an extensible architecture for adding new functionalities. This system is designed specifically to serve the agricultural sector by gathering, processing, and offering agricultural data, which aligns directly with NAICS Sector 11. The repository implements industry-specific software and sector-relevant functionality such as data processing from IoT devices used in farming, which is crucial for modern agricultural practices. The system's focus on enhancing agricultural operations through technology makes it a core industry software with a direct application in the sector, justifying a high score of 9.
+
+============================================================
+Repo: fruchtfolge/Fruchtfolge
+NAICS: 11
+Match: True, Score: 9
+Rationale: The primary purpose of the repository is to develop an open-source crop planning optimization tool named Fruchtfolge, which is directly applicable to NAICS Sector 11, specifically targeting agriculture and crop management. This tool aligns with the 'Industry-Specific Software' criterion as it is designed specifically for use within the agricultural sector to optimize crop rotation and planning. The repository's focus on agriculture, optimization, and usability for crop management demonstrates a clear and direct application to businesses and operations within Sector 11. The project addresses sector-specific problems such as crop rotation and planning, which are essential for efficient agricultural production, thus justifying its high relevance and direct applicability to the sector.
+
+============================================================
+Repo: geopaparazzi/smash
+NAICS: 11
+Match: False, Score: 2
+Rationale: The primary purpose of the SMASH repository is to provide a digital field mapping app for Android and iOS, which is designed for engineering/geologic surveys and GIS data-collection. While the app includes features such as geo-referenced notes, pictures, and GPS-track logging, these functionalities are general and applicable to a wide range of sectors, not specifically tailored to NAICS Sector 11, which includes agriculture, forestry, fishing, and hunting. The repository does not implement any sector-specific functionality or processes directly related to the activities listed in Sector 11, such as crop management, animal production, or specific agricultural data analysis. Therefore, the repository serves multiple sectors equally and its primary use case is outside Sector 11, leading to a low score and exclusion from this sector classification.
+
+============================================================
+Repo: fruxefarms/FruxePi
+NAICS: 11
+Match: True, Score: 8
+Rationale: The primary purpose of the FruxePi repository is to provide a browser-based dashboard for monitoring and automating indoor agriculture using the Raspberry Pi. This aligns directly with NAICS Sector 11, which includes 'Other Food Crops Grown Under Cover' such as indoor farming operations. The repository implements sector-relevant functionality by providing tools for automation and monitoring of agricultural environments, which are essential for efficient indoor farming. The software is specifically designed to serve businesses and organizations within the agricultural sector, particularly those involved in indoor or urban farming, making it a strong candidate for classification under this sector. The repository's focus on agricultural processes and its direct application to improving agricultural productivity through technology confirms its relevance to NAICS Sector 11.
+
+============================================================
+Repo: earnaud/MetaShARK
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the MetaShARK repository is to facilitate the creation and management of metadata for ecological datasets, specifically aimed at users within the ecology community. This repository focuses on providing a user-friendly tool for handling metadata standards and specifications in ecological research, which does not align directly with NAICS Sector 11, which encompasses Agriculture, Forestry, Fishing and Hunting. The functionalities and applications of MetaShARK are centered around ecological data management rather than agricultural, forestry, or related natural resource management activities specific to Sector 11. Therefore, there is no meaningful sector connection or direct applicability to the businesses, operations, or specific processes outlined in NAICS Sector 11.
+
+============================================================
+Repo: symflower/symflower
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to enhance software development through the integration of static, dynamic, and symbolic analyses with LLMs (Large Language Models), focusing on improving code quality and development efficiency. This repository offers tools like linting, testing, and test automation primarily for software developers and does not align with NAICS Sector 11, which encompasses agriculture, forestry, fishing, and hunting. There is no indication that the repository's functionality or its intended use cases directly serve or are relevant to the agricultural or related industries specified in Sector 11. Therefore, it does not meet any of the classification criteria for inclusion in this sector.
+
+============================================================
+Repo: karripar/weedify-backend
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to support a social recipe sharing application named Weedify, which allows users to post, like, rate, comment on, and save recipes. This application is focused on promoting healthier dietary choices and is not designed specifically for any activities related to NAICS Sector 11, which encompasses Agriculture, Forestry, Fishing, and Hunting. The repository does not implement any industry-specific software, sector-relevant functionality, or contain data or research related to the agricultural or related sectors. Therefore, it lacks direct applicability and relevance to the target NAICS sector.
+
+============================================================
+Repo: reidfalconer/agribrain
+NAICS: 11
+Match: True, Score: 9
+Rationale: The primary purpose of the AgriBrain repository is to serve as an agriculture and irrigation management system, which is directly applicable to NAICS Sector 11. This sector includes various forms of agriculture and farming activities. AgriBrain integrates monitoring, analysis, and automation specifically for agricultural purposes, addressing sector-specific problems such as maximizing crop productivity and efficient resource use. The repository clearly meets the classification criteria of 'Industry-Specific Software' and 'Sector-Relevant Functionality' by providing tools designed for agricultural management and implementing processes like real-time data analysis from agricultural sensors. The software is evidently intended for use by businesses and organizations within the agricultural sector, fulfilling the 'Industry Domain Applications' criterion. Therefore, AgriBrain is a core industry software with direct sector application, justifying a high score of 9.
+
+============================================================
+Repo: m-posluszny/RssFeed
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the RssFeed repository is to provide a GUI-driven RSS feed browser for aggregating and viewing web content, which is unrelated to NAICS Sector 11 activities such as agriculture, farming, or related industries. The repository focuses on general web content management and does not implement any industry-specific functionality, processes, or data relevant to the agricultural sector. There is no evidence of the software being used by businesses or organizations within Sector 11, nor does it address any sector-specific problems or use cases. Therefore, the repository does not meet any of the classification criteria for inclusion in NAICS Sector 11.
+
+============================================================
+Repo: Bio7/bio7
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the Bio7 repository is to provide an integrated development environment for ecological modeling, statistical analysis, and scientific image analysis, with a focus on flexibility and extensibility in a Rich-Client-Platform environment. The features and functionalities of Bio7, such as simulation model creation, statistical analysis, image analysis, and dynamic scripting, do not align directly with NAICS Sector 11, which encompasses agriculture, forestry, fishing, and hunting. The repository does not implement or address sector-specific processes, data, or problems related to the agricultural or related industries outlined in Sector 11. Therefore, there is no clear business or operational relevance to this sector, and the repository serves a purpose outside of the specific needs of Sector 11.
+
+============================================================
+Repo: sing-group/aibench-project
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to provide a Java application development framework focused on GUI-based scientific applications, as indicated by its description and examples of applications like LA-iMageS, Mass-Up, and OptFlux. These applications are related to scientific computing and software development rather than agriculture or related activities specified in NAICS Sector 11. There is no evidence of industry-specific software, sector-relevant functionality, industry domain applications, or sector-specific data/research that aligns with the agricultural sector. Therefore, the repository does not meet any of the classification criteria for inclusion in NAICS Sector 11.
+
+============================================================
+Repo: FieldRobotEvent/virtual_maize_field
+NAICS: 11
+Match: True, Score: 8
+Rationale: The primary purpose of the repository is to provide a ROS package designed to generate randomized fields with rows of plants specifically for use in Gazebo, a simulation environment. This directly aligns with NAICS Sector 11, which includes activities such as Corn Farming and Other Food Crops Grown Under Cover. The repository implements sector-relevant functionality by enabling the simulation of agricultural environments, which is crucial for testing, research, and development within agricultural sectors. This software could be used by businesses and organizations within Sector 11 for simulation purposes to enhance agricultural planning and operations. The repository's focus on agriculture, particularly through its procedural generation of maize fields, confirms its strong relevance and utility in the agricultural sector, meeting the classification criteria of industry-specific software and sector-relevant functionality.
+
+============================================================
+Repo: ctu-mrs/mrs_octomap_tools
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to provide tools for visualization and manipulation of OctoMaps, which are used in robotics and simulation environments, particularly with ROS (Robot Operating System). This technology is primarily aligned with sectors involving technology, robotics, and possibly simulation-based design or planning, but it does not align with NAICS Sector 11, which encompasses agriculture and related activities. The repository's functionality does not implement or address any processes, calculations, workflows, or problems specific to agricultural practices, crop management, or any other activities listed under Sector 11. Therefore, there is no meaningful connection or direct applicability to the agricultural sector.
+
+============================================================
+Repo: chains-project/SBOM-2023
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to provide code and data related to the production and analysis of Software Bill Of Materials (SBOMs) for Java applications, specifically for a research paper. This content focuses on software security and dependency management tools, which do not align with any of the activities or needs specific to NAICS Sector 11, which includes agriculture, forestry, fishing, and hunting. There is no indication that the repository's tools, data, or research are intended for or applicable to agricultural processes, crop management, animal production, or any other sector-specific functionality listed under Sector 11. Therefore, the repository lacks direct applicability and relevance to the specified sector.
+
+============================================================
+Repo: buckbeak99/Smart_Agro
+NAICS: 11
+Match: True, Score: 8
+Rationale: The primary purpose of the repository is to deploy blockchain technology specifically within the agricultural sector to assist farmers in obtaining accurate crop pricing. This aligns directly with NAICS Sector 11, which includes various agricultural activities. The repository meets the 'Industry-Specific Software' criterion as it is designed for use within the agriculture industry, specifically addressing the economic aspect of crop sales. Additionally, it aligns with 'Sector-Relevant Functionality' by implementing a system (blockchain) that enhances transparency and efficiency in agricultural transactions, a critical process in this sector. The repository's focus on improving agricultural practices through technology confirms its strong relevance and direct applicability to Sector 11.
+
+============================================================
+Repo: H-SAF/data_access
+NAICS: 11
+Match: False, Score: 2
+Rationale: The primary purpose of the repository is to provide tools for accessing and analyzing data from the Hydrology SAF, focusing on hydrological data such as snow, precipitation, and soil moisture. This repository is designed for environmental and hydrological data processing rather than agricultural or farming activities directly related to NAICS Sector 11, which includes industries like farming, ranching, and crop production. Although there might be indirect benefits to agriculture from improved understanding of hydrological conditions, the repository's tools and functionalities do not align directly with agricultural processes, calculations, or workflows specific to Sector 11. The repository's primary use case and functionality are outside this sector, focusing more on hydrological and environmental data rather than agricultural or farming-specific applications.
+
+============================================================
+Repo: Ultragreen/appifier
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository, Appifier, is to provide tools for templating and managing applications across various programming languages and deployment environments. It focuses on general application development processes such as retrieving templates, building, and deploying applications. There is no indication that the repository's tools, functionalities, or intended use cases are specifically designed for or aligned with NAICS Sector 11, which encompasses agriculture, forestry, fishing, and hunting. The repository does not implement any industry-specific software, functionality, or data that pertains to the agricultural or related activities listed in Sector 11. Therefore, it lacks direct applicability and relevance to this sector.
+
+============================================================
+Repo: COM673/tools
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to provide information and guidance on setting up a development environment and using various software tools for Java developers. It focuses on general software installation and data backup, which are applicable across many sectors and not specific to any particular industry. There is no indication of any software, functionality, data, or research that aligns specifically with NAICS Sector 11, which includes agriculture, farming, and related activities. The repository does not implement or address any processes, calculations, workflows, or problems specific to the agricultural sector. Therefore, it lacks direct applicability and relevance to NAICS Sector 11.
+
+============================================================
+Repo: stephenafamo/boilingseed
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the BoilingSeed repository is to provide a CLI tool for generating database seeding helpers using sqlboiler, which is specifically designed for use with SQL databases in software development environments. This tool is focused on improving database management and model generation, which does not align with any specific processes, functionalities, or use cases within NAICS Sector 11, which encompasses agriculture, farming, and related activities. There is no indication that this tool addresses any agricultural-specific problems, nor is it designed for use in managing agricultural operations, crop management, or any other activities related to Sector 11. Therefore, the repository lacks direct applicability and relevance to the target sector.
+
+============================================================
+Repo: VEZY/sticRs
+NAICS: 11
+Match: True, Score: 9
+Rationale: The repository is designed specifically for managing and analyzing STICS simulations, which are directly applicable to agricultural activities such as crop management and simulation. This aligns well with NAICS Sector 11, which includes various forms of crop farming and management. The software provides tools for setting up simulations, importing results, and comparing these with observations, which are essential functionalities for improving agricultural productivity and efficiency. These capabilities are crucial for businesses and organizations within Sector 11, as they directly support crop yield optimization, a core aspect of agricultural operations. The repository's primary purpose and functionality clearly meet the criteria of 'Industry-Specific Software' and 'Sector-Relevant Functionality' for NAICS Sector 11.
+
+============================================================
+Repo: sinister-labs/growpanion
+NAICS: 11
+Match: True, Score: 8
+Rationale: The primary purpose of the GrowPanion repository is to provide a comprehensive solution for monitoring and managing cannabis cultivation. This aligns directly with NAICS Sector 11, which includes 'Other Food Crops Grown Under Cover' where cannabis cultivation could be categorized. The repository offers industry-specific software with functionalities such as tracking environmental conditions, managing growing cycles, and maintaining detailed records of plant growth, which are essential for agricultural activities within this sector. The software is clearly designed for use by businesses and organizations involved in crop cultivation, specifically targeting the cannabis industry, which falls under the broader category of agriculture and crop production in Sector 11. Therefore, it meets the classification standards of providing sector-specific functionality and addressing industry-specific problems.
+
+============================================================
+Repo: lucasmgpy/GreenSeedCRE
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the GreenSeed project, as described in the README, is to manage users, products, orders, and challenges within a system developed using ASP.NET Core MVC and deployed on Azure. The functionalities mentioned include image storage, asynchronous order processing, and user management, which are generic software capabilities and do not align specifically with NAICS Sector 11, which encompasses agriculture and related activities such as farming and crop production. There is no indication that the repository's software is designed for or implements processes specific to agricultural practices, crop management, or any other activities listed under Sector 11. Therefore, the repository does not meet the classification criteria for inclusion in this sector.
+
+============================================================
+Repo: candYgene/pbg-ld
+NAICS: 11
+Match: True, Score: 8
+Rationale: The repository 'pbg-ld: Linked Data Platform for Plant Breeding & Genomics' is designed to provide access to integrated genotypic and phenotypic data specifically for plant species within the Solanaceae family, such as tomatoes and potatoes. This aligns directly with NAICS Sector 11, particularly under categories like 'Potato Farming' and 'Other Vegetable and Melon Farming'. The software's primary purpose is to enable the ranking of candidate genes associated with traits of interest in agriculture, which is a sector-specific functionality supporting agricultural research and development. This repository serves as an industry-specific tool that would be used by businesses and organizations within the agricultural sector to enhance plant breeding efforts through genomics, thus meeting the criteria for a strong sector relevance with clear industry use cases.
+
+============================================================
+Repo: EarthyScience/REddyProc
+NAICS: 11
+Match: False, Score: 2
+Rationale: The primary purpose of the repository is to process data from Eddy-Covariance systems, which are typically used for measuring and researching gas fluxes between ecosystems and the atmosphere. This technology and the associated software, REddyProc, are primarily used in environmental and atmospheric sciences rather than directly in agricultural operations or management, which are central to NAICS Sector 11. Although the data processed could indirectly benefit agricultural practices by providing insights into ecosystem health and climate factors, the repository's core functionality and direct application do not align specifically with agricultural production, crop management, or other activities listed under Sector 11. The repository serves a broader scientific community, making its connection to Sector 11 weak and mostly tangential.
+
+============================================================
+Repo: JoeyPhoier/PwC3-A1-Team-6
+NAICS: 11
+Match: False, Score: 2
+Rationale: The primary purpose of the repository is to provide a template for software development environments (Visual Studio and Visual Studio Code) with added functionalities like a makefile and settings for easier project setup and compilation. While the repository includes a game-like application called 'Scuffed Valley' where users can simulate farming activities such as planting crops and selling produce, this is a simulation for entertainment rather than a tool designed for actual agricultural management or operations. The game's functionality does not align with the direct application or operational needs of NAICS Sector 11, which includes real-world agricultural activities like crop farming and animal production. The repository's primary use case is in software development and gaming, not agricultural business or operations, making its connection to Sector 11 tangential and not a core industry software with direct sector application.
+
+============================================================
+Repo: moguism/FarmInHouse
+NAICS: 11
+Match: False, Score: 0
+Rationale: Invalid JSON response: {
+    "match": false,
+    "score": 2,
+    "rationale": "The primary purpose of the repository is to support an ECommerce platform for selling fruits, vegetables, and meats, which includes features lik
+
+============================================================
+Repo: systelab/seed-angular
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to serve as a seed project for Angular-based applications, specifically focusing on frontend development environments. It includes a sample application for patient management, which is unrelated to NAICS Sector 11, which covers agriculture and related activities. There is no indication that the repository's software, tools, or functionalities are designed for or applicable to agricultural processes, data, or industry-specific needs such as farming, livestock management, or crop production. Therefore, the repository does not meet any of the classification criteria for inclusion in Sector 11.
+
+============================================================
+Repo: multichannelsystems/McsMatlabDataTools
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to provide a Matlab Toolbox for working with HDF5 files generated by software from Multi Channel Systems MCS GmbH, which is focused on data importation, access, and basic plotting functions. This functionality does not align with NAICS Sector 11, which encompasses agriculture, forestry, fishing, and hunting. The toolbox does not implement any industry-specific software, sector-relevant functionality, domain applications, or data/research related to these fields. Therefore, there is no direct applicability or relevance to the specified sector.
+
+============================================================
+Repo: mcbeet/vscode-beet
+NAICS: 11
+Match: False, Score: 1
+Rationale: The repository is focused on a VSCode extension for beet projects, which is a development kit for creating Minecraft resource- and datapacks. This software is designed to enhance the development and management of Minecraft game modifications, not for any activities related to NAICS Sector 11, which includes agriculture, forestry, fishing, and hunting. The repository's functionality and primary purpose do not align with any agricultural, forestry, fishing, or hunting operations, nor does it implement or support any sector-specific processes, calculations, or workflows relevant to Sector 11. Therefore, it has no meaningful connection to the target sector.
+
+============================================================
+Repo: surullabs/lint
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to facilitate the running of linters from Go code, which is a software development tool designed to improve code quality by identifying stylistic errors and programming bugs. This functionality is generic and applicable across all software development projects, irrespective of the industry sector. There is no indication that the repository's tools, processes, or intended use cases are specifically tailored for or relevant to NAICS Sector 11, which encompasses agriculture, forestry, fishing, and hunting. The repository does not implement any industry-specific software, functionality, or data that aligns with the agricultural or related activities described in Sector 11. Therefore, it does not meet any of the classification criteria for inclusion in this sector.
+
+============================================================
+Repo: analysis-tools-dev/dynamic-analysis
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to provide a curated list of dynamic analysis tools and linters for programming languages and software development. It focuses on tools that improve code quality, such as linters and formatters, and does not offer any specific applications, tools, or data relevant to NAICS Sector 11, which encompasses agriculture, forestry, fishing, and hunting. The repository's functionality and purpose do not align with any of the criteria for inclusion in Sector 11, as it does not implement or address any processes, calculations, workflows, or problems specific to these industries.
+
+============================================================
+Repo: analysis-tools-dev/website-old
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to provide source code for a website focused on analysis tools, specifically around static and dynamic analysis of code. This includes community organization and contributions to improve the website, which is unrelated to NAICS Sector 11, which covers agriculture and related activities such as farming and fishing. The repository does not implement any industry-specific software, sector-relevant functionality, industry domain applications, or sector-specific data/research related to Sector 11. Therefore, it has no meaningful connection to the agricultural sector as defined by NAICS Sector 11.
+
+============================================================
+Repo: flifloo/ha_petlibro
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to provide a Home Assistant integration for a specific device, the Granary Feeder (PLAF103), which is a pet feeding device. This repository focuses on home automation for pet care, which does not align with any of the activities or industries listed in NAICS Sector 11, which includes agriculture, farming, and related activities. The repository does not implement any industry-specific software, sector-relevant functionality, industry domain applications, or sector-specific data/research related to NAICS Sector 11. Therefore, it has no meaningful connection to the agricultural sector and its primary use case is entirely outside this sector.
+
+============================================================
+Repo: CoSci-LLC/KiLib-OSS
+NAICS: 11
+Match: False, Score: 2
+Rationale: The primary purpose of the KiLib repository is to provide a scientific library for modeling and analyzing Earth surface processes, with specific functionalities such as hydrology models, soil depth computation, and handling of digital elevation models. While these functionalities could tangentially support activities like soil analysis or water management in agriculture (NAICS Sector 11), the repository does not directly align with the core activities of agricultural production, such as crop farming, livestock management, or specific agricultural data analysis. The repository serves a broader scientific and environmental modeling community, rather than focusing on agricultural industry-specific applications or problems. Therefore, its connection to Sector 11 is minimal and mostly indirect, leading to a low score on the classification scale.
+
+============================================================
+Repo: zacchiro/beangrep
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository, Beangrep, is to provide a grep-like filter specifically for the Beancount plain text accounting system. This tool is designed to assist in filtering and managing accounting data, which is generally applicable to financial record-keeping and not directly related to any activities within NAICS Sector 11, which encompasses agriculture, forestry, fishing, and hunting. The repository does not implement any processes, calculations, or workflows specific to agricultural practices, nor does it serve businesses or organizations directly involved in Sector 11 activities. Therefore, it lacks direct applicability and relevance to the specified sector.
+
+============================================================
+Repo: mathisdt/web-address-book-enhanced
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to provide a web-based address book application focused on managing families and their members, including features like data management and PDF export. This application does not align with NAICS Sector 11, which encompasses industries related to agriculture, forestry, fishing, and hunting. The repository does not implement any industry-specific software, sector-relevant functionality, or data/research related to these fields. It is designed for general use in managing personal or organizational contacts and does not address any specific problems, use cases, or operations pertinent to the agricultural or related sectors. Therefore, it lacks direct applicability and relevance to NAICS Sector 11.
+
+============================================================
+Repo: querwurzel/BinPastes
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to provide a pastebin application designed for easy setup and use, specifically for storing and managing text notes with features like full-text search, expiry, and client-side encryption. This functionality does not align with NAICS Sector 11, which encompasses agriculture, forestry, fishing, and hunting. The repository does not offer industry-specific software, sector-relevant functionality, domain applications, or data/research related to these fields. Therefore, it lacks direct applicability and relevance to the sector, leading to a classification exclusion.
+
+============================================================
+Repo: TechIsFun/android-samples
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to provide sample Android applications demonstrating various functionalities such as file sharing, barcode and QR code scanning, using Lottie animations, and implementing Work Manager. These functionalities are general-purpose and are not specifically designed for, nor do they implement processes or workflows unique to NAICS Sector 11, which includes agriculture, forestry, fishing, and hunting. There is no evidence in the repository's description or its contents that aligns with the specific needs, data, or operations of the agricultural or related industries as defined in Sector 11. Therefore, the repository does not meet any of the classification criteria for inclusion in this sector.
+
+============================================================
+Repo: janheinrichmerker/thuringian-field-names
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to serve as an explorer for the Thuringian Field Name Archive, which is a project developed for a university lecture. The application is a React-based web app that allows users to interact with field name data. Although it involves 'field names', this does not align with the agricultural or farming activities described in NAICS Sector 11, which includes activities like crop farming, animal production, and aquaculture. The repository's functionality and purpose are academic and historical in nature, rather than agricultural or directly related to the operations and management of farms or agricultural businesses. Therefore, it does not meet the criteria for inclusion in Sector 11 as it neither implements sector-specific functionality nor serves businesses or operations within the agricultural sector.
+
+============================================================
+Repo: Abranidrees/Crop-Health-Monitoring
+NAICS: 11
+Match: True, Score: 9
+Rationale: The primary purpose of the Crop-Health-Monitoring repository is to provide an application that enables the downloading and analysis of satellite imagery specifically for crop monitoring, which includes calculating vegetation indices like NDVI, GCI, and EVI. These indices are crucial for assessing crop health and are directly applicable to agricultural practices, aligning perfectly with NAICS Sector 11, which includes various forms of crop farming and agriculture. The repository clearly meets the 'Industry-Specific Software' and 'Sector-Relevant Functionality' criteria by offering tools designed for and directly serving the agricultural sector, particularly in enhancing crop monitoring and management. This software would be used predominantly by businesses and organizations within the agricultural sector, addressing sector-specific problems such as crop health monitoring and sustainable agriculture planning.
+
+============================================================
+Repo: GeoStat-Framework/GSTools
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the GSTools repository is to provide a geostatistical toolbox for random fields, variogram estimation, covariance models, kriging, and other related statistical and geospatial analyses. While geostatistics can be applied in various sectors, including agriculture, the repository does not demonstrate a clear, direct alignment with NAICS Sector 11, which focuses specifically on agriculture and related activities such as farming, fishing, and forestry. The tools and functionalities provided by GSTools are general geostatistical methods that can be used across multiple sectors and do not implement processes, calculations, or workflows specific to the agriculture industry. Therefore, the repository lacks direct applicability to the specific businesses, organizations, or activities described in Sector 11, and its primary use case is outside this sector.
+
+============================================================
+Repo: Kumar-laxmi/Cropgenix
+NAICS: 11
+Match: True, Score: 7
+Rationale: The repository is focused on developing a web application using machine learning and deep learning to automate tasks for farmers, which directly aligns with NAICS Sector 11, specifically under the subcategories related to crop farming and agricultural productivity enhancements. The primary purpose of the repository is to provide industry-specific software that automates and enhances farming operations, meeting the classification criteria of 'Industry-Specific Software' and 'Sector-Relevant Functionality'. The use of machine learning algorithms like multiple linear regression for potentially predicting crop yields or optimizing farming tasks further supports its strong relevance to the sector. Although the repository's detailed functionalities are not fully described, the stated aim and the technologies used suggest a clear application within the agricultural sector, justifying a score of 7 for strong sector relevance with clear industry use cases.
+
+============================================================
+Repo: sentinel-hub/EOBrowser
+NAICS: 11
+Match: False, Score: 2
+Rationale: The primary purpose of the Earth Observation Browser repository is to provide a search tool for satellite imagery, including Sentinel and Landsat series, which is primarily used for earth observation and remote sensing. This functionality aligns more closely with sectors related to environmental monitoring, geospatial analysis, and possibly disaster management, rather than directly serving the agricultural or forestry activities listed under NAICS Sector 11. While satellite imagery can be used in agriculture for monitoring crop health, land use, and other relevant applications, the repository itself does not implement or focus on agricultural-specific processes, calculations, or workflows such as crop yield prediction, soil analysis, or farm management, which would be necessary to classify it under Sector 11. The connection to agriculture is tangential and not the primary use case of the software, leading to a low score in terms of direct applicability to NAICS Sector 11.
+
+============================================================
+Repo: mikebgrep/fork.recipes
+NAICS: 11
+Match: False, Score: 2
+Rationale: The primary purpose of the repository is to manage food recipes through a web application, which includes features like recipe management, meal planning, and smart kitchen tools. Although it involves food, it does not align directly with NAICS Sector 11, which focuses on agriculture and farming activities such as crop and animal production. The repository's functionality and purpose serve the food preparation and management sector, rather than agricultural production or direct farm management. Therefore, it lacks direct applicability to the specific processes, operations, or data relevant to Sector 11, making its connection to this sector tangential and not a core focus.
+
+============================================================
+Repo: Stratio/stratio-connector-hdfs
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to provide a connector for Stratio Crossdata to interact with HDFS (Hadoop Distributed File System), which is a system designed for distributed storage and processing of large data sets. This functionality is generally applicable to data management and processing across various industries but does not align specifically with NAICS Sector 11, which encompasses agriculture, forestry, fishing, and hunting. The repository's focus on data federation and enhancement of Apache Spark capabilities does not implement or address any processes, workflows, or problems specific to the agricultural or related industries as defined in Sector 11. Therefore, there is no meaningful connection or direct applicability to the sector, leading to a classification score of 1.
+
+============================================================
+Repo: zbejas/Grains
+NAICS: 11
+Match: False, Score: 2
+Rationale: The primary purpose of the repository is to enhance the gameplay experience of Minecraft, a video game, by adding features such as right-click crop harvest, armor switching, and custom recipes. Although it superficially includes agricultural elements like crop harvesting, these are contextualized within a gaming environment and do not align with real-world agricultural practices or needs as outlined in NAICS Sector 11. The repository's functionality does not implement real agricultural processes, calculations, or workflows specific to the agriculture industry, nor does it serve businesses or organizations within this sector. The agricultural aspects are purely thematic and part of the game mechanics, rather than tools or systems designed for actual agricultural production or management. Therefore, the connection to NAICS Sector 11 is tangential and primarily thematic, lacking direct applicability or relevance to the sector's core activities.
+
+============================================================
+Repo: Paul2708/spigot-plugin-resources
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to provide resources, tools, and guides related to Spigot and Minecraft server software, which is focused on gaming and server management. This content does not align with NAICS Sector 11, which encompasses agriculture, forestry, fishing, and hunting. The repository does not offer industry-specific software, sector-relevant functionality, industry domain applications, or sector-specific data/research related to Sector 11. Therefore, there is no meaningful connection or direct applicability to the agricultural or related industries outlined in Sector 11.
+
+============================================================
+Repo: fcharte/mldr
+NAICS: 11
+Match: False, Score: 1
+Rationale: The primary purpose of the repository is to provide an R package for analyzing and manipulating multilabel datasets, which includes functions for data exploration, creation, and exportation, along with a web GUI for interactive use. This functionality is generic and designed for broad applications in data analysis rather than specific to any industry. The repository does not demonstrate any clear alignment with NAICS Sector 11, which encompasses agriculture, forestry, fishing, and hunting. There are no sector-specific functionalities, applications, or data that relate to agricultural processes, crop management, animal production, or any other activities described in Sector 11. Therefore, the repository lacks direct applicability and relevance to the specified sector.
