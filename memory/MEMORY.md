@@ -1,0 +1,8 @@
+- [User profile](user_profile.md) — Alexander Quispe: researcher at GitHub, affiliated with Caltech; collaborator on the NAICS GitHub classifier project.
+- [Collaborator: Kevin Xu](collaborator_kevin_xu.md) — Kevin Xu co-leads the training-dataset effort for the NAICS GitHub classifier.
+- [Project goal](project_goal.md) — Build a training dataset to fine-tune ModernBERT for classifying GitHub repos into NAICS sectors; this repo is the dataset-generation pipeline.
+- [Paper decisions](paper_decisions.md) — Dataset paper (option A), public release approved, target NeurIPS Datasets & Benchmarks.
+- [Paper facts verified](paper_facts_verified.md) — Title, authors, on-disk artifact contents, and the USA-only-vs-multi-region discrepancy.
+- [Dataset lineage](dataset_lineage.md) — Verified original funnel 31,178 candidates → 6,588 corpus (do NOT use 28,341); original run was bge v1 + README-only embeddings; Tier-1 rerun = 17,969 candidates.
+- [Gold set](gold_set.md) — 2,422 manually checked observations with correct/incorrect column; lives in a Google Sheet, needs export to local CSV.
+- [Source extraction SQL](source_extraction_sql.md) — Kevin's Presto/Trino SQL against hive warehouse; April 15, 2025 snapshot; pre-filters documented.

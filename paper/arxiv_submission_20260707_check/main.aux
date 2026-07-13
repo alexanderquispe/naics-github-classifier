@@ -1,0 +1,215 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
+\HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
+\global\let\oldnewlabel\newlabel
+\gdef\newlabel#1#2{\newlabelxx{#1}#2}
+\gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
+\let\newlabel\oldnewlabel
+\fi}
+\fi}
+\global\let\hyper@last\relax 
+\gdef\HyperFirstAtBeginDocument#1{#1}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\newlabel{sec:intro}{{1}{1}{Introduction}{section.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Contributions.}{1}{section*.2}\protected@file@percent }
+\citation{zhang2019higitclass}
+\citation{izadi2020topic}
+\citation{sas2022gitranking}
+\citation{zanartu2022categorizing}
+\citation{balla2026dragon}
+\citation{dumbacher2025beacon}
+\@writefile{toc}{\contentsline {paragraph}{Pipeline at a glance.}{2}{section*.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces NAICS-GH end-to-end pipeline. A Presto/Trino SQL extraction from GitHub's data warehouse yields a source pool of 1{,}372{,}489 public repositories across three jurisdictional extractions (510{,}380 USA + 530{,}898 EU + 331{,}211 AU), each processed by an identical pipeline configuration; per-row country attributes are not retained in any released artifact. BAAI/bge-large-en embeddings indexed in FAISS retrieve the top-$k$ most semantically similar repositories per NAICS subindustry query ($k = \qopname  \relax m{max}(20, \lceil 400/n \rceil )$ for a sector with $n$ subindustries), producing \textbf  {31{,}178 unique candidate (repository, sector) pairs} after per-sector deduplication (10{,}983 USA + 10{,}531 EU + 9{,}664 AU). GPT-4.1 (snapshot \texttt  {gpt-4.1-2025-04-14}) scores each candidate against a structured rubric; we retain repositories with score $\geq 8$ and apply a minimum-class-size filter ($n{\geq }80$ per sector) to drop sector 55, yielding the released \textbf  {NAICS-GH} corpus of \textbf  {6{,}588 repositories} across 19 of the 20 NAICS 2-digit sectors.\relax }}{2}{figure.caption.4}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:pipeline}{{1}{2}{NAICS-GH end-to-end pipeline. A Presto/Trino SQL extraction from GitHub's data warehouse yields a source pool of 1{,}372{,}489 public repositories across three jurisdictional extractions (510{,}380 USA + 530{,}898 EU + 331{,}211 AU), each processed by an identical pipeline configuration; per-row country attributes are not retained in any released artifact. BAAI/bge-large-en embeddings indexed in FAISS retrieve the top-$k$ most semantically similar repositories per NAICS subindustry query ($k = \max (20, \lceil 400/n \rceil )$ for a sector with $n$ subindustries), producing \textbf {31{,}178 unique candidate (repository, sector) pairs} after per-sector deduplication (10{,}983 USA + 10{,}531 EU + 9{,}664 AU). GPT-4.1 (snapshot \texttt {gpt-4.1-2025-04-14}) scores each candidate against a structured rubric; we retain repositories with score $\geq 8$ and apply a minimum-class-size filter ($n{\geq }80$ per sector) to drop sector 55, yielding the released \textbf {NAICS-GH} corpus of \textbf {6{,}588 repositories} across 19 of the 20 NAICS 2-digit sectors.\relax }{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{2}{section.2}\protected@file@percent }
+\newlabel{sec:related}{{2}{2}{Related Work}{section.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{GitHub repository classification.}{2}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{NAICS classification of text.}{2}{section*.6}\protected@file@percent }
+\citation{ratner2016dataprogramming,ratner2017snorkel}
+\citation{gilardi2023chatgpt}
+\citation{elumar2025cost}
+\citation{mehmood2025llm}
+\citation{zanartu2022categorizing}
+\citation{chen2025forge}
+\citation{joynab2026threads}
+\citation{gebru2021datasheets}
+\@writefile{toc}{\contentsline {paragraph}{LLM-as-labeler and weak supervision.}{3}{section*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{LLMs applied to GitHub content.}{3}{section*.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Datasheets.}{3}{section*.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Dataset Construction}{3}{section.3}\protected@file@percent }
+\newlabel{sec:construction}{{3}{3}{Dataset Construction}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Source repositories}{3}{subsection.3.1}\protected@file@percent }
+\newlabel{sec:source}{{3.1}{3}{Source repositories}{subsection.3.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Inclusion criteria.}{3}{section*.10}\protected@file@percent }
+\citation{xiao2023cpack}
+\citation{johnson2021faiss}
+\newlabel{sec:source:regions}{{3.1}{4}{Jurisdiction split}{section*.11}{}}
+\@writefile{toc}{\contentsline {paragraph}{Jurisdiction split.}{4}{section*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Total source pool.}{4}{section*.12}\protected@file@percent }
+\newlabel{sec:source:merge}{{3.1}{4}{Per-region processing, country-blind release}{section*.13}{}}
+\@writefile{toc}{\contentsline {paragraph}{Per-region processing, country-blind release.}{4}{section*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}NAICS sector taxonomy}{4}{subsection.3.2}\protected@file@percent }
+\newlabel{sec:naics-taxonomy}{{3.2}{4}{NAICS sector taxonomy}{subsection.3.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Semantic retrieval}{4}{subsection.3.3}\protected@file@percent }
+\newlabel{sec:retrieval}{{3.3}{4}{Semantic retrieval}{subsection.3.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Embedding the source corpus.}{4}{section*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Per-subindustry query loop.}{5}{section*.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Tagging and deduplication.}{5}{section*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Why this design.}{5}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}LLM verification}{5}{subsection.3.4}\protected@file@percent }
+\newlabel{sec:verification}{{3.4}{5}{LLM verification}{subsection.3.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{What the model sees.}{5}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{API parameters.}{6}{section*.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Filtering.}{6}{section*.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Filtering and final assembly}{6}{subsection.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Pipeline funnel.}{6}{section*.21}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces End-to-end retention from the GitHub warehouse extraction to the released NAICS-GH training corpus, by jurisdiction.\relax }}{6}{table.caption.22}\protected@file@percent }
+\newlabel{tab:funnel}{{1}{6}{End-to-end retention from the GitHub warehouse extraction to the released NAICS-GH training corpus, by jurisdiction.\relax }{table.caption.22}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Dataset Description}{6}{section.4}\protected@file@percent }
+\newlabel{sec:description}{{4}{6}{Dataset Description}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Schema}{6}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Size and sector coverage}{6}{subsection.4.2}\protected@file@percent }
+\newlabel{sec:desc:size}{{4.2}{6}{Size and sector coverage}{subsection.4.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Released schema of NAICS-GH (\texttt  {train\_data\_gpt\_ab8\_score\_with\_code.parquet}).\relax }}{7}{table.caption.23}\protected@file@percent }
+\newlabel{tab:schema}{{2}{7}{Released schema of NAICS-GH (\texttt {train\_data\_gpt\_ab8\_score\_with\_code.parquet}).\relax }{table.caption.23}{}}
+\@writefile{toc}{\contentsline {paragraph}{Sector counts and imbalance.}{7}{section*.24}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Per-sector counts in the released NAICS-GH training corpus ($n=6{,}588$) drawn from \texttt  {train\_data\_gpt\_ab8\_score\_with\_code.parquet}. Sector 55 (``Management of Companies and Enterprises'') is not present because only 13 candidates passed GPT-4.1 verification, below the 80-sample minimum-class-size threshold.\relax }}{7}{table.caption.25}\protected@file@percent }
+\newlabel{tab:sector-counts}{{3}{7}{Per-sector counts in the released NAICS-GH training corpus ($n=6{,}588$) drawn from \texttt {train\_data\_gpt\_ab8\_score\_with\_code.parquet}. Sector 55 (``Management of Companies and Enterprises'') is not present because only 13 candidates passed GPT-4.1 verification, below the 80-sample minimum-class-size threshold.\relax }{table.caption.25}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Text characteristics}{8}{subsection.4.3}\protected@file@percent }
+\newlabel{sec:desc:text}{{4.3}{8}{Text characteristics}{subsection.4.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Character-length statistics of the four text fields in the released corpus.\relax }}{8}{table.caption.26}\protected@file@percent }
+\newlabel{tab:text-stats-chars}{{4}{8}{Character-length statistics of the four text fields in the released corpus.\relax }{table.caption.26}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Whitespace-tokenized word-count statistics for \texttt  {description} and \texttt  {readme\_content}.\relax }}{8}{table.caption.27}\protected@file@percent }
+\newlabel{tab:text-stats-words}{{5}{8}{Whitespace-tokenized word-count statistics for \texttt {description} and \texttt {readme\_content}.\relax }{table.caption.27}{}}
+\@writefile{toc}{\contentsline {paragraph}{README size distribution.}{8}{section*.28}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Topics field.}{8}{section*.29}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Known duplicates}{8}{subsection.4.4}\protected@file@percent }
+\newlabel{sec:desc:dup}{{4.4}{8}{Known duplicates}{subsection.4.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Score distribution}{9}{subsection.4.5}\protected@file@percent }
+\newlabel{sec:desc:score}{{4.5}{9}{Score distribution}{subsection.4.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Validation}{9}{section.5}\protected@file@percent }
+\newlabel{sec:validation}{{5}{9}{Validation}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Gold-set construction}{9}{subsection.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Headline result}{9}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Precision by sector}{9}{subsection.5.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Per-sector precision in the gold sample ($n=2{,}421$), sorted descending. Wilson 95\% intervals.\relax }}{9}{table.caption.30}\protected@file@percent }
+\newlabel{tab:per-sector-precision}{{6}{9}{Per-sector precision in the gold sample ($n=2{,}421$), sorted descending. Wilson 95\% intervals.\relax }{table.caption.30}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Precision rises monotonically with GPT score}{9}{subsection.5.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Precision conditional on the GPT-4.1 score, gold sample ($n=2{,}421$).\relax }}{10}{table.caption.31}\protected@file@percent }
+\newlabel{tab:precision-by-score}{{7}{10}{Precision conditional on the GPT-4.1 score, gold sample ($n=2{,}421$).\relax }{table.caption.31}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Stratified error analysis}{10}{subsection.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}What this validation does \emph  {not} cover}{10}{subsection.5.6}\protected@file@percent }
+\newlabel{sec:val:notcover}{{5.6}{10}{What this validation does \emph {not} cover}{subsection.5.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{Single-annotator protocol.}{10}{section*.32}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Precision, not recall.}{10}{section*.33}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Benchmark: Fine-Tuned NAICS Classifiers}{10}{section.6}\protected@file@percent }
+\newlabel{sec:benchmark}{{6}{10}{Benchmark: Fine-Tuned NAICS Classifiers}{section.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Input construction}{10}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Splits and hyperparameters}{10}{subsection.6.2}\protected@file@percent }
+\citation{liu2019roberta}
+\citation{warner2024modernbert}
+\citation{he2023debertav3}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Models and results}{11}{subsection.6.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Test-set performance on the 1,318-row held-out split, all metrics weighted across the 19 NAICS classes.\relax }}{11}{table.caption.34}\protected@file@percent }
+\newlabel{tab:bench}{{8}{11}{Test-set performance on the 1,318-row held-out split, all metrics weighted across the 19 NAICS classes.\relax }{table.caption.34}{}}
+\@writefile{toc}{\contentsline {paragraph}{Findings.}{11}{section*.35}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Limitations and Ethical Considerations}{11}{section.7}\protected@file@percent }
+\newlabel{sec:limitations}{{7}{11}{Limitations and Ethical Considerations}{section.7}{}}
+\@writefile{toc}{\contentsline {paragraph}{English-only retrieval.}{11}{section*.36}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{NAICS is a North American taxonomy.}{11}{section*.37}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Label noise is not uniform.}{11}{section*.38}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Repository content licensing.}{11}{section*.39}\protected@file@percent }
+\bibstyle{plainnat}
+\bibdata{references}
+\bibcite{balla2026dragon}{{1}{2026}{{Balla et~al.}}{{Balla, Zacchiroli, Degueule, Falleri, and Robbes}}}
+\bibcite{chen2025forge}{{2}{2025}{{Chen et~al.}}{{Chen, Shen, Zhang, Li, Grundy, Shao, Wang, Wang, Chen, and Zheng}}}
+\bibcite{dumbacher2025beacon}{{3}{2025}{{Dumbacher et~al.}}{{Dumbacher, Whitehead, Jeong, and Pfeiff}}}
+\@writefile{toc}{\contentsline {paragraph}{Dual use.}{12}{section*.40}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Release and Reproducibility}{12}{section.8}\protected@file@percent }
+\newlabel{sec:release}{{8}{12}{Release and Reproducibility}{section.8}{}}
+\@writefile{toc}{\contentsline {paragraph}{End-to-end replication of the labeling pipeline.}{12}{section*.41}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Jurisdiction-blind public replication package.}{12}{section*.42}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{12}{section.9}\protected@file@percent }
+\newlabel{sec:conclusion}{{9}{12}{Conclusion}{section.9}{}}
+\bibcite{elumar2025cost}{{4}{2025}{{Elumar et~al.}}{{Elumar, Tekin, and Yagan}}}
+\bibcite{gebru2021datasheets}{{5}{2021}{{Gebru et~al.}}{{Gebru, Morgenstern, Vecchione, Vaughan, Wallach, Daum{\'e}~III, and Crawford}}}
+\bibcite{gilardi2023chatgpt}{{6}{2023}{{Gilardi et~al.}}{{Gilardi, Alizadeh, and Kubli}}}
+\bibcite{he2023debertav3}{{7}{2023}{{He et~al.}}{{He, Gao, and Chen}}}
+\bibcite{izadi2020topic}{{8}{2020}{{Izadi et~al.}}{{Izadi, Heydarnoori, and Gousios}}}
+\bibcite{johnson2021faiss}{{9}{2021}{{Johnson et~al.}}{{Johnson, Douze, and J{\'e}gou}}}
+\bibcite{joynab2026threads}{{10}{2026}{{Joynab and Hossain}}{{}}}
+\bibcite{liu2019roberta}{{11}{2019}{{Liu et~al.}}{{Liu, Ott, Goyal, Du, Joshi, Chen, Levy, Lewis, Zettlemoyer, and Stoyanov}}}
+\bibcite{mehmood2025llm}{{12}{2025}{{Mehmood et~al.}}{{Mehmood, Hussain, Wang, and Malik}}}
+\bibcite{ratner2017snorkel}{{13}{2017}{{Ratner et~al.}}{{Ratner, Bach, Ehrenberg, Fries, Wu, and R{\'e}}}}
+\bibcite{ratner2016dataprogramming}{{14}{2016}{{Ratner et~al.}}{{Ratner, De~Sa, Wu, Selsam, and R{\'e}}}}
+\bibcite{sas2022gitranking}{{15}{2022}{{Sas et~al.}}{{Sas, Capiluppi, Di~Sipio, Di~Rocco, and Di~Ruscio}}}
+\bibcite{naics2022}{{16}{2022}{{U.S. Census Bureau}}{{}}}
+\bibcite{warner2024modernbert}{{17}{2024}{{Warner et~al.}}{{Warner, Chaffin, Clavi{\'e}, Weller, Hallstr{\"o}m, Taghadouini, Gallagher, Biswas, Ladhak, Aarsen, Cooper, Adams, Howard, and Poli}}}
+\bibcite{xiao2023cpack}{{18}{2023}{{Xiao et~al.}}{{Xiao, Liu, Zhang, and Muennighoff}}}
+\bibcite{zanartu2022categorizing}{{19}{2022}{{Zanartu et~al.}}{{Zanartu, Treude, Cartaxo, Borges, Moura, Wagner, and Pinto}}}
+\bibcite{zhang2019higitclass}{{20}{2019}{{Zhang et~al.}}{{Zhang, Xu, Li, Meng, Wang, Li, and Han}}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Source-extraction SQL}{14}{appendix.A}\protected@file@percent }
+\newlabel{app:sql}{{A}{14}{Source-extraction SQL}{appendix.A}{}}
+\citation{naics2022}
+\gdef \LT@i {\LT@entry 
+    {4}{29.33334pt}\LT@entry 
+    {1}{134.34692pt}\LT@entry 
+    {4}{27.00002pt}\LT@entry 
+    {1}{176.71652pt}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}NAICS sector definitions}{15}{appendix.B}\protected@file@percent }
+\newlabel{app:naics}{{B}{15}{NAICS sector definitions}{appendix.B}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces NAICS 2022 sectors used by the pipeline. The $n$ column gives the number of 6-digit subindustry phrases under each 2-digit sector in our taxonomy file; the full list of 1{,}029 phrases is in \texttt  {naics\_titles\_by\_group\_6digit\_clean.json} in the released code repository. The Example column shows the first 3 subindustry phrases as they appear in the file (verbatim, including any minor whitespace). Sector\nobreakspace  {}55 is absent from the released training corpus because too few candidates passed verification under the 80-sample minimum-class-size filter; it is retained here for taxonomic completeness.\relax }}{15}{table.9}\protected@file@percent }
+\newlabel{tab:naics-appendix}{{9}{15}{NAICS sector definitions}{table.9}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C}LLM verification prompt}{16}{appendix.C}\protected@file@percent }
+\newlabel{app:prompt}{{C}{16}{LLM verification prompt}{appendix.C}{}}
+\@writefile{toc}{\contentsline {paragraph}{System message.}{16}{section*.44}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{User message.}{16}{section*.45}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{API parameters.}{18}{section*.46}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {D}Schema of the released file}{18}{appendix.D}\protected@file@percent }
+\newlabel{app:schema}{{D}{18}{Schema of the released file}{appendix.D}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Schema of the released training corpus. The order shown matches the column order in the parquet file.\relax }}{18}{table.caption.47}\protected@file@percent }
+\newlabel{tab:schema-fields}{{10}{18}{Schema of the released training corpus. The order shown matches the column order in the parquet file.\relax }{table.caption.47}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces Per-column character-length and uniqueness statistics for the four string columns. Empty strings (length 0) count as present, not missing.\relax }}{18}{table.caption.48}\protected@file@percent }
+\newlabel{tab:schema-stats}{{11}{18}{Per-column character-length and uniqueness statistics for the four string columns. Empty strings (length 0) count as present, not missing.\relax }{table.caption.48}{}}
+\@writefile{toc}{\contentsline {paragraph}{Example row.}{19}{section*.49}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {E}Stratification of the gold sample}{19}{appendix.E}\protected@file@percent }
+\newlabel{app:stratification}{{E}{19}{Stratification of the gold sample}{appendix.E}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces Per-sector distribution: validation gold sample vs.\ the released NAICS-GH corpus. \emph  {Gold \%} is the share of the 2,421 gold rows in each sector; \emph  {Corpus \%} is the share of the 6,588 released rows; \emph  {$\Delta $} is the signed difference in percentage points (gold $-$ corpus).\relax }}{19}{table.caption.50}\protected@file@percent }
+\newlabel{tab:stratification}{{12}{19}{Per-sector distribution: validation gold sample vs.\ the released NAICS-GH corpus. \emph {Gold \%} is the share of the 2,421 gold rows in each sector; \emph {Corpus \%} is the share of the 6,588 released rows; \emph {$\Delta $} is the signed difference in percentage points (gold $-$ corpus).\relax }{table.caption.50}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {F}Training details}{19}{appendix.F}\protected@file@percent }
+\newlabel{app:training}{{F}{19}{Training details}{appendix.F}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {13}{\ignorespaces Pretrained encoders fine-tuned in \S  \ref  {sec:benchmark}.\relax }}{20}{table.caption.53}\protected@file@percent }
+\newlabel{tab:training-models}{{13}{20}{Pretrained encoders fine-tuned in \S \ref {sec:benchmark}.\relax }{table.caption.53}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {14}{\ignorespaces Full hyperparameter sheet for the fine-tuning runs.\relax }}{21}{table.caption.55}\protected@file@percent }
+\newlabel{tab:training-hp}{{14}{21}{Full hyperparameter sheet for the fine-tuning runs.\relax }{table.caption.55}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {G}Qualitative error analysis}{21}{appendix.G}\protected@file@percent }
+\newlabel{app:error-analysis}{{G}{21}{Qualitative error analysis}{appendix.G}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {H}Datasheet for Datasets}{21}{appendix.H}\protected@file@percent }
+\newlabel{app:datasheet}{{H}{21}{Datasheet for Datasets}{appendix.H}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {H.1}1. Motivation}{21}{subsection.H.1}\protected@file@percent }
+\newlabel{motivation}{{H.1}{21}{1. Motivation}{subsection.H.1}{}}
+\gdef \LT@ii {\LT@entry 
+    {2}{79.4998pt}\LT@entry 
+    {2}{37.08344pt}\LT@entry 
+    {2}{220.58295pt}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {H.2}2. Composition}{22}{subsection.H.2}\protected@file@percent }
+\newlabel{composition}{{H.2}{22}{2. Composition}{subsection.H.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {H.3}3. Collection Process}{23}{subsection.H.3}\protected@file@percent }
+\newlabel{collection-process}{{H.3}{23}{3. Collection Process}{subsection.H.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {H.4}4. Preprocessing, Cleaning, Labeling}{24}{subsection.H.4}\protected@file@percent }
+\newlabel{preprocessing-cleaning-labeling}{{H.4}{24}{4. Preprocessing, Cleaning, Labeling}{subsection.H.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {H.5}5. Uses}{25}{subsection.H.5}\protected@file@percent }
+\newlabel{uses}{{H.5}{25}{5. Uses}{subsection.H.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {H.6}6. Distribution}{26}{subsection.H.6}\protected@file@percent }
+\newlabel{distribution}{{H.6}{26}{6. Distribution}{subsection.H.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {H.7}7. Maintenance}{26}{subsection.H.7}\protected@file@percent }
+\newlabel{maintenance}{{H.7}{26}{7. Maintenance}{subsection.H.7}{}}
+\gdef \@abspage@last{26}

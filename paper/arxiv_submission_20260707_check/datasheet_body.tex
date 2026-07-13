@@ -1,0 +1,459 @@
+A ``Datasheet for Datasets'' following \href{https://dl.acm.org/doi/10.1145/3458723}{Gebru et al.~(2021)}.
+This document accompanies the NAICS-GH dataset (Industry Classification of
+GitHub Repositories Using the North American Industry Classification
+System).
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Dataset version:} v1.0
+\item
+  \textbf{Last updated:} 2026-05-22
+\item
+  \textbf{Authors:} Kevin Xu (GitHub), Alexander Quispe (GitHub)
+\item
+  \textbf{Contact:} alexanderquispe@github.com (corresponding)
+\item
+  \textbf{License:} CC-BY-4.0 (labels and metadata); MIT (pipeline code)
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{motivation}{%
+\subsection{1. Motivation}\label{motivation}}
+
+\textbf{For what purpose was the dataset created?}
+NAICS-GH was created to enable empirical work on the industrial
+composition of open-source software production. GitHub hosts millions
+of public repositories but provides no native indication of which
+\emph{industry} a repository serves. NAICS-GH maps a representative subset
+of repositories from the USA, the European Union, and Australia onto
+the 2-digit North American Industry Classification System (NAICS),
+which is the industry-classification standard used by US, Canadian, and
+Mexican statistical agencies. The dataset is also the training data for
+a downstream RoBERTa-large classifier that propagates these labels to
+arbitrary repositories at inference time.
+
+\textbf{Who created the dataset and on behalf of which entity?}
+The dataset was created by Kevin Xu and Alexander Quispe at GitHub.
+
+\textbf{Who funded the creation of the dataset?}
+GitHub. Compute for LLM inference was paid through GitHub's internal
+LLM access; no external grants were used.
+
+\textbf{Any other comments?}
+The dataset is one half of a two-repository system. This file
+documents the labeled corpus; the downstream classifier and its
+training code live in a sibling repository, \texttt{naics-github-train}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{composition}{%
+\subsection{2. Composition}\label{composition}}
+
+\textbf{What do the instances represent?}
+Each instance is a public GitHub repository, identified by its
+\texttt{owner/name} (\texttt{nwo}) string. The labels attached to each instance
+indicate which 2-digit NAICS industry sector the repository serves,
+along with the LLM-generated rationale and confidence score.
+
+\textbf{How many instances are there in total?}
+The released corpus contains \textbf{6,588 repositories} in the parquet
+file \texttt{train\_data\_gpt\_ab8\_score\_with\_code.parquet}. This is the file
+that produces the published RoBERTa-large baseline.
+
+\textbf{Does the dataset contain all possible instances, or is it a sample
+from a larger set?}
+It is a sample. The pipeline begins with three regional dumps of
+public GitHub repositories (totaling 1,372,489 rows):
+- USA: 510,380
+- European Union: 530,898
+- Australia: 331,211
+
+For each NAICS subindustry (1,000+ across the 20 top-level sectors),
+the top 20 most semantically similar repositories were retrieved using
+BGE embeddings + FAISS, then LLM-scored. Only repositories scoring at
+least 8 on the 1â€``10 rubric were retained.
+
+\textbf{What data does each instance consist of?}
+Each instance has six columns in the released file
+(\texttt{train\_data\_gpt\_ab8\_score\_with\_code.parquet}):
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Column & Type & Description \\
+\midrule
+\endhead
+\texttt{name\_repo} & string & Repository short name (no owner prefix) \\
+\texttt{description} & string & Repository description from GitHub \\
+\texttt{topics} & string & Semicolon-joined topic tags; empty string if none \\
+\texttt{readme\_content} & string & Cleaned README content \\
+\texttt{label} & int64 & Integer class encoding 0â€``18 \\
+\texttt{code} & string & 2-digit NAICS sector code \\
+\bottomrule
+\end{longtable}
+
+The columns \texttt{nwo}, \texttt{match}, \texttt{score}, \texttt{rationale}, and \texttt{repo\_url}
+present in intermediate files are intentionally dropped from the
+public release so that the corpus is model-ready (no LLM-provenance,
+no PII via repo-owner URLs).
+
+\textbf{Is there a label or target associated with each instance?}
+Yes. The label is the 2-digit NAICS sector code in the \texttt{code} column
+(string form), or equivalently the integer \texttt{label} column (0â€``18,
+monotonic in NAICS code order).
+
+\textbf{Is any information missing from individual instances?}
+- All four text columns and both label columns are fully populated
+(zero NaN values).
+- \texttt{topics} is empty for \textasciitilde69\% of rows (4,533 of 6,588): not all GitHub
+repositories declare topic tags.
+- \texttt{readme\_content} is preprocessed (code blocks stripped, HTML
+removed, URLs collapsed) and truncated to 3,000 whitespace-separated
+tokens before LLM scoring; the released field reflects the
+\emph{preprocessed} text, not the original.
+
+\textbf{Are there recommended data splits?}
+For the RoBERTa-large baseline we used 70\% train / 10\% validation /
+20\% test (\(n = 4{,}611 / 659 / 1{,}318\)) with \texttt{seed=42}. Splitting was
+random and stratified by NAICS sector. Practitioners building their
+own classifiers are free to re-split.
+
+\textbf{Are there any errors, sources of noise, or redundancies?}
+- \textbf{Label noise (USA scope only).} Human re-validation of 2,421
+USA repositories found 96.98\% GPT-4.1 label precision overall, but
+two sectors (31â€``33 Manufacturing and 42 Wholesale Trade) had only
+\textasciitilde73\% precision at the score â‰¥ 8 threshold. EU and AU portions are
+GPT-4.1-labeled by the same pipeline but have not yet been included
+in a manual gold sample.
+- \textbf{Duplicate \texttt{name\_repo}.} Repository short names are not globally
+unique; the released file has 447 rows sharing a \texttt{name\_repo} with
+another row, of which 113 share both \texttt{(name\_repo,\ code)}. These are
+different repositories with identical short names that independently
+passed verification. The upstream intermediate files retain \texttt{nwo}
+as a globally unique identifier.
+- \textbf{READMEs.} Some READMEs are predominantly HTML badges, build
+configs, or templates that carry little semantic signal. The
+preprocessing step removes most of these artifacts but cannot
+recover content that wasn't there.
+
+\textbf{Is the dataset self-contained, or does it link to or otherwise rely
+on external resources?}
+The released parquet is self-contained. The pipeline that generated it
+relies on (a) BAAI/bge-large-en (released model, Hugging Face),
+(b) FAISS (open source), and (c) GPT-4.1 (snapshot
+\texttt{gpt-4.1-2025-04-14}) accessed via the GitHub Copilot LLM-lab
+endpoint. The repository content (READMEs, descriptions) is preserved
+in the file at the time of capture; we do not re-fetch live GitHub
+content.
+
+\textbf{Does the dataset contain data that might be considered confidential
+or that includes content protected by attorney-client privilege or
+similar?}
+No.~All repositories are public on GitHub.
+
+\textbf{Does the dataset contain data that, if viewed directly, might be
+offensive, insulting, threatening, or might otherwise cause anxiety?}
+Possibly, since READMEs contain free-form user-submitted text. We do
+not apply explicit content filtering. Anyone re-using the README
+content should be aware that public repository content can include
+offensive language.
+
+\textbf{Does the dataset identify any subpopulations (e.g., by age, gender)?}
+No.~The dataset captures organizational and industrial-economic
+attributes of repositories, not demographic attributes of contributors.
+
+\textbf{Is it possible to identify individuals from the data?}
+Repository owner names (\texttt{nwo} prefix) may identify individual GitHub
+account holders, since public repositories often live under personal
+accounts. This is the same level of identifiability already present
+on GitHub itself; the dataset does not add information beyond what
+GitHub publishes.
+
+\textbf{Does the dataset contain data that might be considered sensitive in
+any way?}
+The dataset records that a given GitHub user's public repository
+serves a given industry sector. We do not consider this sensitive
+beyond the existing public nature of GitHub, but downstream uses
+should respect the principle that aggregating labels about individuals
+can amplify identifiability.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{collection-process}{%
+\subsection{3. Collection Process}\label{collection-process}}
+
+\textbf{How was the data associated with each instance acquired?}
+Source repositories were extracted from GitHub's internal Trino-on-Hive
+data warehouse via a Presto/Trino SQL query against the
+\texttt{hive.canonical.repositories\_current}, \texttt{hive.canonical.accounts\_current},
+\texttt{hive.suez.readme\_current}, and
+\texttt{delta.snapshots.github\_collab\_commit\_contributions} tables. The
+query yielded three regional dumps (USA: 510,380; EU: 530,898;
+AU: 331,211 â€'' totaling 1,372,489 repositories). Each repository's
+NAICS label was then \emph{derived} via a two-stage pipeline (see
+Section 4). The label is not directly observed but is the output of
+an algorithm that combines semantic retrieval with an LLM-scored
+rubric.
+
+\textbf{What mechanisms or procedures were used to collect the data?}
+- The source SQL filters on \texttt{is\_public\ =\ TRUE}, \texttt{is\_fork\ =\ FALSE},
+\texttt{NOT\ is\_spammy\_owner}, \texttt{num\_stars\ \textgreater{}=\ 1}, README size â‰¥ 750 bytes,
+â‰¥ 6 commits, â‰¥ 2 distinct commit contributors, and non-empty
+description. Jurisdiction is assigned by the owner account's
+\texttt{country\_account} field.
+- Embeddings were computed with \texttt{BAAI/bge-large-en} (1024-dim,
+L2-normalized, FP16 on GPU).
+- FAISS \texttt{IndexFlatIP} was used for exact inner-product search,
+equivalent to cosine similarity on the normalized vectors.
+- LLM scoring was issued through the GitHub Copilot LLM-lab endpoint
+(\texttt{api-model-lab.githubcopilot.com/chat/completions}) using GPT-4.1
+(alias resolved to snapshot \texttt{gpt-4.1-2025-04-14}), with
+\texttt{temperature\ =\ 0} and dynamic \texttt{max\_tokens} capped at 3,500.
+
+\textbf{If the dataset is a sample from a larger set, what was the sampling
+strategy?}
+For each of the 1,029 NAICS subindustry phrases across 20 sectors,
+the top-\emph{k} nearest-neighbor repositories under BGE cosine similarity
+were retrieved per region. The default \emph{k} = 20; for the three
+sectors with fewer than 20 subindustries the formula
+\texttt{max(20,\ ceil(400/n))} boosts \emph{k} to 24/27/29 so each sector retrieves
+roughly 400 candidates. After deduplication and GPT-4.1 filtering at
+score â‰¥ 8, we kept all surviving repositories. The sampling strategy
+is therefore ``top-k semantic retrieval per industry query,'' not
+uniform random sampling.
+
+\textbf{Who was involved in the data collection process?}
+The pipeline was designed and operated by the authors. Research
+assistants conducted the manual gold-set re-check (n=2,421 USA
+repositories). Each row was reviewed by exactly one annotator; no
+inter-annotator agreement coefficient was computed.
+
+\textbf{Over what timeframe was the data collected?}
+The USA source dump was extracted on April 15, 2025; the EU README
+extraction snapshot is dated August 15, 2025. LLM scoring was
+conducted between mid-2025 and early-2026. The dataset v1.0 was
+finalized in early 2026.
+
+\textbf{Were any ethical review processes conducted?}
+No formal IRB review, since the dataset uses only public data and
+contains no human subjects. The release was approved internally at
+GitHub.
+
+\textbf{Did you collect the data directly from the individuals in question,
+or obtain it via third parties or other sources?}
+The data was derived from publicly available GitHub content. We did
+not contact repository owners individually.
+
+\textbf{Were the individuals in question notified about the data collection?}
+No.~The data is public; we considered notification infeasible and
+unnecessary at the scale of millions of source repositories.
+
+\textbf{Did the individuals in question consent to the collection and use of
+their data?}
+GitHub users consent to public visibility of their public repositories
+under GitHub's Terms of Service. They do not specifically consent to
+industry-sector labeling, but the labels are derived computationally
+from public content.
+
+\textbf{If consent was obtained, were the consenting individuals provided
+with a mechanism to revoke their consent in the future?}
+We will provide a takedown mechanism: any repository owner can request
+removal of their repository from the released dataset by emailing the
+corresponding author. We will issue a v1.x with the requested removal
+and document the change.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{preprocessing-cleaning-labeling}{%
+\subsection{4. Preprocessing, Cleaning, Labeling}\label{preprocessing-cleaning-labeling}}
+
+\textbf{Was any preprocessing/cleaning/labeling of the data done?}
+Yes, extensively. The pipeline is:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{README preprocessing.} For embedding input, the \emph{raw}
+  README is truncated to its first 1,000 characters (no markup
+  stripping at this stage). For LLM scoring, code blocks, HTML tags,
+  badge URLs, and image markdown are stripped and the text is
+  truncated to 3,000 whitespace-separated tokens (word-count proxy,
+  not BPE tokens).
+\item
+  \textbf{Composite text construction.} LLM scoring uses the combined
+  string \texttt{"description:\ \{desc\},\ topics:\ \{topics\},\ readme:\ \{readme\}"},
+  constructed at row time and inserted into the
+  \texttt{\textless{}readme\textgreater{}\dots\textless{}/readme\textgreater{}}
+  block of the prompt. Embedding uses the truncated README only;
+  description and topics enter the pipeline at the scoring stage.
+\item
+  \textbf{Embedding.} BGE-large-en with the asymmetric BGE prefixes:
+  \texttt{"Represent\ this\ document\ for\ retrieval:\ "} for documents and
+  \texttt{"Represent\ this\ query\ for\ retrieval:\ "} for queries.
+\item
+  \textbf{Retrieval.} For each NAICS subindustry, the query
+  \texttt{"Repositories\ about\ \{subindustry\}"} is embedded and the top-\emph{k}
+  nearest repositories are retrieved (default \emph{k} = 20; the three
+  sectors with fewer than 20 subindustries use a boosted
+  \emph{k} = \texttt{max(20,\ ceil(400/n))} = 24, 27, or 29).
+\item
+  \textbf{LLM scoring.} Each (repository, sector) candidate is presented
+  to GPT-4.1 with the rubric prompt (see the paper appendix). The
+  model returns a JSON object nested under the outer key
+  \texttt{"NAICS\ \{code\}"}, with string-valued \texttt{match} (\texttt{"Yes"}/\texttt{"No"}),
+  string-valued \texttt{score} (\texttt{"1"}-\texttt{"10"}), and free-form \texttt{rationale}.
+  Downstream code coerces \texttt{match} to a boolean and \texttt{score} to an
+  integer.
+\item
+  \textbf{Filtering.} Only repositories scoring at least 8 are retained.
+\item
+  \textbf{Per-region merge.} The three regional outputs are concatenated.
+\item
+  \textbf{Minimum-class filter (training derivative only).} Sectors with
+  fewer than 80 repositories are dropped, removing sector 55.
+\end{enumerate}
+
+\textbf{Was the raw data saved in addition to the preprocessed data?}
+Yes. The original parquets of unfiltered GitHub repositories were
+preserved (USA, EU, AU dumps), as well as the three intermediate
+per-region GPT outputs (\texttt{\{usa,eu,au\}\_2k\_gpt\_ab8score.parquet}). These
+are not in v1.0 of the public release but will be added to Zenodo at
+camera-ready.
+
+\textbf{Is the software used to preprocess/clean/label the data available?}
+Yes, in this repository (MIT License). The relevant entry points are
+\texttt{scripts/01\_generate\_embeddings.py} through \texttt{scripts/05\_filter\_results.py},
+with prompts in \texttt{src/classification/prompt\_builder.py}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{uses}{%
+\subsection{5. Uses}\label{uses}}
+
+\textbf{Has the dataset been used for any tasks already?}
+Yes:
+- Fine-tuning six pretrained encoders (RoBERTa, ModernBERT, and
+DeBERTa-v3 in base and large variants) on the released corpus.
+RoBERTa-large is strongest at 86.45\% F1 / 86.35\% accuracy on a
+held-out 20\% test set; the fine-tuned checkpoint is available on
+Hugging Face at \texttt{alexanderquispe/naics-github-classifier}.
+- Internal industry-mix analyses of open-source production.
+
+\textbf{Is there a repository that links to any or all papers or systems that
+use the dataset?}
+At release time, the paper repository will track downstream uses. The
+released Hugging Face dataset card will also link to known references.
+
+\textbf{What (other) tasks could the dataset be used for?}
+- Studying the industrial composition of open-source contributions
+across regions or over time.
+- Building classifiers that map \emph{new} repositories to NAICS sectors.
+- Measuring AI-coding-assistant adoption by industry (the downstream
+classifier is already being used for this).
+- Comparative open-source ecosystem analysis vs.~economic
+classification statistics.
+
+\textbf{Is there anything about the composition of the dataset or the way it
+was collected and preprocessed that might impact future uses?}
+- \textbf{NAICS is a North American taxonomy.} Applying it to EU and AU
+repositories assumes mapping consistency that may not hold for some
+sectors (notably Sector 22, ``Utilities,'' which has US-specific
+regulatory structure).
+- \textbf{English-only embeddings.} Repositories with non-English READMEs
+are under-represented.
+- \textbf{Score-conditional reliability.} Manufacturing and Wholesale Trade
+labels are only \textasciitilde73\% precise at score = 8 and should be filtered at
+score â‰¥ 9 for high-precision applications.
+
+\textbf{Are there tasks for which the dataset should not be used?}
+- \textbf{Targeting individual contributors.} The dataset is intended for
+aggregate analysis; using it to profile individual developers is
+outside its intended use.
+- \textbf{Inferring repository quality, popularity, or value.} The dataset
+encodes industry classification, not quality.
+- \textbf{Treating labels as ground truth without conditioning on score.}
+Two sectors have substantially higher error rates, and the LLM
+score should be used as a confidence signal.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{distribution}{%
+\subsection{6. Distribution}\label{distribution}}
+
+\textbf{Will the dataset be distributed to third parties outside of the
+entity on behalf of which the dataset was created?}
+Yes. The dataset is publicly released.
+
+\textbf{How will the dataset be distributed?}
+- \textbf{Hugging Face Datasets:}
+\href{https://huggingface.co/datasets/aquiro1994/naics-gh}{\texttt{aquiro1994/naics-gh}}
+â€'' public, CC-BY-4.0, with stratified train/validation/test splits
+ready for \texttt{datasets.load\_dataset}. Croissant metadata generated
+automatically by HF.
+- \textbf{Zenodo:} DOI-citable archive (DOI to be reserved at release).
+- \textbf{GitHub:} Code, prompts, and reproduction scripts at the two
+repositories listed in Â§1.
+
+\textbf{When will the dataset be distributed?}
+At paper acceptance / camera-ready, expected late 2026 or 2027.
+
+\textbf{Will the dataset be distributed under a copyright or other
+intellectual-property license?}
+Yes:
+- Labels and metadata: \textbf{CC-BY-4.0}.
+- Pipeline code: \textbf{MIT}.
+- Repository content (READMEs and descriptions) excerpted in the
+dataset remains governed by each repository's own license; we
+preserve \texttt{spdx\_license} in the released file so users can filter
+by license type.
+
+\textbf{Have any third parties imposed IP-based or other restrictions on the
+data associated with the instances?}
+Each source repository's content is subject to its own license. The
+dataset preserves SPDX license identifiers so users can comply with
+upstream license terms (e.g., excluding non-commercial-licensed
+repositories from commercial uses).
+
+\textbf{Do any export controls or other regulatory restrictions apply to the
+dataset?}
+None known.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{maintenance}{%
+\subsection{7. Maintenance}\label{maintenance}}
+
+\textbf{Who will be supporting/hosting/maintaining the dataset?}
+Alexander Quispe (corresponding author) and Kevin Xu, with GitHub's
+support.
+
+\textbf{How can the owner/curator/manager be contacted?}
+alexanderquispe@github.com.
+
+\textbf{Is there an erratum?}
+A \texttt{CHANGELOG.md} will track all post-release errata at the Hugging
+Face dataset page and in the GitHub paper repository.
+
+\textbf{Will the dataset be updated?}
+- \textbf{v1.x} patches for take-down requests, typo fixes, and metadata
+corrections.
+- \textbf{v2.0} planned to add: India (1M repos), finer-grained 3- to
+6-digit NAICS labels, and multilingual README support. Timeline to
+be confirmed.
+
+\textbf{If the dataset relates to people, are there applicable limits on the
+retention of the data associated with the instances?}
+We retain the labels indefinitely subject to take-down requests.
+
+\textbf{Will older versions of the dataset continue to be supported/hosted/maintained?}
+Yes, on Zenodo. Each tagged version has its own DOI; older versions
+remain citable but will not receive further updates.
+
+\textbf{If others want to extend/augment/build on/contribute to the dataset,
+is there a mechanism for them to do so?}
+Yes. Pull requests to the GitHub paper repository, issues on the
+Hugging Face dataset page, and email to the corresponding author are
+all accepted. Substantive contributions (e.g., new regions,
+multilingual labels) will be co-credited in the next dataset release.

@@ -101,3 +101,10 @@ logs/
 # OS
 .DS_Store
 Thumbs.db
+data/processed/au_retrieved_repos_by_naics_readable.csv
+data/processed/embeddings/source_pool_embeddings_vectors.npy
+data/processed/embeddings_au/repos_with_embeddings_vectors.npy
+data/raw/repos_au_331k.parquet
+data/raw/repos_eu_531k.parquet
+data/raw/repos_in_1m.parquet
+data/raw/repos_usa_usa_511k.parquet

@@ -1,0 +1,1164 @@
+\pdfoutput=1
+%% NAICS-GH: A Multi-Region GPT-Labeled Corpus for GitHub Repository
+%% Classification into NAICS Industry Sectors
+%%
+%% Target venue: NeurIPS Datasets & Benchmarks Track.
+%% Style file:   neurips_data_2025.sty (or whichever year is current).
+%%               See paper/README.md for download instructions.
+%%
+%% To compile with the official NeurIPS style:
+%%   pdflatex main && bibtex main && pdflatex main && pdflatex main
+%%
+%% To compile without it (article-class fallback), comment out the
+%% \usepackage{neurips_data_2025} line and uncomment \documentclass{article}.
+
+%% ----- DOCUMENT CLASS ------------------------------------------------
+\documentclass{article}
+
+% NeurIPS 2024 style (also works for the D&B track).
+% Use [preprint] for the working draft; switch to [final] for camera-ready.
+\usepackage[preprint]{neurips_2024}
+
+%% ----- PACKAGES ------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}        % scalable fonts (required by microtype expansion)
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{microtype}
+\usepackage{longtable}      % pandoc-generated tables in the datasheet
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}  % pandoc macro
+\usepackage{fancyvrb}       % Verbatim with breaklines for the LLM prompt appendix
+\usepackage{fvextra}        % fancyvrb extension that enables breaklines option
+\usepackage{tikz}           % Pipeline figure (Fig. 1)
+\usetikzlibrary{positioning,arrows.meta,fit,backgrounds,calc}
+% natbib is auto-loaded by neurips_2024 unless [nonatbib] is passed.
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  citecolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+%% ----- METADATA ------------------------------------------------------
+\title{Industry Classification of GitHub Repositories\\
+Using the North American Industry Classification System (NAICS)}
+
+\author{%
+  Kevin Xu \\
+  GitHub \\
+  \texttt{khxu@github.com}
+  \And
+  Alexander Quispe\thanks{Corresponding author.} \\
+  GitHub \\
+  \texttt{alexanderquispe@github.com}
+}
+
+\date{}
+
+%% ----- DOCUMENT -----------------------------------------------------
+\begin{document}
+
+\maketitle
+
+%% ====================================================================
+\begin{abstract}
+GitHub hosts hundreds of millions of public repositories, but the
+platform exposes no native mapping from repositories to standardized
+industry sectors. This gap limits empirical work on the geography of
+innovation, the industrial composition of open-source production, and
+the diffusion of new technologies across economic sectors. We present
+\textbf{NAICS-GH}, a publicly released corpus of \textbf{6{,}588 GitHub
+repositories} drawn from source pools covering the United States, the
+European Union, and Australia, each labeled with a 2-digit sector from
+the North American Industry Classification System (NAICS 2022). Labels
+are produced by a retrieve-and-verify pipeline that combines
+BAAI/bge-large-en embeddings, FAISS retrieval, and GPT-4.1 rubric
+scoring. The pipeline narrows about 1.37 million source repositories to
+\textbf{31{,}178 candidate repository-sector pairs} and retains
+\textbf{6{,}588 high-confidence labels} with score at least 8.
+Re-running the retrieval pipeline end to end reproduces the candidate
+set to within 0.03 percent. On a 2{,}421-repository human-validated
+random sample, the released labels attain \textbf{96.98 percent
+precision}, with Wilson 95 percent confidence interval [96.23, 97.59].
+We benchmark six pretrained encoders on the released corpus;
+RoBERTa-large reaches \textbf{86.45 percent F1} and \textbf{86.35
+percent accuracy} on a held-out 20 percent test set. The dataset,
+Croissant metadata, pipeline code, prompts, and fine-tuned checkpoint
+are released under CC-BY-4.0 and MIT licenses.
+\end{abstract}
+
+%% ====================================================================
+\section{Introduction}
+\label{sec:intro}
+
+GitHub hosts tens of millions of public repositories, but the platform
+provides no native indication of which \emph{industry} a repository
+serves. Knowing whether a project is fintech, agritech, healthcare
+software, or educational tooling matters to policy makers tracking the
+geography of innovation, to companies measuring open-source adoption, and
+to economists studying the labor and capital allocation of the software
+sector. We address this gap by releasing the first multi-region,
+publicly available corpus of GitHub repositories labeled with NAICS---the
+industry-classification standard used by the United States, Canadian, and
+Mexican statistical agencies.
+
+\paragraph{Contributions.}
+\begin{itemize}
+  \item \textbf{Dataset.} We release NAICS-GH, \textbf{6{,}588} GitHub
+    repositories from the USA, EU, and Australia labeled with 2-digit
+    NAICS codes, alongside the full pipeline outputs (sector, score,
+    rationale, repository URL).
+  \item \textbf{Pipeline.} A reproducible two-stage retrieve-and-verify
+    labeling pipeline (BAAI/bge-large-en embeddings + FAISS
+    retrieval, followed by GPT-4.1 rubric scoring) suitable for
+    adapting to other industry taxonomies. The full pipeline narrows
+    $\sim$1.37M source repositories to \textbf{31{,}178 candidate
+    pairs} via retrieval, then to \textbf{6{,}588 high-confidence
+    labels} via LLM verification at score $\geq 8$. An end-to-end
+    re-run reproduces the candidate set to within $\pm 0.03\%$.
+  \item \textbf{Validation.} A 2{,}421-repository manually re-checked
+    gold subset, confirming 96.98\% label precision overall and
+    monotonically increasing precision as the GPT score rises from 8 to
+    10.
+  \item \textbf{Benchmark.} A head-to-head comparison of six
+    pretrained encoders (RoBERTa, ModernBERT, DeBERTa-v3 in base and
+    large sizes); RoBERTa-large is strongest at 86.45\% test F1, and
+    the fine-tuned checkpoint is available on the Hugging Face Hub.
+\end{itemize}
+
+\paragraph{Pipeline at a glance.} Figure~\ref{fig:pipeline} summarizes
+the end-to-end retrieve-and-verify pipeline used to construct
+NAICS-GH from raw public-repository data.
+
+\begin{figure}[ht]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[
+    >=Stealth,
+    font=\footnotesize,
+    node distance=2.5mm and 6mm,
+    box/.style={draw, rounded corners=2pt, align=center,
+                minimum width=22mm, minimum height=10mm,
+                inner sep=2pt},
+    src/.style={box, fill=blue!8, minimum width=18mm, minimum height=8mm},
+    proc/.style={box, fill=gray!8, minimum width=26mm, minimum height=12mm},
+    cand/.style={box, fill=orange!15, minimum width=26mm, minimum height=12mm},
+    result/.style={box, fill=green!15, font=\footnotesize\bfseries,
+                   minimum width=26mm, minimum height=12mm},
+    note/.style={font=\scriptsize\itshape, gray!70!black, align=center},
+    arr/.style={->, thick, shorten <=1pt, shorten >=1pt}
+]
+
+% Source pool (three jurisdictional extractions, processed identically)
+\node[src, minimum width=24mm, minimum height=14mm]
+                                    (pool) {Source pool\\\textbf{1{,}372{,}489} repos};
+\node[note, above=1mm of pool]      {Step 0\\Source SQL};
+\node[note, below=1mm of pool, text width=30mm]
+    {510{,}380 USA\\$+$ 530{,}898 EU $+$ 331{,}211 AU};
+
+% Step 1+2
+\node[proc, right=of pool]          (bge) {BGE-large-en\\$+$ FAISS index};
+\node[note, above=1mm of bge]       {Steps 1--2};
+
+% Step 3
+\node[cand, right=of bge]           (retr)
+    {\textbf{31{,}178}\\candidates\\(dynamic top-$k$/subind.)};
+\node[note, above=1mm of retr]      {Step 3 â€” retrieve};
+
+% Step 4
+\node[proc, right=of retr]          (gpt)
+    {GPT-4.1 verify\\(score $\geq 8$,\\class filter $n{\geq}80$)};
+\node[note, above=1mm of gpt]       {Steps 4--6};
+
+% Released
+\node[result, right=of gpt]         (rel)
+    {NAICS-GH\\6{,}588 repos\\19 sectors};
+\node[note, above=1mm of rel]       {Released};
+
+% Source pool -> BGE -> retrieval -> GPT -> released
+\draw[arr] (pool.east) -- (bge.west);
+\draw[arr] (bge.east)  -- (retr.west);
+\draw[arr] (retr.east) -- (gpt.west);
+\draw[arr] (gpt.east)  -- (rel.west);
+
+\end{tikzpicture}%
+}
+\caption{NAICS-GH end-to-end pipeline. A Presto/Trino SQL extraction
+from GitHub's data warehouse yields a source pool of
+1{,}372{,}489 public repositories across three jurisdictional
+extractions (510{,}380 USA + 530{,}898 EU + 331{,}211 AU), each
+processed by an identical pipeline configuration; per-row country
+attributes are not retained in any released artifact.
+BAAI/bge-large-en embeddings indexed in FAISS retrieve the top-$k$
+most semantically similar repositories per NAICS subindustry query
+($k = \max(20, \lceil 400/n \rceil)$ for a sector with $n$
+subindustries), producing \textbf{31{,}178 unique candidate
+(repository, sector) pairs} after per-sector deduplication
+(10{,}983 USA + 10{,}531 EU + 9{,}664 AU). GPT-4.1
+(snapshot \texttt{gpt-4.1-2025-04-14}) scores each candidate against a
+structured rubric; we retain repositories with score $\geq 8$ and
+apply a minimum-class-size filter ($n{\geq}80$ per sector) to drop
+sector 55, yielding the released \textbf{NAICS-GH} corpus of
+\textbf{6{,}588 repositories} across 19 of the 20 NAICS 2-digit
+sectors.}
+\label{fig:pipeline}
+\end{figure}
+
+%% ====================================================================
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{GitHub repository classification.}
+GitHub repositories have long lacked standardized industry labels, and
+existing work has approached this gap from three angles. The first
+relies on user-declared topic tags as the label space:
+\citet{zhang2019higitclass} use a keyword-driven hierarchical model,
+\citet{izadi2020topic} cast it as a multi-label problem, and
+\citet{sas2022gitranking} rank GitHub topics by relevance with active
+sampling. The second labels repositories by software application
+domain: \citet{zanartu2022categorizing} build a 5{,}000-repository,
+five-domain classifier achieving $\sim 70\%$ precision, and
+\citet{balla2026dragon} scale to \textbf{825{,}000 repositories} with
+ground-truth topics from the Software Heritage archive, reporting
+F1$@5 = 60.8\%$ with file-tree and README features. None of these
+works adopt a standardized economic taxonomy or use a modern LLM
+verifier. NAICS-GH differs from each on all three axes:
+(i)~we adopt the NAICS 2-digit hierarchy, (ii)~we use GPT-4.1
+verification on top of dense-retrieval candidates, and (iii)~we
+cover three jurisdictions (USA, EU, AU) rather than a single one.
+
+\paragraph{NAICS classification of text.}
+The United States Census Bureau uses NAICS to label every business
+establishment, but published machine-learning tools for the
+taxonomy are scarce. The closest prior work is BEACON
+\citep{dumbacher2025beacon}, a text-classification system deployed in
+the 2022 U.S. Economic Census that helps respondents self-classify
+their business activity via NLP, machine learning, and information
+retrieval; BEACON was used over half a million times during the 2022
+Census. Two structural differences distinguish it from our work:
+BEACON's unit of analysis is a business establishment described by
+its owner (we classify GitHub repositories described by community
+metadata), and BEACON's algorithm and training data are not publicly
+released (we release both the labeled corpus and the pipeline code).
+To our knowledge, NAICS-GH is the first publicly available
+NAICS-labeled corpus of software repositories.
+
+\paragraph{LLM-as-labeler and weak supervision.}
+Our retrieve-and-verify pipeline sits in the weak-supervision
+tradition where heuristic or programmatic functions assign noisy
+labels that are then aggregated and refined
+\citep{ratner2016dataprogramming,ratner2017snorkel}. LLMs have
+recently emerged as a powerful source of such labels:
+\citet{gilardi2023chatgpt} report that ChatGPT exceeds crowd-workers
+in accuracy and agreement on text-annotation tasks at a fraction of
+the cost, and \citet{elumar2025cost} develop cost-aware majority
+voting across multiple LLMs to mitigate individual-model bias.
+NAICS-GH instantiates this tradition with a specific domain
+(software repositories), a specific taxonomy (NAICS), and a
+verification step that uses one high-capability model (GPT-4.1) with
+a structured rubric and human re-validation on a stratified
+subsample.
+
+\paragraph{LLMs applied to GitHub content.}
+A growing body of work uses LLMs to classify or extract structured
+data from the GitHub platform, but with different units of analysis.
+\citet{mehmood2025llm} fine-tune BERT, RoBERTa, and DistilBERT (with
+LoRA) to classify the \emph{sections} of a README into eight
+structural roles (What/Why/How/$\ldots$), reaching F1 = 0.98 on the
+4{,}226-section \citet{zanartu2022categorizing}-derived benchmark.
+\citet{chen2025forge} use an LLM-driven framework to construct a
+smart-contract vulnerability dataset at scale, and
+\citet{joynab2026threads} propose a multi-LLM pipeline that extracts
+community knowledge from GitHub issue discussions. Our work is
+complementary to these: we use the README alongside the description
+and topics to classify the \emph{whole repository} into a 19-class
+industry taxonomy, an output space that is broader and more
+semantically overlapping than the section- or vulnerability-typed
+analogs above.
+
+\paragraph{Datasheets.} We provide a Datasheet for
+Datasets~\citep{gebru2021datasheets} in Appendix~\ref{app:datasheet}.
+
+%% ====================================================================
+\section{Dataset Construction}
+\label{sec:construction}
+
+\subsection{Source repositories}
+\label{sec:source}
+
+We extract source repositories from GitHub's internal Trino-on-Hive data
+warehouse via a Presto/Trino SQL query against the
+\texttt{hive.canonical.repositories\_current},
+\texttt{hive.canonical.accounts\_current},
+\texttt{hive.suez.readme\_current}, and
+\texttt{delta.snapshots.github\_collab\_commit\_contributions} tables.
+The query was executed against data current through \textbf{April 15,
+2025} (USA presample; EU readme extraction August 15, 2025). The full
+SQL is in Appendix~\ref{app:sql}.
+
+\paragraph{Inclusion criteria.} A repository is included in the source
+pool if it satisfies all of the following:
+\begin{itemize}
+  \item Public, non-fork, non-spammy-owner GitHub repository
+    (\texttt{is\_public = TRUE}, \texttt{is\_fork = FALSE},
+    \texttt{NOT is\_spammy\_owner}).
+  \item At least one star (\texttt{num\_stars $\geq 1$}).
+  \item Declares a top-level \texttt{README.md} (case-insensitive)
+    of at least 750 bytes.
+  \item Disk usage greater than zero, and non-empty repository
+    description.
+  \item At least 6 total commits and at least 2 distinct commit
+    contributors
+    (\texttt{HAVING SUM(commit\_count) > 5} and
+    \texttt{COUNT(DISTINCT user\_id) $\geq 2$}).
+  \item Owner-account country code in the per-region list
+    (\S\ref{sec:source:regions}).
+\end{itemize}
+
+\paragraph{Jurisdiction split.}
+\label{sec:source:regions}
+Repositories are assigned to a region by the
+\texttt{country\_account} field of the \emph{owner account} in
+\texttt{accounts\_current}, joined via
+\texttt{owner\_dotcom\_id} (not by top-contributor location or geo-IP):
+\begin{itemize}
+  \item \textbf{USA}: \texttt{'US'} (510{,}380 repositories).
+  \item \textbf{EU} (27 codes, EU-27 excluding the UK):
+    \texttt{AT, BE, BG, CY, CZ, DE, DK, EE, ES, FI, FR, GR, HR, HU,
+    IE, IT, LT, LU, LV, MT, NL, PL, PT, RO, SE, SI, SK}
+    (530{,}898 repositories).
+  \item \textbf{AU}: \texttt{'AU'} (331{,}211 repositories).
+\end{itemize}
+
+\paragraph{Total source pool.} 1{,}372{,}489 repositories across the
+three jurisdictions. Each repository carries its owner-and-name
+identifier (\texttt{nwo}), description, topic tags, README content,
+SPDX license identifier, and activity metadata (stars, commits,
+contributors, issue counts, last-commit timestamp).
+
+\paragraph{Per-region processing, country-blind release.}
+\label{sec:source:merge}
+The source SQL emits three jurisdictional extractions, and each
+subsequent generation stage (embedding, retrieval, LLM verification,
+score filtering) runs \emph{per region} with an identical
+configuration; the three score-filtered outputs are then concatenated
+into the released corpus (\S\ref{sec:verification}). No released
+artifact retains a per-row \texttt{country\_code} column or any other
+per-row jurisdictional attribute: rows are shuffled at assembly so
+regional provenance is not recoverable from row position, and
+jurisdiction appears in this paper only as aggregate statistics. To
+enable external reproduction without access to jurisdiction-tagged
+data, we additionally publish a jurisdiction-blind variant of the
+pipeline that operates on the concatenation of the three extractions
+as a single corpus (\S\ref{sec:release}).
+
+\subsection{NAICS sector taxonomy}
+\label{sec:naics-taxonomy}
+
+We use a pre-built JSON taxonomy file
+(\texttt{naics\_titles\_by\_group\_6digit\_clean.json}) with 20 entries,
+one per 2-digit NAICS sector code. Each entry is a single string of
+subindustry titles separated by semicolons, sourced from the 6-digit
+NAICS hierarchy and grouped by their parent 2-digit code. We consume
+the file as-is; no 6-to-2-digit collapsing is performed by our
+pipeline.
+
+Across the 20 sectors there are \textbf{1{,}029 distinct subindustry
+phrases} in total. The count per sector varies widely: Manufacturing
+(31--33) has 346 subindustries, the most by far; Utilities (22),
+Accommodation/Food (72), and Educational Services (61) have the
+fewest (14, 15, and 17 respectively). The full taxonomy is in
+Appendix~\ref{app:naics}.
+
+The taxonomy contributes to the pipeline in two distinct ways:
+\begin{itemize}
+  \item \emph{Semantic retrieval (\S\ref{sec:retrieval})} uses the
+    \textbf{individual subindustry phrases} as queries, one query per
+    phrase.
+  \item \emph{LLM verification (\S\ref{sec:verification})} uses the
+    \textbf{full concatenated string} for each sector as the rubric
+    anchor presented to GPT-4.1 alongside the candidate README.
+\end{itemize}
+
+\subsection{Semantic retrieval}
+\label{sec:retrieval}
+
+\paragraph{Embedding the source corpus.}
+For each region, we encode the first 1{,}000 characters of each
+repository's raw README using
+\textbf{BAAI/bge-large-en}~\citep{xiao2023cpack}, with the asymmetric
+BGE prefixes: \texttt{"Represent this document for retrieval: "} for
+documents and \texttt{"Represent this query for retrieval: "} for
+queries. (Repository description and topic tags enter the pipeline at
+the verification stage, \S\ref{sec:verification}, where the LLM
+receives the full concatenated text.) Embeddings are 1024-dimensional
+and L2-normalized; inference uses half-precision (FP16) on GPU with a
+batch size of 1024. We build an exact inner-product FAISS index
+(\texttt{IndexFlatIP})~\citep{johnson2021faiss}, which under
+normalization computes cosine similarity.
+
+\paragraph{Per-subindustry query loop.}
+Retrieval is driven by the NAICS taxonomy loaded in
+\S\ref{sec:naics-taxonomy}. For each of the 20 sectors we split the
+sector's semicolon-separated string into its constituent subindustry
+phrases and issue \emph{one FAISS query per phrase} with the template
+\texttt{"Repositories about \{subindustry\}"}. The number of nearest
+neighbors retrieved per query, \texttt{effective\_k}, is set
+adaptively:
+
+\begin{equation*}
+  \mathtt{effective\_k} \;=\;
+  \begin{cases}
+    20 & \text{if } n > 20 \\
+    \max\!\left(20,\;\lceil 400 / n \rceil\right) & \text{if } n \leq 20
+  \end{cases}
+\end{equation*}
+
+where $n$ is the number of subindustry phrases in the current sector.
+For the 17 sectors with $n > 20$ this gives a uniform $k = 20$; for
+the three sectors with narrow taxonomies the formula boosts $k$ so
+that each sector retrieves on the order of 400 candidates regardless
+of $n$: \texttt{effective\_k} $= 29$ for Utilities ($n=14$), $27$ for
+Accommodation/Food ($n=15$), and $24$ for Educational Services
+($n=17$).
+
+\paragraph{Tagging and deduplication.}
+Each returned row is annotated with the sector code, the specific
+subindustry phrase that produced the match, and the BGE cosine
+similarity. The loop across all 1{,}029 subindustry queries retrieves
+exactly 20{,}879 rows per region ($\sum_s n_s \times k_s$, overlap
+allowed); deduplicating on \texttt{(repository, sector)} within each
+region yields \textbf{31{,}178 unique candidate (repository, sector)
+pairs} (10{,}983 USA + 10{,}531 EU + 9{,}664 AU).
+
+\paragraph{Why this design.}
+The retrieval is intentionally over-inclusive --- the BGE cosine
+similarities of the returned candidates concentrate in a narrow
+$[0.78, 0.89]$ band, so the score alone cannot distinguish true
+matches from near-matches. The expensive verification step
+(\S\ref{sec:verification}) handles that discrimination. Querying per
+subindustry rather than per sector lets us cast a wider net (e.g.,
+Agriculture is queried 64 times rather than once) and exposes
+downstream code to the specific subindustry that surfaced each
+candidate, which is useful for error analysis.
+
+\subsection{LLM verification}
+\label{sec:verification}
+
+We score each candidate pair using \textbf{GPT-4.1} (model snapshot
+\texttt{gpt-4.1-2025-04-14}) via the GitHub Copilot LLM-lab endpoint
+(\texttt{api-model-lab.githubcopilot.com/chat/completions}) with a
+structured prompt (Appendix~\ref{app:prompt}).
+
+\paragraph{What the model sees.}
+For each candidate \texttt{(repo, sector)} pair, the API call sends two
+messages:
+\begin{itemize}
+  \item A \emph{system message} identifying the model as ``a domain
+    expert in economic classification systems with a focus on NAICS
+    industry \texttt{\{code\}}.''
+  \item A \emph{user message} containing the structured prompt. The
+    prompt includes:
+    \begin{itemize}
+      \item The repository's \textbf{combined text} --- not the bare
+        README, but the concatenation of the repository's description,
+        topic tags, and cleaned README, joined with explicit field
+        labels:
+        \begin{center}
+        \small
+        \texttt{description: \{desc\}, topics: \{topics\}, readme: \{readme\}}
+        \end{center}
+        This composite string is what is inserted inside the prompt's
+        \texttt{<readme>\ldots</readme>} tags. The repository name is
+        not included.
+      \item Preprocessing: Markdown code blocks, inline code, images,
+        links, HTML tags, and excess whitespace are stripped, and the
+        result is truncated to \textbf{3{,}000 whitespace-separated
+        tokens} (i.e., a word-count proxy, not a BPE token count).
+      \item The candidate NAICS sector code and the full concatenated
+        subindustry definition from the taxonomy
+        (\S\ref{sec:naics-taxonomy}).
+      \item A four-criterion rubric (industry-specific software,
+        sector-relevant functionality, industry-domain applications,
+        sector-specific data/research) and a 1--10 scoring guide.
+      \item Instructions to reply as a JSON object nested under the
+        outer key \texttt{"NAICS \{code\}"} with string-valued
+        \texttt{match} (\texttt{"Yes"} or \texttt{"No"}),
+        string-valued \texttt{score} (\texttt{"1"}--\texttt{"10"}),
+        and free-form \texttt{rationale}. The downstream pipeline
+        coerces \texttt{match} to a boolean and \texttt{score} to an
+        integer.
+    \end{itemize}
+\end{itemize}
+
+\paragraph{API parameters.}
+We call GPT-4.1 with \texttt{temperature = 0} for near-deterministic
+outputs, and set \texttt{max\_tokens} dynamically as
+$\min(3500,\;128000 - \mathrm{input\_tokens})$ based on the remaining
+context budget (input tokens are counted with
+\texttt{tiktoken.encoding\_for\_model("gpt-4.1")}, falling back to
+\texttt{cl100k\_base}). On non-200 API responses we retry up to five
+times with linear backoff (\texttt{sleep = 5} $\times$ attempt
+seconds). Replies are parsed by extracting the JSON object via regular
+expression and calling \texttt{json.loads}; a small fallback handles
+the case when the model wraps its JSON in Markdown fences.
+
+\paragraph{Filtering.}
+We retain repositories whose returned \texttt{score} is at least 8.
+
+\subsection{Filtering and final assembly}
+We concatenate the three regional score-$\geq 8$ outputs and apply a
+minimum-samples filter of 80 repositories per NAICS sector,
+eliminating Sector~55 (``Management of Companies and Enterprises''),
+which had only 13 repositories. After deduplication and cleanup we
+obtain the released NAICS-GH training corpus of
+\textbf{6{,}588 repositories} spanning 19 of the 20 NAICS sectors.
+
+\paragraph{Pipeline funnel.}
+Table~\ref{tab:funnel} summarizes the end-to-end retention from raw
+source to released training corpus.
+
+\begin{table}[ht]
+\centering
+\caption{End-to-end retention from the GitHub warehouse extraction to
+the released NAICS-GH training corpus, by jurisdiction.}
+\label{tab:funnel}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Stage & USA & EU & AU & Total \\
+\midrule
+Source pool (\S\ref{sec:source}) & 510{,}380 & 530{,}898 & 331{,}211 & 1{,}372{,}489 \\
+Step 3: raw retrieval ($\sum_s n_s k_s$, overlap allowed) & 20{,}879 & 20{,}879 & 20{,}879 & 62{,}637 \\
+Step 3: unique candidates (\S\ref{sec:retrieval}) & 10{,}983 & 10{,}531 & 9{,}664 & 31{,}178 \\
+Step 4: GPT-4.1 score $\geq$ 8 & 2{,}529 & 2{,}039 & 2{,}021 & 6{,}589 \\
+Step 5--6: concat $+$ class filter & --- & --- & --- & \textbf{6{,}588} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Overall, only \textbf{0.48\%} of the source pool ends up labeled in
+the released corpus, and \textbf{21.1\%} of FAISS-retrieved unique
+candidates survive GPT-4.1 verification at the score-$\geq 8$
+threshold.
+
+%% ====================================================================
+\section{Dataset Description}
+\label{sec:description}
+
+The released NAICS-GH corpus is a single
+\textbf{parquet file with 6{,}588 rows and 6 columns}
+(\texttt{train\_data\_gpt\_ab8\_score\_with\_code.parquet}, 12 MB on
+disk). Every cell is non-null. The dataset is published as a single
+training corpus; downstream code (\S\ref{sec:benchmark}) applies a
+stratified $70 / 10 / 20$ split with \texttt{seed=42} to produce
+train, validation, and test sets of 4{,}611, 659, and 1{,}318 rows
+respectively.
+
+\subsection{Schema}
+
+\begin{table}[ht]
+\centering
+\caption{Released schema of NAICS-GH
+(\texttt{train\_data\_gpt\_ab8\_score\_with\_code.parquet}).}
+\label{tab:schema}
+\small
+\begin{tabular}{lll}
+\toprule
+Column & Type & Description \\
+\midrule
+\texttt{name\_repo} & string & Repository short name (no owner prefix). \\
+\texttt{description} & string & Repository description from GitHub. \\
+\texttt{topics} & string & Semicolon-joined topic tags; empty if none. \\
+\texttt{readme\_content} & string & Cleaned README text. \\
+\texttt{label} & int64 & Integer class encoding $0\ldots 18$. \\
+\texttt{code} & string & 2-digit NAICS sector code (string form). \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The columns \texttt{nwo}, \texttt{match}, \texttt{score},
+\texttt{rationale}, and \texttt{repo\_url} present in upstream
+intermediate files are intentionally dropped from the release so
+that the corpus is model-ready (no LLM-provenance, no PII via
+repo-owner URLs). The mapping between \texttt{label} and \texttt{code}
+is monotonic in NAICS code order:
+$0 \!\to\! 11,\, 1 \!\to\! 21,\, 2 \!\to\! 22,\, 3 \!\to\! 23,\, 4 \!\to\! 31\text{-}33,\, \ldots,\, 18 \!\to\! 92$.
+
+\subsection{Size and sector coverage}
+\label{sec:desc:size}
+
+The released corpus contains \textbf{6{,}588 repositories} spanning
+\textbf{19 of the 20 NAICS sectors}. Sector 55, ``Management of
+Companies and Enterprises,'' contained only 13 candidates that passed
+GPT-4.1 verification at score $\geq 8$ --- below our minimum
+class-size threshold of 80 --- and is therefore absent. All 19
+labels in $\{0,\ldots,18\}$ are represented in the file.
+
+\paragraph{Sector counts and imbalance.}
+Per-sector counts are given in Table~\ref{tab:sector-counts}. The
+distribution is moderately imbalanced: the smallest retained sector
+is 23 (Construction) with \textbf{82} repositories and the largest is
+44--45 (Retail Trade) with \textbf{641}, an imbalance ratio of
+$\approx 7.82\times$. The mean per-sector count is 346.7 with
+standard deviation 150.8; the median is 372. Twelve sectors fall
+within $\pm 25\%$ of the mean, and the lower tail (sectors 21
+Mining, 23 Construction, 42 Wholesale, 56 Admin/Waste) drives most
+of the imbalance.
+
+\begin{table}[ht]
+\centering
+\caption{Per-sector counts in the released NAICS-GH training corpus
+($n=6{,}588$) drawn from
+\texttt{train\_data\_gpt\_ab8\_score\_with\_code.parquet}. Sector 55
+(``Management of Companies and Enterprises'') is not present because
+only 13 candidates passed GPT-4.1 verification, below the 80-sample
+minimum-class-size threshold.}
+\label{tab:sector-counts}
+\small
+\input{validation/output/sector_counts_table.tex}
+\end{table}
+
+% Per-row country attributes are not released (see
+% \S\ref{sec:source:merge}); jurisdictional composition is reported
+% only as aggregate statistics (cross-jurisdiction figures to be added
+% after the GPT re-run â€” Phase B).
+
+\subsection{Text characteristics}
+\label{sec:desc:text}
+
+Tables~\ref{tab:text-stats-chars} and \ref{tab:text-stats-words} give
+character-length and whitespace-token-length statistics, respectively.
+The README field dominates the input by a wide margin: its median
+length is 1{,}912 characters (275 words) and its 99th percentile is
+roughly 3{,}500 words --- comparable to the 3{,}000-word truncation
+limit used by the LLM verification step (\S\ref{sec:verification}).
+Only \textbf{$\sim$1.5\% of rows} (100 of 6{,}588) have a combined
+text length that would have been truncated.
+
+\begin{table}[ht]
+\centering
+\caption{Character-length statistics of the four text fields in the
+released corpus.}
+\label{tab:text-stats-chars}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Field & min & median & mean & max \\
+\midrule
+\texttt{name\_repo} & 2 & 14 & 16 & 85 \\
+\texttt{description} & 2 & 65 & 88 & 1{,}626 \\
+\texttt{topics} & 0 & 0 & 21 & 384 \\
+\texttt{readme\_content} & 3 & 1{,}912 & 3{,}387 & 212{,}122 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Whitespace-tokenized word-count statistics for
+\texttt{description} and \texttt{readme\_content}.}
+\label{tab:text-stats-words}
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Field & min & p25 & median & p75 & p99 & max \\
+\midrule
+\texttt{description} & 1 & 6 & 10 & 16 & 52 & 237 \\
+\texttt{readme\_content} & 1 & 153 & 275 & 513 & 3{,}557 & 38{,}576 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{README size distribution.}
+The distribution of README character lengths in the released corpus
+is roughly log-normal:
+
+\begin{center}
+\small
+\begin{tabular}{lrlr}
+\toprule
+README size (chars) & Rows & README size (chars) & Rows \\
+\midrule
+$<$ 500 & 340 & 2{,}000--5{,}000 & 2{,}121 \\
+500--1{,}000 & 1{,}135 & 5{,}000--10{,}000 & 704 \\
+1{,}000--2{,}000 & 1{,}964 & $>$ 10{,}000 & 324 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+About 76\% of READMEs are in the 500--5{,}000-character range; only
+$\approx 5\%$ exceed 10{,}000 characters. The lower bound (READMEs
+$<$ 500 characters, $\approx 5\%$ of the file) reflects the source
+SQL's $\geq 750$-byte threshold combined with downstream Markdown
+cleanup (code blocks, HTML, URLs stripped) which removes some bytes
+before the field is stored.
+
+\paragraph{Topics field.}
+The \texttt{topics} field is empty in \textbf{4{,}533 of 6{,}588 rows
+($\approx 68.8\%$)}. Among the 2{,}055 rows that have any tags
+declared, the median is 5 tags per row (mean 6.0, p75 = 7, p99 =
+20, max = 20). The field is stored as a semicolon-joined string
+(e.g., \texttt{"oscibio;\,lifewatch;\,biologging;\,r-package"}).
+Downstream code should treat empty strings as ``no tags declared,''
+not as missing data, and should not assume the field is consistently
+populated.
+
+\subsection{Known duplicates}
+\label{sec:desc:dup}
+
+Because the canonical \texttt{(owner/repo)} identifier (\texttt{nwo})
+is dropped from the release, some short-name collisions appear in the
+file:
+
+\begin{itemize}
+  \item \textbf{6{,}141 unique \texttt{name\_repo} values across
+    6{,}588 rows} --- i.e., \textbf{447 rows share their
+    \texttt{name\_repo} with at least one other row}.
+  \item Of those, \textbf{113 \texttt{(name\_repo, code)} pairs are
+    duplicated}: two or more distinct repositories sharing the same
+    short name independently passed verification into the same NAICS
+    sector.
+\end{itemize}
+
+These are not accidental duplicates of the same repository --- they
+are distinct repositories with the same short name (e.g., two
+different organizations both maintaining a repository called
+\texttt{api}, \texttt{docs}, or \texttt{awesome}). Users joining
+external metadata by \texttt{name\_repo} alone should expect
+ambiguity; the upstream intermediate files produced in
+\S\ref{sec:construction} retain \texttt{nwo} as a globally unique
+identifier for users who need an unambiguous join.
+
+\subsection{Score distribution}
+\label{sec:desc:score}
+
+% TODO: fill in once the three regional *_2k_gpt_ab8score.parquet
+% files are exported from Google Drive to a stable local path.
+% The released 6,588-row file does not carry the LLM `score` column;
+% the score distribution should be reported from the three regional
+% GPT-4.1 outputs by concatenating their `score` columns (USA file
+% locally available; EU and AU pending Drive export).
+
+%% ====================================================================
+\section{Validation}
+\label{sec:validation}
+
+\subsection{Gold-set construction}
+Research assistants reviewed a random sample of \textbf{2{,}421
+repositories} drawn from the GPT-4.1-labeled output. For each
+repository they inspected the GitHub page and judged whether the
+GPT-assigned NAICS sector was \emph{Correct} or \emph{Incorrect}
+given the criteria of Section~\ref{sec:verification}. Each row was
+reviewed by a single annotator; no inter-annotator agreement
+coefficient was computed (this is acknowledged as a limitation in
+\S\ref{sec:limitations}).
+
+\subsection{Headline result}
+\textbf{GPT-4.1 label precision: 96.98\%} ($2{,}348$ of $2{,}421$
+gold rows judged correct; 95\% Wilson confidence interval
+$[96.23\%, 97.59\%]$).
+
+\subsection{Precision by sector}
+Table~\ref{tab:per-sector-precision} reports per-sector precision
+in the gold sample with 95\% Wilson intervals. Six sectors
+(21 Mining, 48--49 Transportation, 51 Information, 53 Real Estate,
+71 Arts \& Entertainment, 92 Public Administration) reach
+\textbf{100\% precision}. Two sectors fall noticeably below the
+overall precision: \textbf{31--33 Manufacturing (73.0\%)} and
+\textbf{42 Wholesale Trade (73.0\%)}, indicating that the LLM rubric
+struggles to separate truly sector-specific manufacturing or
+wholesale software from generic operations and supply-chain tooling.
+
+\begin{table}[ht]
+\centering
+\caption{Per-sector precision in the gold sample
+($n=2{,}421$), sorted descending. Wilson 95\% intervals.}
+\label{tab:per-sector-precision}
+\small
+\input{validation/output/per_sector_precision_table.tex}
+\end{table}
+
+\subsection{Precision rises monotonically with GPT score}
+The score returned by GPT-4.1 correlates with human-judged
+correctness in the expected direction: precision rises from
+\textbf{90.76\%} at score $8$ to \textbf{97.81\%} at score $9$ and
+\textbf{99.30\%} at score $10$ (Table~\ref{tab:precision-by-score}).
+This validates the rubric: the 1--10 score carries genuine
+information about label confidence and is not merely an artifact of
+the prompt template. Practitioners requiring higher precision than
+the corpus-level 96.98\% can simply raise the score threshold; the
+released corpus uses the inclusive $\geq 8$ cut to maximize coverage.
+
+\begin{table}[ht]
+\centering
+\caption{Precision conditional on the GPT-4.1 score, gold sample
+($n=2{,}421$).}
+\label{tab:precision-by-score}
+\begin{tabular}{rrrrl}
+\toprule
+GPT score & $n$ & $n_{\text{correct}}$ & Precision & 95\% CI \\
+\midrule
+8 & 314 & 285 & 0.9076 & [0.8705, 0.9349] \\
+9 & 1{,}965 & 1{,}922 & 0.9781 & [0.9707, 0.9837] \\
+10 & 142 & 141 & 0.9930 & [0.9612, 0.9988] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Stratified error analysis}
+The error rate is concentrated in two sectors. In Manufacturing
+(31--33), repositories at score 8 are correct only $20\%$ of the time
+(4 of 20 gold rows), but rise to $80.5\%$ at score 9 and $100\%$ at
+score 10. Wholesale Trade (42) shows the same pattern. Practitioners
+building on NAICS-GH who require high precision in these two sectors
+should raise the score threshold to $\geq 9$. A qualitative analysis
+of the 73 incorrect labels --- which NAICS sector RAs would have
+assigned instead of the model's prediction --- is in
+Appendix~\ref{app:error-analysis}.
+
+\subsection{What this validation does \emph{not} cover}
+\label{sec:val:notcover}
+
+\paragraph{Single-annotator protocol.} Each gold-set row was reviewed
+by exactly one research assistant, so we cannot report Cohen's
+$\kappa$ or another inter-annotator agreement metric. A future
+double-labeling pass on $\sim 200$ rows will let an agreement
+coefficient accompany the headline precision.
+
+\paragraph{Precision, not recall.} The validation tells us what
+fraction of \emph{retained} labels are correct, but not what fraction
+of true sector-$X$ repositories in the source pool the pipeline
+\emph{missed} during retrieval. A recall analysis would require an
+independently constructed reference list of sector-labeled
+repositories from a source other than the BGE/FAISS retrieval used
+here, and is left to future work.
+
+%% ====================================================================
+\section{Benchmark: Fine-Tuned NAICS Classifiers}
+\label{sec:benchmark}
+
+To demonstrate the downstream utility of NAICS-GH, we fine-tune six
+pretrained encoders on the released 6{,}588-row training corpus and
+compare them on a held-out test set. All six runs share identical
+data, splits, and hyperparameters --- only the base model differs.
+
+\subsection{Input construction}
+
+Each repository is serialized as
+
+\begin{center}
+\small
+\texttt{Repository: \{name\_repo\} | Description: \{description\} | Topics: \{topics\} | README: \{readme\_content\}}
+\end{center}
+
+\noindent and then passed through a cleaner that strips badges, license
+headers, Markdown formatting, code blocks (which are replaced by a
+\texttt{code-\{lang\}} placeholder), excess punctuation, installation
+commands (\texttt{npm install}, \texttt{pip install},
+\texttt{git clone}), and collapses URLs to their domain. The cleaned
+string is truncated by the tokenizer to a uniform \textbf{512
+WordPiece tokens} across all six models (we choose this max length for
+direct comparability, even for the ModernBERT variants that support
+longer contexts).
+
+\subsection{Splits and hyperparameters}
+
+We use a stratified 70 / 10 / 20 train / validation / test split with
+\texttt{random\_state = 42}, yielding sizes
+\textbf{4{,}611 / 659 / 1{,}318}. All 19 NAICS classes are present in
+every split. Training uses AdamW
+(\texttt{adamw\_torch\_fused}) with learning rate $1.5\times 10^{-5}$,
+polynomial schedule with $15\%$ warmup, weight decay $0.02$,
+per-device batch size 8, gradient-accumulation steps 2 (effective
+batch size 16), gradient clipping at 1.0, BF16 mixed precision, 8
+epochs, and early stopping with patience 2 and threshold $0.001$ on
+weighted F1. Evaluation and checkpoint saving fire every 100 steps,
+with the best checkpoint by F1 loaded at the end of training. The
+reported metrics are weighted F1, accuracy, precision, and recall on
+the held-out test set.
+
+\subsection{Models and results}
+
+Table~\ref{tab:bench} reports test-set performance for six pretrained
+encoders spanning three families
+(RoBERTa~\citep{liu2019roberta},
+ModernBERT~\citep{warner2024modernbert},
+DeBERTa-v3~\citep{he2023debertav3}) and two
+parameter scales (base and large).
+
+\begin{table}[ht]
+\centering
+\caption{Test-set performance on the 1,318-row held-out split, all
+metrics weighted across the 19 NAICS classes.}
+\label{tab:bench}
+\small
+\begin{tabular}{lrrrrr}
+\toprule
+Model & Parameters & Test F1 & Accuracy & Precision & Recall \\
+\midrule
+RoBERTa-base & 125M & 84.26\% & 84.84\% & 84.70\% & 84.84\% \\
+\textbf{RoBERTa-large} & \textbf{355M} & \textbf{86.45\%} & \textbf{86.35\%} & \textbf{86.68\%} & \textbf{86.35\%} \\
+ModernBERT-base & 139M & 84.63\% & 84.85\% & 84.86\% & 84.85\% \\
+ModernBERT-large & 395M & 84.16\% & 84.23\% & 84.44\% & 84.23\% \\
+DeBERTa-v3-base & 183M & 85.68\% & 85.82\% & 86.16\% & 85.82\% \\
+DeBERTa-v3-large & 400M & 85.07\% & 85.22\% & 85.41\% & 85.22\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Findings.}
+\begin{itemize}
+  \item \textbf{RoBERTa-large} is the strongest baseline at
+    F1 $=86.45\%$, followed by DeBERTa-v3-base ($85.68\%$) and
+    DeBERTa-v3-large ($85.07\%$).
+  \item \textbf{The encoder family matters more than parameter
+    count} at this corpus size. DeBERTa-v3-base (183M) outperforms
+    ModernBERT-large (395M), suggesting that the original
+    RoBERTa/DeBERTa pretraining objectives transfer better to
+    short-document classification than ModernBERT's
+    long-context-oriented pretraining, at least for a corpus on the
+    order of $5\,000$ training examples.
+  \item \textbf{Larger variants do not uniformly outperform their
+    base counterparts.} ModernBERT-large is worse than
+    ModernBERT-base, and DeBERTa-v3-large is worse than
+    DeBERTa-v3-base. RoBERTa is the only family where scaling
+    monotonically improves performance, which is consistent with a
+    relatively small training corpus (4.6k examples, 19 classes)
+    where larger models risk overfitting.
+\end{itemize}
+
+The fine-tuned RoBERTa-large checkpoint is available at
+\url{https://huggingface.co/alexanderquispe/naics-github-classifier}.
+
+%% ====================================================================
+\section{Limitations and Ethical Considerations}
+\label{sec:limitations}
+
+\paragraph{English-only retrieval.} BGE-large-en is trained on English
+text. Repositories whose READMEs are in other languages are
+under-represented in the candidate pool and therefore in the released
+corpus. We make no claim of coverage for non-English software ecosystems.
+
+\paragraph{NAICS is a North American taxonomy.} Applying NAICS to
+European or Australian repositories assumes that economic activities
+map cleanly across jurisdictions. Sector definitions sometimes diverge
+(for example, NAICS Sector 22 ``Utilities'' is structured around the
+US regulated-utility model). We note this whenever it materially affects
+interpretation.
+
+\paragraph{Label noise is not uniform.} As Section~\ref{sec:validation}
+shows, two sectors (Manufacturing and Wholesale Trade) carry
+substantially higher label error than the rest at the score-$\geq 8$
+threshold. Downstream users should treat the GPT score as a usable
+confidence signal (raise to $\geq 9$ for stricter applications)
+rather than treat all labels as a uniform gold standard.
+
+\paragraph{Repository content licensing.} NAICS-GH releases labels
+\emph{about} public repositories, plus excerpts of their READMEs for
+reproducibility. The underlying repositories remain governed by their
+own licenses (preserved as \texttt{spdx\_license} in the released file).
+
+\paragraph{Dual use.} Industry-classified repository data could
+plausibly be used for competitive intelligence or surveillance of
+open-source contributors. We release the dataset under CC-BY-4.0 with a
+preferred-use statement encouraging academic and policy use; we do not
+believe sector-level industry tagging of public repositories raises
+additional risks beyond what the underlying public metadata already
+permits.
+
+%% ====================================================================
+\section{Release and Reproducibility}
+\label{sec:release}
+
+The dataset is released at
+\url{https://huggingface.co/datasets/aquiro1994/naics-gh} under
+CC-BY-4.0, with stratified train/validation/test splits
+($4{,}611 / 659 / 1{,}318$) ready for direct use via
+\texttt{datasets.load\_dataset("aquiro1994/naics-gh")}. Croissant
+metadata is generated automatically by Hugging Face from the dataset
+card's YAML front matter, satisfying the NeurIPS Datasets \&
+Benchmarks 2025 machine-readable-metadata requirement. The labeling
+pipeline code is at
+\url{https://github.com/alexanderquispe/naics-github-classifier} (MIT
+License); the training code and fine-tuned RoBERTa-large checkpoint
+are at
+\url{https://github.com/alexanderquispe/naics-github-train} and
+\url{https://huggingface.co/alexanderquispe/naics-github-classifier}.
+A Zenodo DOI for the dataset will be issued at camera-ready.
+
+\paragraph{End-to-end replication of the labeling pipeline.}
+To quantify the reproducibility of the dataset-generation process, we
+re-ran the full retrieval pipeline from the frozen source extractions
+on different hardware (consumer RTX~3080 vs.\ the original A100). The
+raw retrieval depth is exactly reproduced by construction
+(20{,}879 rows per region), and the deduplicated candidate sets match
+to within $\pm 0.1\%$ per region --- 10{,}985 vs.\ 10{,}983 (USA),
+10{,}529 vs.\ 10{,}531 (EU), and 9{,}674 vs.\ 9{,}664 (AU); 31{,}188
+vs.\ 31{,}178 in total ($+0.03\%$). The residual differences are
+attributable to FP16 floating-point variation across GPU
+architectures shifting a handful of borderline nearest neighbors.
+
+\paragraph{Jurisdiction-blind public replication package.}
+The released corpus was generated by the per-region pipeline described
+in \S\ref{sec:source:merge}, which requires access to
+jurisdiction-tagged source extractions that we do not publish. To let
+external researchers reproduce the \emph{methodology} end-to-end, the
+pipeline repository additionally provides a jurisdiction-blind variant
+that concatenates the three extractions into a single shuffled pool
+before embedding and retrieves with a proportionally scaled depth
+(base $k$ tripled). Because a merged pool deduplicates the
+cross-region overlap that separate regional pools structurally retain,
+this variant yields a corpus of comparable --- not bit-identical ---
+size and composition; it exists to verify the method, while the
+released corpus remains the canonical artifact.
+
+%% ====================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+
+NAICS-GH supplies a missing resource: a publicly available mapping
+from GitHub repositories to standardized industry sectors,
+GPT-4.1-labeled over a multi-jurisdictional source pool and validated
+against a human-labeled random subsample at 96.98\% precision. We
+hope it enables empirical work on the industrial composition of
+open-source production --- over time and in response to the rise of
+AI coding assistants. An inter-annotator-agreement coefficient on a
+doubly labeled subsample and a recall estimate against an independent
+reference list of sector-labeled repositories are concrete next
+steps.
+
+%% ====================================================================
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+%% ====================================================================
+\appendix
+
+\section{Source-extraction SQL}
+\label{app:sql}
+
+The canonical Presto/Trino query against GitHub's internal warehouse
+that produced the source parquets. The query is executed three times,
+varying only the \texttt{accounts\_current.country\_account IN (\dots)}
+clause (see \S\ref{sec:source:regions}); each output is processed
+per region by an identical pipeline configuration
+(\S\ref{sec:source:merge}), and the \texttt{country\_code} column is
+dropped at that
+point.
+
+{\small
+\begin{verbatim}
+SELECT
+    nwo, num_stars, is_fork, is_archived, has_readme,
+    content_size AS readme_content_size, disk_usage_bytes,
+    spdx_license,
+    repositories_current.id AS repository_id,
+    from_utf8(repositories_current.description) AS description,
+    repositories_current.topics,
+    from_utf8(readme_current.content) AS readme_content,
+    accounts_current.country_account AS country_code,
+    COUNT(DISTINCT issues_current.id) AS num_issues,
+    COUNT(DISTINCT issues_current.user_dotcom_id) AS num_issue_authors,
+    COUNT(DISTINCT github_collab_commit_contributions.user_id)
+        AS num_commit_contributors,
+    SUM(github_collab_commit_contributions.commit_count) AS num_commits,
+    MAX(github_collab_commit_contributions.created_at) AS last_commit_at
+FROM hive.canonical.repositories_current
+JOIN hive.canonical.accounts_current
+    ON repositories_current.owner_dotcom_id = accounts_current.dotcom_id
+LEFT JOIN hive.canonical.issues_current
+    ON issues_current.repository_id = repositories_current.id
+    AND NOT issues_current.is_user_hidden
+JOIN hive.suez.readme_current
+    ON readme_current.repository_id = repositories_current.id
+    AND LOWER(path) = 'readme.md'
+    AND LOWER(filename) = 'readme.md'
+LEFT JOIN hive.reference.licenses
+    ON licenses.id = repositories_current.license_id
+LEFT JOIN delta.snapshots.github_collab_commit_contributions
+    ON github_collab_commit_contributions.repository_id
+       = repositories_current.id
+WHERE NOT is_spammy_owner
+    AND is_public = TRUE
+    AND has_readme = TRUE
+    AND num_stars >= 1
+    AND is_fork = FALSE
+    AND accounts_current.country_account IN ( /* per-region list */ )
+    AND content_size >= 750
+    AND disk_usage_bytes > 0
+    AND repositories_current.description IS NOT NULL
+    AND TRIM(from_utf8(repositories_current.description)) != ''
+GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12
+HAVING SUM(github_collab_commit_contributions.commit_count) > 5
+   AND COUNT(DISTINCT github_collab_commit_contributions.user_id) >= 2
+ORDER BY repository_id
+\end{verbatim}
+}
+
+The warehouse data was current through April 15, 2025 (USA presample);
+the EU README extraction snapshot was dated August 15, 2025.
+
+\section{NAICS sector definitions}
+\label{app:naics}
+
+We use the 20-sector top-level NAICS 2022 hierarchy as compiled by
+the U.S. Census Bureau~\citep{naics2022}. The pipeline consumes a
+flat JSON taxonomy file
+(\texttt{naics\_titles\_by\_group\_6digit\_clean.json}, released with
+the code) keyed by 2-digit sector code; each value is a
+semicolon-separated string of 6-digit subindustry titles drawn from
+the 2022 hierarchy. Across the 20 sectors there are 1{,}029 distinct
+subindustry phrases.
+
+Table~\ref{tab:naics-appendix} reports, for each 2-digit sector, the
+canonical Census name, the number of subindustry phrases in our
+taxonomy file, and the first three subindustry phrases as they
+appear in the JSON (verbatim, including any minor whitespace
+artifacts). The full per-sector listings are in the JSON file rather
+than this appendix in order to keep the paper a reasonable length.
+
+\input{appendix/output/naics_appendix_table.tex}
+
+\section{LLM verification prompt}
+\label{app:prompt}
+
+\input{appendix/output/prompt_appendix.tex}
+
+\section{Schema of the released file}
+\label{app:schema}
+
+\input{appendix/output/schema_appendix.tex}
+
+\section{Stratification of the gold sample}
+\label{app:stratification}
+
+\input{appendix/output/stratification_appendix.tex}
+
+\section{Training details}
+\label{app:training}
+
+\input{appendix/output/training_appendix.tex}
+
+\section{Qualitative error analysis}
+\label{app:error-analysis}
+% TODO(rRAs): qualitative analysis of the 73 incorrect labels â€” what
+% NAICS sector do the RAs actually assign instead? Pending RA work.
+
+\section{Datasheet for Datasets}
+\label{app:datasheet}
+
+\input{datasheet_body.tex}
+
+\end{document}

@@ -88,9 +88,11 @@ ANALYSIS REQUIREMENTS:
 
 Provide your response in this exact JSON format:
 {{
-    "match": true or false,
-    "score": 1-10,
-    "rationale": "Concise explanation of classification decision, including primary repository purpose, specific sector alignment criteria met, and justification for inclusion/exclusion"
+    "NAICS {naics_code}": {{
+        "rationale": "Concise explanation of classification decision, including primary repository purpose, specific sector alignment criteria met, and justification for inclusion/exclusion",
+        "score": "1-10",
+        "match": "Yes" or "No"
+    }}
 }}
 
 IMPORTANT: Base your decision on the repository's PRIMARY purpose and DIRECT applicability to the sector. Be precise and consistent in your classifications.

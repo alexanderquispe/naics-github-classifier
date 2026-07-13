@@ -47,6 +47,8 @@ def estimate_cost(
         "gpt-4": {"input": 0.03, "output": 0.06},      # per 1K tokens
         "gpt-4.1": {"input": 0.03, "output": 0.06},
         "gpt-3.5-turbo": {"input": 0.001, "output": 0.002},
+        "deepseek-chat": {"input": 0.00027, "output": 0.0011},
+        "deepseek-reasoner": {"input": 0.00055, "output": 0.00219},
     }
 
     rates = pricing.get(model, pricing["gpt-4"])

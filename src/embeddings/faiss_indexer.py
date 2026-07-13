@@ -80,8 +80,11 @@ class FAISSIndexer:
         if query_embedding.ndim == 1:
             query_embedding = query_embedding.reshape(1, -1)
 
+        # faiss.normalize_L2 requires float32 (and C-contiguous) input — the
+        # FP16 BGE encoder returns float16 vectors, so cast BEFORE normalizing.
+        query_embedding = np.ascontiguousarray(query_embedding, dtype=np.float32)
         faiss.normalize_L2(query_embedding)
-        distances, indices = self.index.search(query_embedding.astype(np.float32), k)
+        distances, indices = self.index.search(query_embedding, k)
 
         return distances[0], indices[0]
 

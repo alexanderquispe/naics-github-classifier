@@ -1,0 +1,37 @@
+This appendix tabulates the per-sector distribution of the validation gold sample (\S\ref{sec:validation}; $n = 2,421$ rows) against the released NAICS-GH training corpus ($n = 6,588$ rows). The largest signed delta is $\pm 1.94$ percentage points; 16 of 19 sectors fall within $\pm 1$ pp.
+
+Reasonable agreement supports our claim that the headline 96.98\% precision is not biased by an over- or under-representation of any single NAICS sector in the gold sample.
+
+\begin{table}[ht]
+\centering
+\caption{Per-sector distribution: validation gold sample vs.\ the released NAICS-GH corpus. \emph{Gold \%} is the share of the 2,421 gold rows in each sector; \emph{Corpus \%} is the share of the 6,588 released rows; \emph{$\Delta$} is the signed difference in percentage points (gold $-$ corpus).}
+\label{tab:stratification}
+\small
+\begin{tabular}{llrrrrr}
+\toprule
+Code & Sector & Gold $n$ & Corpus $n$ & Gold \% & Corpus \% & $\Delta$ (pp) \\
+\midrule
+11 & Agriculture, Forestry, Fishing and Hunting & 174 & 466 & 7.19 & 7.07 & +0.11 \\
+21 & Mining & 32 & 86 & 1.32 & 1.31 & +0.02 \\
+22 & Utilities & 157 & 414 & 6.48 & 6.28 & +0.20 \\
+23 & Construction & 25 & 82 & 1.03 & 1.24 & -0.21 \\
+31-33 & Manufacturing & 100 & 311 & 4.13 & 4.72 & -0.59 \\
+42 & Wholesale Trade & 37 & 121 & 1.53 & 1.84 & -0.31 \\
+44-45 & Retail Trade & 202 & 641 & 8.34 & 9.73 & -1.39 \\
+48-49 & Transportation and Warehousing & 200 & 558 & 8.26 & 8.47 & -0.21 \\
+51 & Information & 148 & 389 & 6.11 & 5.90 & +0.21 \\
+52 & Finance and Insurance & 166 & 429 & 6.86 & 6.51 & +0.34 \\
+53 & Real Estate Rental and Leasing & 91 & 284 & 3.76 & 4.31 & -0.55 \\
+54 & Professional and Technical Services & 115 & 372 & 4.75 & 5.65 & -0.90 \\
+56 & Administrative and Support Services & 62 & 184 & 2.56 & 2.79 & -0.23 \\
+61 & Educational Services & 115 & 331 & 4.75 & 5.02 & -0.27 \\
+62 & Health Care and Social Assistance & 204 & 466 & 8.43 & 7.07 & +1.35 \\
+71 & Arts, Entertainment, and Recreation & 176 & 453 & 7.27 & 6.88 & +0.39 \\
+72 & Accomodation and Food Services & 117 & 333 & 4.83 & 5.05 & -0.22 \\
+81 & Other Services & 116 & 295 & 4.79 & 4.48 & +0.31 \\
+92 & Public Administration & 184 & 373 & 7.60 & 5.66 & +1.94 \\
+\midrule
+\textbf{Total} & & \textbf{2,421} & \textbf{6,588} & \textbf{100.00} & \textbf{100.00} & \textbf{0.00} \\
+\bottomrule
+\end{tabular}
+\end{table}

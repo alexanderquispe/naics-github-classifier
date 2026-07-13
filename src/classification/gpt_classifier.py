@@ -33,8 +33,19 @@ class GPTClassifier:
         "openai": {
             "endpoint": "https://api.openai.com/v1/chat/completions",
             "env_var": "OPENAI_API_KEY",
-            "default_model": "gpt-4-turbo",
-            "models": ["gpt-4-turbo", "gpt-4", "gpt-3.5-turbo", "gpt-4o", "gpt-4o-mini"]
+            # gpt-4.1 matches the paper. The snapshot gpt-4.1-2025-04-14 pins
+            # the exact build for reproducibility.
+            "default_model": "gpt-4.1",
+            "models": [
+                "gpt-4.1", "gpt-4.1-2025-04-14", "gpt-4.1-mini",
+                "gpt-4-turbo", "gpt-4", "gpt-4o", "gpt-4o-mini",
+            ]
+        },
+        "deepseek": {
+            "endpoint": "https://api.deepseek.com/chat/completions",
+            "env_var": "DEEPSEEK_API_KEY",
+            "default_model": "deepseek-chat",
+            "models": ["deepseek-chat", "deepseek-reasoner"]
         },
         "github": {
             "endpoint": "https://api-model-lab.githubcopilot.com/chat/completions",
@@ -98,12 +109,15 @@ class GPTClassifier:
         """Auto-detect which backend to use based on available env vars."""
         if os.getenv("OPENAI_API_KEY"):
             return "openai"
+        elif os.getenv("DEEPSEEK_API_KEY"):
+            return "deepseek"
         elif os.getenv("GITHUB_TOKEN"):
             return "github"
         else:
             raise ValueError(
                 "No API key found. Set one of:\n"
                 "  - OPENAI_API_KEY (for OpenAI API)\n"
+                "  - DEEPSEEK_API_KEY (for DeepSeek API)\n"
                 "  - GITHUB_TOKEN (for GitHub Copilot API)\n"
                 "in your .env file"
             )
@@ -115,7 +129,7 @@ class GPTClassifier:
         naics_definition: str,
         max_retries: int = 5,
         retry_delay: float = 2.0,
-        timeout: int = 60
+        timeout: int = 120
     ) -> Tuple[bool, Dict]:
         """
         Classify a repository against a NAICS sector.
@@ -134,14 +148,31 @@ class GPTClassifier:
         """
         prompt = build_classification_prompt(readme_content, naics_code, naics_definition)
 
+        # System message used by the original notebook (cell 66) — primes the
+        # model to act as a NAICS domain expert for this specific sector.
+        system_msg = (
+            f"You are a domain expert in economic classification systems with "
+            f"a focus on NAICS industry {naics_code}."
+        )
+
+        # Reasoner models need more tokens and don't support temperature
+        is_reasoner = "reasoner" in self.model
+
         payload = {
             "model": self.model,
             "messages": [
+                {"role": "system", "content": system_msg},
                 {"role": "user", "content": prompt}
             ],
-            "temperature": 0.1,
-            "max_tokens": 200
+            # max_tokens: notebook used min(3500, 128k - input_tokens). Static
+            # 3000 is plenty for the JSON response (typical: ~300-500 tokens)
+            # and well within GPT-4.1's 128k context with our ~3000-token inputs.
+            "max_tokens": 8000 if is_reasoner else 3000
         }
+        if not is_reasoner:
+            # temperature=0 matches the notebook and the paper's reproducibility
+            # claim; previously 0.1 introduced unnecessary stochasticity.
+            payload["temperature"] = 0
 
         for attempt in range(max_retries):
             try:
@@ -165,11 +196,21 @@ class GPTClassifier:
                         elif "```" in content:
                             json_str = content.split("```")[1].split("```")[0]
 
+                        # The notebook prompt produces a nested
+                        # {"NAICS {code}": {rationale, score, match}} structure.
+                        # Walk into that key if present; otherwise fall back to a
+                        # flat schema (defensive — should not happen with the
+                        # updated prompt).
                         parsed = json.loads(json_str.strip())
+                        naics_key = f"NAICS {naics_code}"
+                        inner = parsed.get(naics_key, parsed)
+                        # Notebook stores score and match as strings ("8",
+                        # "Yes"/"No"); we preserve that for log-format fidelity.
+                        # Step 5 (filter) is responsible for any numeric cast.
                         return True, {
-                            "match": parsed.get("match", False),
-                            "score": parsed.get("score", 0),
-                            "rationale": parsed.get("rationale", "")
+                            "match": str(inner.get("match", "")),
+                            "score": str(inner.get("score", "")),
+                            "rationale": inner.get("rationale", "")
                         }
                     except json.JSONDecodeError:
                         # Try to extract info from non-JSON response

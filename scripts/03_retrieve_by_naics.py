@@ -67,7 +67,7 @@ def main():
 
     # Initialize BGE encoder for queries
     logger.info("Initializing BGE encoder for queries...")
-    encoder = BGEEncoder(use_half_precision=False)  # CPU mode for queries
+    encoder = BGEEncoder(use_half_precision=True)  # FP16 on GPU, matches doc-encoding precision (notebook cell 28 used .half())
 
     # Retrieve repositories for each NAICS sector
     all_results = []
@@ -88,7 +88,7 @@ def main():
 
         for subindustry in subindustries:
             # Create query
-            query = f"{subindustry} software tools applications"
+            query = f"Repositories about {subindustry}"
 
             # Encode query
             query_embedding = encoder.encode_query(query)

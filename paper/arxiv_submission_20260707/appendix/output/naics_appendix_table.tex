@@ -1,0 +1,35 @@
+\begin{longtable}{@{}lp{4.3cm}rp{6.0cm}@{}}
+\caption{NAICS 2022 sectors used by the pipeline. The $n$ column gives the number of 6-digit subindustry phrases under each 2-digit sector in our taxonomy file; the full list of 1{,}029 phrases is in \texttt{naics\_titles\_by\_group\_6digit\_clean.json} in the released code repository. The Example column shows the first 3 subindustry phrases as they appear in the file (verbatim, including any minor whitespace). Sector~55 is absent from the released training corpus because too few candidates passed verification under the 80-sample minimum-class-size filter; it is retained here for taxonomic completeness.}\\
+\label{tab:naics-appendix}\\
+\toprule
+Code & Sector & $n$ & Example subindustry titles \\
+\midrule
+\endfirsthead
+\multicolumn{4}{c}{\textit{(continued from previous page)}}\\
+\toprule
+Code & Sector & $n$ & Example subindustry titles \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+11 & Agriculture, Forestry, Fishing and Hunting & 64 & Soybean Farming; Oilseed Farming; Dry Pea and Bean Farming; \dots \\
+21 & Mining, Quarrying, and Oil and Gas Extraction & 21 & Crude Petroleum Extraction; Natural Gas Extraction; Surface Coal Mining; \dots \\
+22 & Utilities & 14 & Hydroelectric Power Generation; Fossil Fuel Electric Power Generation; Nuclear Electric Power Generation; \dots \\
+23 & Construction & 31 & New Single-Family Housing Construction; New Multifamily Housing Construction; New Housing For-Sale Builders; \dots \\
+31-33 & Manufacturing & 346 & Dog and Cat Food Manufacturing; Other Animal Food Manufacturing; Flour Milling; \dots \\
+42 & Wholesale Trade & 69 & Automobile and Other Motor Vehicle Merchant Wholesalers; Motor Vehicle Supplies and New Parts Merchant Wholesalers; Tire and Tube Merchant Wholesalers; \dots \\
+44-45 & Retail Trade & 57 & New Car Dealers; Used Car Dealers; Recreational Vehicle Dealers; \dots \\
+48-49 & Transportation and Warehousing & 57 & Scheduled Passenger Air Transportation; Scheduled Freight Air Transportation; Nonscheduled Chartered Passenger Air Transportation; \dots \\
+51 & Information & 29 & Motion Picture and Video Production; Motion Picture and Video Distribution; Motion Picture Theaters; \dots \\
+52 & Finance and Insurance & 35 & Monetary Authorities-Central Bank; Commercial Banking; Credit Unions; \dots \\
+53 & Real Estate and Rental and Leasing & 24 & Lessors of Residential Buildings and Dwellings; Lessors of Nonresidential Buildings; Lessors of Miniwarehouses and Self-Storage Units; \dots \\
+54 & Professional, Scientific, and Technical Services & 49 & Offices of Lawyers; Offices of Notaries; Title Abstract and Settlement Offices; \dots \\
+55 & Management of Companies and Enterprises & 20 & Bank holding companies; Holding companies, bank; Offices of bank holding companies; \dots \\
+56 & Administrative and Support and Waste Management and Remediation Services & 44 & Office Administrative Services; Facilities Support Services; Employment Placement Agencies; \dots \\
+61 & Educational Services & 17 & Elementary and Secondary Schools; Junior Colleges; Colleges, Universities, and Professional Schools; \dots \\
+62 & Health Care and Social Assistance & 39 & Offices of Physicians; Offices of Physicians, Mental Health Specialists; Offices of Dentists; \dots \\
+71 & Arts, Entertainment, and Recreation & 25 & Theater Companies and Dinner Theaters; Dance Companies; Musical Groups and Artists; \dots \\
+72 & Accommodation and Food Services & 15 & Hotels and Motels; Casino Hotels; Bed-and-Breakfast Inns; \dots \\
+81 & Other Services (except Public Administration) & 44 & General Automotive Repair; Specialized Automotive Repair; Automotive Body, Paint, and Interior Repair and Maintenance; \dots \\
+92 & Public Administration & 29 & Executive Offices; Legislative Bodies; Public Finance Activities; \dots \\
+\end{longtable}

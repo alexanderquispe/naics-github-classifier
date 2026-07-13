@@ -1,0 +1,82 @@
+This appendix documents the full benchmark setup behind Section~\ref{sec:benchmark}: the input cleaning, the six base models and their parameter counts, the complete list of training hyperparameters (identical across all six runs), and reproducibility notes. The canonical source is \texttt{naics\_training\_gptdata.ipynb} in the Colab \texttt{naics\_github} folder; a re-runnable local refactor is \texttt{naics-github-train/scripts/train.py}.
+
+\subsection*{F.1\quad Input construction and cleaning}
+Each row is serialized as \texttt{Repository: \{name\_repo\} | Description: \{description\} | Topics: \{topics\} | README: \{readme\_content\}} and then passed through the helper \texttt{clean\_repository\_text(text)} which performs nine normalization steps:
+\begin{enumerate}
+  \item Strip Markdown badges and shields (\texttt{!{[}\dots{]}({[}url{]})} and \texttt{{[}!{[}\dots{]}(\dots){]}(\dots)});
+  \item strip license/copyright headers (\texttt{MIT License}, \texttt{Apache License}, \texttt{GPL}, \texttt{BSD}, \texttt{Copyright \dots});
+  \item collapse URLs to the bare domain (\texttt{https?://(domain)/path?...} $\rightarrow$ \texttt{domain});
+  \item strip Markdown headers (\texttt{\#}\dots\texttt{\#\#\#\#\#\#}) and bold/italic/code markers (\texttt{*}, \texttt{\_}, \texttt{\textasciitilde}, \texttt{\textasciigrave});
+  \item replace fenced code blocks with a \texttt{code-\{lang\}} placeholder; strip inline backticks but keep the content;
+  \item normalize tech-stack mentions (\texttt{js} $\rightarrow$ \texttt{javascript}, \texttt{py} $\rightarrow$ \texttt{python}, \texttt{reactjs} $\rightarrow$ \texttt{react}, \texttt{nodejs} $\rightarrow$ \texttt{nodejs});
+  \item normalize excessive punctuation (\texttt{!!} $\rightarrow$ \texttt{!}, \texttt{??} $\rightarrow$ \texttt{?}, \texttt{....} $\rightarrow$ \texttt{\dots});
+  \item normalize whitespace (collapse multiple newlines and spaces);
+  \item strip installation-command noise (\texttt{npm install}, \texttt{pip install}, \texttt{git clone}, and the rest of those lines).
+\end{enumerate}
+The cleaned string is the \texttt{text} column passed to the tokenizer.
+
+\subsection*{F.2\quad Base models and parameter counts}
+All six runs share data, splits, and hyperparameters; only the base model differs.
+\begin{table}[ht]
+\centering
+\caption{Pretrained encoders fine-tuned in \S\ref{sec:benchmark}.}
+\label{tab:training-models}
+\small
+\begin{tabular}{lll}
+\toprule
+Hugging Face identifier & Label in paper & Parameters \\
+\midrule
+\texttt{roberta-base} & RoBERTa-base & 125M \\
+\texttt{roberta-large} & RoBERTa-large & 355M \\
+\texttt{answerdotai/ModernBERT-base} & ModernBERT-base & 139M \\
+\texttt{answerdotai/ModernBERT-large} & ModernBERT-large & 395M \\
+\texttt{microsoft/deberta-v3-base} & DeBERTa-v3-base & 183M \\
+\texttt{microsoft/deberta-v3-large} & DeBERTa-v3-large & 400M \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{F.3\quad Training hyperparameters}
+All values below are set in \texttt{setup\_training\_arguments()} and were applied identically to every model run.
+\begin{table}[ht]
+\centering
+\caption{Full hyperparameter sheet for the fine-tuning runs.}
+\label{tab:training-hp}
+\small
+\begin{tabular}{ll}
+\toprule
+Argument & Value \\
+\midrule
+\texttt{num\_train\_epochs} & 8 \\
+\texttt{learning\_rate} & $1.5\times 10^{-5}$ \\
+\texttt{lr\_scheduler\_type} & \texttt{polynomial} \\
+\texttt{warmup\_ratio} & 0.15 \\
+\texttt{weight\_decay} & 0.02 \\
+\texttt{per\_device\_train\_batch\_size} & 8 \\
+\texttt{per\_device\_eval\_batch\_size} & 16 \\
+\texttt{gradient\_accumulation\_steps} & 2 \\
+Effective batch size & 16 \\
+\texttt{max\_grad\_norm} & 1.0 \\
+\texttt{bf16} & \texttt{True} \\
+\texttt{optim} & \texttt{adamw\_torch\_fused} \\
+\texttt{eval\_strategy} & \texttt{steps} (every 100) \\
+\texttt{save\_strategy} & \texttt{steps} (every 100) \\
+\texttt{save\_total\_limit} & 5 \\
+\texttt{load\_best\_model\_at\_end} & \texttt{True} \\
+\texttt{metric\_for\_best\_model} & \texttt{f1} (weighted) \\
+\texttt{early\_stopping\_patience} & 2 \\
+\texttt{early\_stopping\_threshold} & 0.001 \\
+\texttt{seed} & 42 \\
+Tokenizer \texttt{max\_length} & 512 WordPiece tokens (uniform) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{F.4\quad Splits and evaluation metric}
+The 6{,}588-row corpus is divided into train / validation / test sets of \textbf{4{,}611 / 659 / 1{,}318} via \texttt{sklearn.model\_selection.train\_test\_split} with \texttt{test\_size = 0.2}, \texttt{val\_size = 0.1}, \texttt{random\_state = 42}, and stratification on the \texttt{label} column. All 19 NAICS classes appear in every split. The evaluation metric for both \texttt{metric\_for\_best\_model} and the headline test-set result is the weighted F1 over the 19 classes; accuracy, weighted precision, and weighted recall are reported alongside.
+
+\subsection*{F.5\quad Hardware and runtime}
+All six runs were performed on a Colab Pro+ instance with a single NVIDIA A100 (40~GB). BF16 mixed precision and the fused \texttt{adamw\_torch\_fused} optimizer keep memory use comfortable for the largest model (DeBERTa-v3-large, 400~M parameters) at the per-device batch size of~8. End-to-end runtime per model was on the order of 8--15 minutes including checkpointing, with early stopping commonly firing between epochs 4 and 7.
+
+\subsection*{F.6\quad Reproducibility}
+The published RoBERTa-large checkpoint at \url{https://huggingface.co/alexanderquispe/naics-github-classifier} is the artifact produced by the above pipeline with \texttt{model\_id = \"roberta-large\"}. To reproduce, clone \texttt{naics-github-train}, place the released training file \texttt{train\_data\_gpt\_ab8\_score\_with\_code.parquet} under \texttt{data/raw/}, and run \texttt{python scripts/train.py --model roberta-large --batch-size 32 --epochs 8} (the script's defaults match the hyperparameters listed in Table~\ref{tab:training-hp}). With the same \texttt{seed = 42}, the F1 figure of 86.45\% should reproduce within $\pm 0.5$ pp of stochastic variation.

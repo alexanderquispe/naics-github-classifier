@@ -1,0 +1,1087 @@
+[
+  {
+    "block": "github_classification",
+    "label": "GitHub repository classification (closest prior work)",
+    "ss_query": "GitHub repository classification topic application domain",
+    "arxiv_query": "GitHub repository classification topic application domain",
+    "papers": [
+      {
+        "source": "arxiv",
+        "title": "LLM-based Content Classification Approach for GitHub Repositories by the README Files",
+        "authors": [
+          "Malik Uzair Mehmood",
+          "Shahid Hussain",
+          "Wen Li Wang",
+          "Muhammad Usama Malik"
+        ],
+        "year": 2025,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "GitHub is the world's most popular platform for storing, sharing, and managing code. Every GitHub repository has a README file associated with it. The README files should contain project-related information as per the recommendations of GitHub to support the usage and improvement of repositories. However, GitHub repository owners sometimes neglected these recommendations. This prevents a GitHub repository from reaching its full potential. This research posits that the comprehensiveness of a GitHub repository's README file significantly influences its adoption and utilization, with a lack of de",
+        "arxiv_id": "2507.21899",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2507.21899v1",
+        "local_pdf": "pdfs\\2507.21899.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "Automatically Categorising GitHub Repositories by Application Domain",
+        "authors": [
+          "Francisco Zanartu",
+          "Christoph Treude",
+          "Bruno Cartaxo",
+          "Hudson Silva Borges",
+          "Pedro Moura",
+          "Markus Wagner",
+          "Gustavo Pinto"
+        ],
+        "year": 2022,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "GitHub is the largest host of open source software on the Internet. This large, freely accessible database has attracted the attention of practitioners and researchers alike. But as GitHub's growth continues, it is becoming increasingly hard to navigate the plethora of repositories which span a wide range of domains. Past work has shown that taking the application domain into account is crucial for tasks such as predicting the popularity of a repository and reasoning about project quality. In this work, we build on a previously annotated dataset of 5,000 GitHub repositories to design an automa",
+        "arxiv_id": "2208.00269",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2208.00269v1",
+        "local_pdf": "pdfs\\2208.00269.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "GitRanking: A Ranking of GitHub Topics for Software Classification using Active Sampling",
+        "authors": [
+          "Cezar Sas",
+          "Andrea Capiluppi",
+          "Claudio Di Sipio",
+          "Juri Di Rocco",
+          "Davide Di Ruscio"
+        ],
+        "year": 2022,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "GitHub is the world's largest host of source code, with more than 150M repositories. However, most of these repositories are not labeled or inadequately so, making it harder for users to find relevant projects. There have been various proposals for software application domain classification over the past years. However, these approaches lack a well-defined taxonomy that is hierarchical, grounded in a knowledge base, and free of irrelevant terms. This work proposes GitRanking, a framework for creating a classification ranked into discrete levels based on how general or specific their meaning is",
+        "arxiv_id": "2205.09379",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2205.09379v1",
+        "local_pdf": "pdfs\\2205.09379.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "Classification Aware Neural Topic Model and its Application on a New COVID-19 Disinformation Corpus",
+        "authors": [
+          "Xingyi Song",
+          "Johann Petrak",
+          "Ye Jiang",
+          "Iknoor Singh",
+          "Diana Maynard",
+          "Kalina Bontcheva"
+        ],
+        "year": 2020,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "The explosion of disinformation accompanying the COVID-19 pandemic has overloaded fact-checkers and media worldwide, and brought a new major challenge to government responses worldwide. Not only is disinformation creating confusion about medical science amongst citizens, but it is also amplifying distrust in policy makers and governments. To help tackle this, we developed computational methods to categorise COVID-19 disinformation. The COVID-19 disinformation categories could be used for a) focusing fact-checking efforts on the most damaging kinds of COVID-19 disinformation; b) guiding policy ",
+        "arxiv_id": "2006.03354",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2006.03354v2",
+        "local_pdf": "pdfs\\2006.03354.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "Topic Recommendation for Software Repositories using Multi-label Classification Algorithms",
+        "authors": [
+          "Maliheh Izadi",
+          "Abbas Heydarnoori",
+          "Georgios Gousios"
+        ],
+        "year": 2020,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "Many platforms exploit collaborative tagging to provide their users with faster and more accurate results while searching or navigating. Tags can communicate different concepts such as the main features, technologies, functionality, and the goal of a software repository. Recently, GitHub has enabled users to annotate repositories with topic tags. It has also provided a set of featured topics, and their possible aliases carefully curated with the help of the community. This creates the opportunity to use this initial seed of topics to automatically annotate all remaining repositories, by traini",
+        "arxiv_id": "2010.09116",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2010.09116v4",
+        "local_pdf": "pdfs\\2010.09116.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "HiGitClass: Keyword-Driven Hierarchical Classification of GitHub Repositories",
+        "authors": [
+          "Yu Zhang",
+          "Frank F. Xu",
+          "Sha Li",
+          "Yu Meng",
+          "Xuan Wang",
+          "Qi Li",
+          "Jiawei Han"
+        ],
+        "year": 2019,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "GitHub has become an important platform for code sharing and scientific exchange. With the massive number of repositories available, there is a pressing need for topic-based search. Even though the topic label functionality has been introduced, the majority of GitHub repositories do not have any labels, impeding the utility of search and topic-based analysis. This work targets the automatic repository classification problem as keyword-driven hierarchical classification. Specifically, users only need to provide a label hierarchy with keywords to supply as supervision. This setting is flexible, ",
+        "arxiv_id": "1910.07115",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/1910.07115v2",
+        "local_pdf": "pdfs\\1910.07115.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "Predicting the Popularity of GitHub Repositories",
+        "authors": [
+          "Hudson Borges",
+          "Andre Hora",
+          "Marco Tulio Valente"
+        ],
+        "year": 2016,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "GitHub is the largest source code repository in the world. It provides a git-based source code management platform and also many features inspired by social networks. For example, GitHub users can show appreciation to projects by adding stars to them. Therefore, the number of stars of a repository is a direct measure of its popularity. In this paper, we use multiple linear regressions to predict the number of stars of GitHub repositories. These predictions are useful both to repository owners and clients, who usually want to know how their projects are performing in a competitive open source d",
+        "arxiv_id": "1607.04342",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/1607.04342v1",
+        "local_pdf": "pdfs\\1607.04342.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "On the Popularity of GitHub Applications: A Preliminary Note",
+        "authors": [
+          "Hudson Borges",
+          "Marco Tulio Valente",
+          "Andre Hora",
+          "Jailton Coelho"
+        ],
+        "year": 2015,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "GitHub is the world's largest collection of open source software. Therefore, it is important both to software developers and users to compare and track the popularity of GitHub repositories. In this paper, we propose a framework to assess the popularity of GitHub software, using their number of stars. We also propose a set of popularity growth patterns, which describe the evolution of the number of stars of a system over time. We show that stars tend to correlate with other measures, like forks, and with the effective usage of GitHub software by third-party programs. Throughout the paper we il",
+        "arxiv_id": "1507.00604",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/1507.00604v3",
+        "local_pdf": "pdfs\\1507.00604.pdf"
+      }
+    ]
+  },
+  {
+    "block": "weak_supervision_llm",
+    "label": "LLM-as-labeler / weak supervision for dataset construction",
+    "ss_query": "LLM weak supervision dataset annotation GPT-4 labeler",
+    "arxiv_query": "weak supervision LLM annotation labeling dataset construction",
+    "papers": [
+      {
+        "source": "arxiv",
+        "title": "The RSNA Lumbar Degenerative Imaging Spine Classification (LumbarDISC) Dataset",
+        "authors": [
+          "Tyler J. Richards",
+          "Adam E. Flanders",
+          "Errol Colak",
+          "Luciano M. Prevedello",
+          "Robyn L. Ball",
+          "Felipe Kitamura",
+          "John Mongan",
+          "Maryam Vazirabad",
+          "Hui-Ming Lin",
+          "Anne Kendell",
+          "Thanat Kanthawang",
+          "Salita Angkurawaranon",
+          "Emre Altinmakas",
+          "Hakan Dogan",
+          "Paulo Eduardo de Aguiar Kuriki",
+          "Arjuna Somasundaram",
+          "Christopher Ruston",
+          "Deniz Bulja",
+          "Naida Spahovic",
+          "Jennifer Sommer",
+          "Sirui Jiang",
+          "Eduardo Moreno Judice de Mattos Farina",
+          "Eduardo Caminha Nunes",
+          "Michael Brassil",
+          "Megan McNamara",
+          "Johanna Ortiz",
+          "Jacob Peoples",
+          "Vinson L. Uytana",
+          "Anthony Kam",
+          "Venkata N. S. Dola",
+          "Daniel Murphy",
+          "David Vu",
+          "Dataset Contributor Group",
+          "Dataset Annotator Group",
+          "Competition Data Notebook Group",
+          "Jason F. Talbott"
+        ],
+        "year": 2025,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "The Radiological Society of North America (RSNA) Lumbar Degenerative Imaging Spine Classification (LumbarDISC) dataset is the largest publicly available dataset of adult MRI lumbar spine examinations annotated for degenerative changes. The dataset includes 2,697 patients with a total of 8,593 image series from 8 institutions across 6 countries and 5 continents. The dataset is available for free for non-commercial use via Kaggle and RSNA Medical Imaging Resource of AI (MIRA). The dataset was created for the RSNA 2024 Lumbar Spine Degenerative Classification competition where competitors develop",
+        "arxiv_id": "2506.09162",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2506.09162v1",
+        "local_pdf": "pdfs\\2506.09162.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "Cost-aware LLM-based Online Dataset Annotation",
+        "authors": [
+          "Eray Can Elumar",
+          "Cem Tekin",
+          "Osman Yagan"
+        ],
+        "year": 2025,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "Recent advances in large language models (LLMs) have enabled automated dataset labeling with minimal human supervision. While majority voting across multiple LLMs can improve label reliability by mitigating individual model biases, it incurs high computational costs due to repeated querying. In this work, we propose a novel online framework, Cost-aware Majority Voting (CaMVo), for efficient and accurate LLM-based dataset annotation. CaMVo adaptively selects a subset of LLMs for each data instance based on contextual embeddings, balancing confidence and cost without requiring pre-training or gr",
+        "arxiv_id": "2505.15101",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2505.15101v2",
+        "local_pdf": "pdfs\\2505.15101.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "The RSNA Abdominal Traumatic Injury CT (RATIC) Dataset",
+        "authors": [
+          "Jeffrey D. Rudie",
+          "Hui-Ming Lin",
+          "Robyn L. Ball",
+          "Sabeena Jalal",
+          "Luciano M. Prevedello",
+          "Savvas Nicolaou",
+          "Brett S. Marinelli",
+          "Adam E. Flanders",
+          "Kirti Magudia",
+          "George Shih",
+          "Melissa A. Davis",
+          "John Mongan",
+          "Peter D. Chang",
+          "Ferco H. Berger",
+          "Sebastiaan Hermans",
+          "Meng Law",
+          "Tyler Richards",
+          "Jan-Peter Grunz",
+          "Andreas Steven Kunz",
+          "Shobhit Mathur",
+          "Sandro Galea-Soler",
+          "Andrew D. Chung",
+          "Saif Afat",
+          "Chin-Chi Kuo",
+          "Layal Aweidah",
+          "Ana Villanueva Campos",
+          "Arjuna Somasundaram",
+          "Felipe Antonio Sanchez Tijmes",
+          "Attaporn Jantarangkoon",
+          "Leonardo Kayat Bittencourt",
+          "Michael Brassil",
+          "Ayoub El Hajjami",
+          "Hakan Dogan",
+          "Muris Becircic",
+          "Agrahara G. Bharatkumar",
+          "Eduardo Moreno Júdice de Mattos Farina",
+          "Dataset Curator Group",
+          "Dataset Contributor Group",
+          "Dataset Annotator Group",
+          "Errol Colak"
+        ],
+        "year": 2024,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "The RSNA Abdominal Traumatic Injury CT (RATIC) dataset is the largest publicly available collection of adult abdominal CT studies annotated for traumatic injuries. This dataset includes 4,274 studies from 23 institutions across 14 countries. The dataset is freely available for non-commercial use via Kaggle at https://www.kaggle.com/competitions/rsna-2023-abdominal-trauma-detection. Created for the RSNA 2023 Abdominal Trauma Detection competition, the dataset encourages the development of advanced machine learning models for detecting abdominal injuries on CT scans. The dataset encompasses dete",
+        "arxiv_id": "2405.19595",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2405.19595v1",
+        "local_pdf": "pdfs\\2405.19595.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "MOSA: Music Motion with Semantic Annotation Dataset for Cross-Modal Music Processing",
+        "authors": [
+          "Yu-Fen Huang",
+          "Nikki Moran",
+          "Simon Coleman",
+          "Jon Kelly",
+          "Shun-Hwa Wei",
+          "Po-Yin Chen",
+          "Yun-Hsin Huang",
+          "Tsung-Ping Chen",
+          "Yu-Chia Kuo",
+          "Yu-Chi Wei",
+          "Chih-Hsuan Li",
+          "Da-Yu Huang",
+          "Hsuan-Kai Kao",
+          "Ting-Wei Lin",
+          "Li Su"
+        ],
+        "year": 2024,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "In cross-modal music processing, translation between visual, auditory, and semantic content opens up new possibilities as well as challenges. The construction of such a transformative scheme depends upon a benchmark corpus with a comprehensive data infrastructure. In particular, the assembly of a large-scale cross-modal dataset presents major challenges. In this paper, we present the MOSA (Music mOtion with Semantic Annotation) dataset, which contains high quality 3-D motion capture data, aligned audio recordings, and note-by-note semantic annotations of pitch, beat, phrase, dynamic, articulat",
+        "arxiv_id": "2406.06375",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2406.06375v1",
+        "local_pdf": "pdfs\\2406.06375.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "README: Bridging Medical Jargon and Lay Understanding for Patient Education through Data-Centric NLP",
+        "authors": [
+          "Zonghai Yao",
+          "Nandyala Siddharth Kantu",
+          "Guanghao Wei",
+          "Hieu Tran",
+          "Zhangqi Duan",
+          "Sunjae Kwon",
+          "Zhichao Yang",
+          "README annotation team",
+          "Hong Yu"
+        ],
+        "year": 2023,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "The advancement in healthcare has shifted focus toward patient-centric approaches, particularly in self-care and patient education, facilitated by access to Electronic Health Records (EHR). However, medical jargon in EHRs poses significant challenges in patient comprehension. To address this, we introduce a new task of automatically generating lay definitions, aiming to simplify complex medical terms into patient-friendly lay language. We first created the README dataset, an extensive collection of over 50,000 unique (medical term, lay definition) pairs and 300,000 mentions, each offering cont",
+        "arxiv_id": "2312.15561",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2312.15561v5",
+        "local_pdf": "pdfs\\2312.15561.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "Shifting to Machine Supervision: Annotation-Efficient Semi and Self-Supervised Learning for Automatic Medical Image Segmentation and Classification",
+        "authors": [
+          "Pranav Singh",
+          "Raviteja Chukkapalli",
+          "Shravan Chaudhari",
+          "Luoyao Chen",
+          "Mei Chen",
+          "Jinqian Pan",
+          "Craig Smuda",
+          "Jacopo Cirrone"
+        ],
+        "year": 2023,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "Advancements in clinical treatment are increasingly constrained by the limitations of supervised learning techniques, which depend heavily on large volumes of annotated data. The annotation process is not only costly but also demands substantial time from clinical specialists. Addressing this issue, we introduce the S4MI (Self-Supervision and Semi-Supervision for Medical Imaging) pipeline, a novel approach that leverages advancements in self-supervised and semi-supervised learning. These techniques engage in auxiliary tasks that do not require labeling, thus simplifying the scaling of machine ",
+        "arxiv_id": "2311.10319",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2311.10319v6",
+        "local_pdf": "pdfs\\2311.10319.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "Reducing Label Effort: Self-Supervised meets Active Learning",
+        "authors": [
+          "Javad Zolfaghari Bengar",
+          "Joost van de Weijer",
+          "Bartlomiej Twardowski",
+          "Bogdan Raducanu"
+        ],
+        "year": 2021,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "Active learning is a paradigm aimed at reducing the annotation effort by training the model on actively selected informative and/or representative samples. Another paradigm to reduce the annotation effort is self-training that learns from a large amount of unlabeled data in an unsupervised way and fine-tunes on few labeled samples. Recent developments in self-training have achieved very impressive results rivaling supervised learning on some datasets. The current work focuses on whether the two paradigms can benefit from each other. We studied object recognition datasets including CIFAR10, CIF",
+        "arxiv_id": "2108.11458",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2108.11458v1",
+        "local_pdf": "pdfs\\2108.11458.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "Bayesian Methods for Semi-supervised Text Annotation",
+        "authors": [
+          "Kristian Miok",
+          "Gregor Pirs",
+          "Marko Robnik-Sikonja"
+        ],
+        "year": 2020,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "Human annotations are an important source of information in the development of natural language understanding approaches. As under the pressure of productivity annotators can assign different labels to a given text, the quality of produced annotations frequently varies. This is especially the case if decisions are difficult, with high cognitive load, requires awareness of broader context, or careful consideration of background knowledge. To alleviate the problem, we propose two semi-supervised methods to guide the annotation process: a Bayesian deep learning model and a Bayesian ensemble metho",
+        "arxiv_id": "2010.14872",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2010.14872v1",
+        "local_pdf": "pdfs\\2010.14872.pdf"
+      }
+    ]
+  },
+  {
+    "block": "industry_classification_text",
+    "label": "Industry classification (NAICS) applied to text or non-standard data",
+    "ss_query": "NAICS industry classification text machine learning",
+    "arxiv_query": "industry classification NAICS company text deep learning",
+    "papers": [
+      {
+        "source": "semantic_scholar",
+        "title": "A Comprehensive Review on Machine Learning in Healthcare Industry: Classification, Restrictions, Opportunities and Challenges",
+        "authors": [
+          "Qi An",
+          "Saifur Rahman",
+          "Jingwen Zhou",
+          "James Jin Kang"
+        ],
+        "year": 2023,
+        "venue": "Italian National Conference on Sensors",
+        "citations": 266,
+        "abstract": "Recently, various sophisticated methods, including machine learning and artificial intelligence, have been employed to examine health-related data. Medical professionals are acquiring enhanced diagnostic and treatment abilities by utilizing machine learning applications in the healthcare domain. Medical data have been used by many researchers to detect diseases and identify patterns. In the current literature, there are very few studies that address machine learning algorithms to improve healthcare data accuracy and efficiency. We examined the effectiveness of machine learning algorithms in im",
+        "arxiv_id": null,
+        "doi": "10.3390/s23094178",
+        "openaccess_pdf": "https://www.mdpi.com/1424-8220/23/9/4178/pdf?version=1682145245"
+      },
+      {
+        "source": "semantic_scholar",
+        "title": "Integrating Machine Learning and Genetic Algorithms to Enhance Gene-Disease Classification: An XBNet-Based Framework",
+        "authors": [
+          "Rana Khalid Hamad"
+        ],
+        "year": 2025,
+        "venue": "Babylonian Journal of Machine Learning",
+        "citations": 11,
+        "abstract": "In bioinformatics, the classification of gene-disease associations is crucial. It directly affects whether we can untangle the genetic roots of various disease as well as if we will find some justifiable therapy for these cured diseases.Using XBNet to construct genetic algorithms for higher accuracy and speeds of gene-disease classification--this is the method developed in the book.Consisting of gene expression profiles for six diseases--Alzheimer's, Asthma, Cancer, Diabetes, Fabry and Down syndrome--our research has applied a comprehensive pre-processing technique to this data set from Kaggle",
+        "arxiv_id": null,
+        "doi": "10.58496/bjml/2025/001",
+        "openaccess_pdf": ""
+      },
+      {
+        "source": "semantic_scholar",
+        "title": "Ransomware Detection: Leveraging Sandbox, Text Mining Techiques and Machine Learning",
+        "authors": [
+          "Augusto Parisot",
+          "L. Bento",
+          "Raphael Machado"
+        ],
+        "year": 2024,
+        "venue": "2024 IEEE International Workshop on Metrology for Industry 4.0 & IoT (MetroInd4.0 & IoT)",
+        "citations": 3,
+        "abstract": "With the significant rise in ransomware attacks in recent years, these malwares have emerged as one of the top threats to global cybersecurity. This article introduces a dynamic methodology for ransomware classification, leveraging the advanced analysis capabilities of the Cuckoo Sandbox combined with widely used machine learning techniques. We constructed three novel datasets focusing on API calls, network interactions, and string information extracted from malware samples, applying the TF-IDF technique for essential feature extraction. The efficacy of six machine learning (ML) classification",
+        "arxiv_id": null,
+        "doi": "10.1109/MetroInd4.0IoT61288.2024.10584155",
+        "openaccess_pdf": ""
+      },
+      {
+        "source": "semantic_scholar",
+        "title": "BEACON: A Tool for Industry Self-Classification in the Economic Census",
+        "authors": [
+          "Brian Dumbacher",
+          "Daniel Whitehead",
+          "Jiseok Jeong",
+          "Sarah Pfeiff"
+        ],
+        "year": 2025,
+        "venue": "Journal of Data Science",
+        "citations": 2,
+        "abstract": "Business Establishment Automated Classification of NAICS (BEACON) is a text classification tool that helps respondents to the U.S. Census Bureau’s economic surveys self-classify their business activity in real time. The tool is based on rich training data, natural language processing, machine learning, and information retrieval. It is implemented using Python and an application programming interface. This paper describes BEACON’s methodology and successful application to the 2022 Economic Census, during which the tool was used over half a million times. BEACON has demonstrated that it recogniz",
+        "arxiv_id": null,
+        "doi": "10.6339/25-jds1180",
+        "openaccess_pdf": ""
+      },
+      {
+        "source": "arxiv",
+        "title": "Monodense Deep Neural Model for Determining Item Price Elasticity",
+        "authors": [
+          "Lakshya Garg",
+          "Sai Yaswanth",
+          "Deep Narayan Mishra",
+          "Karthik Kumaran",
+          "Anupriya Sharma",
+          "Mayank Uniyal"
+        ],
+        "year": 2026,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "Item Price Elasticity is used to quantify the responsiveness of consumer demand to changes in item prices, enabling businesses to create pricing strategies and optimize revenue management. Sectors such as store retail, e-commerce, and consumer goods rely on elasticity information derived from historical sales and pricing data. This elasticity provides an understanding of purchasing behavior across different items, consumer discount sensitivity, and demand elastic departments. This information is particularly valuable for competitive markets and resource-constrained businesses decision making w",
+        "arxiv_id": "2603.29261",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2603.29261v1",
+        "local_pdf": "pdfs\\2603.29261.pdf"
+      },
+      {
+        "source": "semantic_scholar",
+        "title": "Enhancing Auto Service Analytics: Automated Classification of Technician comments using text mining and Machine Learning",
+        "authors": [
+          "Vaibhav Tummalapalli"
+        ],
+        "year": 2025,
+        "venue": "International Journal of Artificial Intelligence, Data Science, and Machine Learning",
+        "citations": 0,
+        "abstract": "The ability to accurately classify service types from technician comments is a critical challenge for many automotive original equipment manufacturers (OEMs) that lack standardized opcode systems. Existing rule-based methods, while precise, leave numerous observations unlabeled due to variability in textual descriptions. This study proposes a novel approach that combines text mining techniques with a multinomial classification model to automate service type classification. By leveraging structured and unstructured data, this method achieves a significant improvement in classification accuracy,",
+        "arxiv_id": null,
+        "doi": "10.63282/3050-9262.ijaidsml-v6i4p122",
+        "openaccess_pdf": ""
+      },
+      {
+        "source": "semantic_scholar",
+        "title": "Adaptive Product Classification Framework Using Machine Learning on Virtualized Data Sources",
+        "authors": [
+          "Meenal N. Pande",
+          "S. Yedey"
+        ],
+        "year": 2025,
+        "venue": "2025 3rd DMIHER International Conference on Artificial Intelligence in Healthcare, Education and Industry (IDICAIHEI)",
+        "citations": 0,
+        "abstract": "The surge of online retail has increased the need for scalable and correct product classification systems that can accommodate heterogeneous and dynamic data sources. Existing machine learning techniques typically do not scale when the product attributes change, or when the data is fragmented into virtualized data streams. In this study, we presented ViPAC-Net (Virtualized Product Adaptive Classification Network), an adaptive multimodal framework that integrates text, image data, and numerical products/node data through virtualized data integration, sophisticated preprocessing, and adaptive le",
+        "arxiv_id": null,
+        "doi": "10.1109/IDICAIHEI65991.2025.11379758",
+        "openaccess_pdf": ""
+      },
+      {
+        "source": "arxiv",
+        "title": "Generalized Regularized Evidential Deep Learning Models: Theory and Comprehensive Evaluation",
+        "authors": [
+          "Deep Shankar Pandey",
+          "Hyomin Choi",
+          "Qi Yu"
+        ],
+        "year": 2025,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "Evidential deep learning (EDL) models, based on Subjective Logic, introduce a principled and computationally efficient way to make deterministic neural networks uncertainty-aware. The resulting evidential models can quantify fine-grained uncertainty using learned evidence. However, the Subjective-Logic framework constrains evidence to be non-negative, requiring specific activation functions whose geometric properties can induce activation-dependent learning-freeze behavior: a regime where gradients become extremely small for samples mapped into low-evidence regions. We theoretically characteri",
+        "arxiv_id": "2512.23753",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2512.23753v1",
+        "local_pdf": "pdfs\\2512.23753.pdf"
+      },
+      {
+        "source": "semantic_scholar",
+        "title": "Improvised Text Classification by Hybrid Machine Learning Techniques",
+        "authors": [
+          "Cuddapah Anitha",
+          "Akanksha Kapruwan",
+          "S. M",
+          "Jyoti Dange",
+          "Vipul Vekariya",
+          "R. Maranan"
+        ],
+        "year": 2024,
+        "venue": "2024 OPJU International Technology Conference (OTCON) on Smart Computing for Innovation and Advancement in Industry 4.0",
+        "citations": 0,
+        "abstract": "To improve the performance of English-text classification, text classification systems aim to design appropriate algorithms for extracting features and auto-classifying texts with automatic semantic feature selection. Motivated by the efficiency of Attention mechanism (AM), the ways to use AMs at different levels in CNN and specific RNN organization are explored in this work and BLSTM based models to eliminate misinformation, obtain more accurate contextual information, and ultimately improve performance. Finally, all of the features are concatenated and fed into the softmax classifier. The BL",
+        "arxiv_id": null,
+        "doi": "10.1109/OTCON60325.2024.10688096",
+        "openaccess_pdf": ""
+      },
+      {
+        "source": "semantic_scholar",
+        "title": "Custom Dataset Text Classification: An Ensemble Approach with Machine Learning and Deep Learning Models",
+        "authors": [
+          "Deekshitha Valluri",
+          "Suneetha Manne",
+          "Nikitha Tripuraneni"
+        ],
+        "year": 2023,
+        "venue": "International Conference on Innovative Mechanisms for Industry Applications",
+        "citations": 0,
+        "abstract": "In academic institutions, commercial enterprises, research centers, technology-heavy businesses, and government funding agencies, maintaining consistent data is a major difficulty. For an entity, which might be anything from an object to a place or thing, most data are irregular. These days, to identify significant patterns that represent the data, entity links in a dataset are investigated by text mining or data analytics. With this knowledge, alternatives are then taken. Analytics creates data and finds patterns by turning words into numbers. In the end, better data organization results in b",
+        "arxiv_id": null,
+        "doi": "10.1109/ICIMIA60377.2023.10426114",
+        "openaccess_pdf": ""
+      },
+      {
+        "source": "arxiv",
+        "title": "Learn to Accumulate Evidence from All Training Samples: Theory and Practice",
+        "authors": [
+          "Deep Pandey",
+          "Qi Yu"
+        ],
+        "year": 2023,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "Evidential deep learning, built upon belief theory and subjective logic, offers a principled and computationally efficient way to turn a deterministic neural network uncertainty-aware. The resultant evidential models can quantify fine-grained uncertainty using the learned evidence. To ensure theoretically sound evidential models, the evidence needs to be non-negative, which requires special activation functions for model training and inference. This constraint often leads to inferior predictive performance compared to standard softmax models, making it challenging to extend them to many large-",
+        "arxiv_id": "2306.11113",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2306.11113v2",
+        "local_pdf": "pdfs\\2306.11113.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "Deep Learning and Computational Physics (Lecture Notes)",
+        "authors": [
+          "Deep Ray",
+          "Orazio Pinti",
+          "Assad A. Oberai"
+        ],
+        "year": 2023,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "These notes were compiled as lecture notes for a course developed and taught at the University of the Southern California. They should be accessible to a typical engineering graduate student with a strong background in Applied Mathematics. The main objective of these notes is to introduce a student who is familiar with concepts in linear algebra and partial differential equations to select topics in deep learning. These lecture notes exploit the strong connections between deep learning algorithms and the more conventional techniques of computational physics to achieve two goals. First, they us",
+        "arxiv_id": "2301.00942",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2301.00942v1",
+        "local_pdf": "pdfs\\2301.00942.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "The Modern Mathematics of Deep Learning",
+        "authors": [
+          "Julius Berner",
+          "Philipp Grohs",
+          "Gitta Kutyniok",
+          "Philipp Petersen"
+        ],
+        "year": 2021,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "We describe the new field of mathematical analysis of deep learning. This field emerged around a list of research questions that were not answered within the classical framework of learning theory. These questions concern: the outstanding generalization power of overparametrized neural networks, the role of depth in deep architectures, the apparent absence of the curse of dimensionality, the surprisingly successful optimization performance despite the non-convexity of the problem, understanding what features are learned, why deep architectures perform exceptionally well in physical problems, a",
+        "arxiv_id": "2105.04026",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2105.04026v2",
+        "local_pdf": "pdfs\\2105.04026.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "Activation Analysis of a Byte-Based Deep Neural Network for Malware Classification",
+        "authors": [
+          "Scott E. Coull",
+          "Christopher Gardner"
+        ],
+        "year": 2019,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "Feature engineering is one of the most costly aspects of developing effective machine learning models, and that cost is even greater in specialized problem domains, like malware classification, where expert skills are necessary to identify useful features. Recent work, however, has shown that deep learning models can be used to automatically learn feature representations directly from the raw, unstructured bytes of the binaries themselves. In this paper, we explore what these models are learning about malware. To do so, we examine the learned features at multiple levels of resolution, from ind",
+        "arxiv_id": "1903.04717",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/1903.04717v2",
+        "local_pdf": "pdfs\\1903.04717.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "Deep learning observables in computational fluid dynamics",
+        "authors": [
+          "Kjetil O. Lye",
+          "Siddhartha Mishra",
+          "Deep Ray"
+        ],
+        "year": 2019,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "Many large scale problems in computational fluid dynamics such as uncertainty quantification, Bayesian inversion, data assimilation and PDE constrained optimization are considered very challenging computationally as they require a large number of expensive (forward) numerical solutions of the corresponding PDEs. We propose a machine learning algorithm, based on deep artificial neural networks, that predicts the underlying \\emph{input parameters to observable} map from a few training samples (computed realizations of this map). By a judicious combination of theoretical arguments and empirical o",
+        "arxiv_id": "1903.03040",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/1903.03040v2",
+        "local_pdf": "pdfs\\1903.03040.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "A multitask deep learning model for real-time deployment in embedded systems",
+        "authors": [
+          "Miquel Martí",
+          "Atsuto Maki"
+        ],
+        "year": 2017,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "We propose an approach to Multitask Learning (MTL) to make deep learning models faster and lighter for applications in which multiple tasks need to be solved simultaneously, which is particularly useful in embedded, real-time systems. We develop a multitask model for both Object Detection and Semantic Segmentation and analyze the challenges that appear during its training. Our multitask network is 1.6x faster, lighter and uses less memory than deploying the single-task models in parallel. We conclude that MTL has the potential to give superior performance in exchange of a more complex training",
+        "arxiv_id": "1711.00146",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/1711.00146v1",
+        "local_pdf": "pdfs\\1711.00146.pdf"
+      }
+    ]
+  },
+  {
+    "block": "retrieve_and_verify",
+    "label": "Retrieve-and-verify pipelines for labeled dataset generation",
+    "ss_query": "retrieve verify LLM dataset construction labeling pipeline",
+    "arxiv_query": "retrieve verify LLM weak labeling embedding retrieval dataset",
+    "papers": [
+      {
+        "source": "semantic_scholar",
+        "title": "Exploring Cross-Cultural Differences in English Hate Speech Annotations: From Dataset Construction to Analysis",
+        "authors": [
+          "Nayeon Lee",
+          "Chani Jung",
+          "Junho Myung",
+          "Jiho Jin",
+          "Juho Kim",
+          "Alice Oh"
+        ],
+        "year": 2023,
+        "venue": "North American Chapter of the Association for Computational Linguistics",
+        "citations": 53,
+        "abstract": "***Warning**: this paper contains content that may be offensive or upsetting.*Most hate speech datasets neglect the cultural diversity within a single language, resulting in a critical shortcoming in hate speech detection. To address this, we introduce **CREHate**, a **CR**oss-cultural **E**nglish **Hate** speech dataset.To construct CREHate, we follow a two-step procedure: 1) cultural post collection and 2) cross-cultural annotation.We sample posts from the SBIC dataset, which predominantly represents North America, and collect posts from four geographically diverse English-speaking countries",
+        "arxiv_id": "2308.16705",
+        "doi": "10.18653/v1/2024.naacl-long.236",
+        "openaccess_pdf": "",
+        "local_pdf": "pdfs\\2308.16705.pdf"
+      },
+      {
+        "source": "semantic_scholar",
+        "title": "FORGE: An LLM-driven Framework for Large-Scale Smart Contract Vulnerability Dataset Construction",
+        "authors": [
+          "Jiachi Chen",
+          "Yiming Shen",
+          "Jiashuo Zhang",
+          "Zihao Li",
+          "John C. Grundy",
+          "Zhenzhe Shao",
+          "Yanlin Wang",
+          "Jiashui Wang",
+          "Ting Chen",
+          "Zibin Zheng"
+        ],
+        "year": 2025,
+        "venue": "arXiv.org",
+        "citations": 6,
+        "abstract": "High-quality smart contract vulnerability datasets are critical for evaluating security tools and advancing smart contract security research. Two major limitations of current manual dataset construction are (1) labor-intensive and error-prone annotation processes limiting the scale, quality, and evolution of the dataset, and (2) absence of standardized classification rules results in inconsistent vulnerability categories and labeling results across different datasets. To address these limitations, we present FORGE, the first automated approach for constructing smart contract vulnerability data",
+        "arxiv_id": "2506.18795",
+        "doi": "10.48550/arXiv.2506.18795",
+        "openaccess_pdf": "",
+        "local_pdf": "pdfs\\2506.18795.pdf"
+      },
+      {
+        "source": "semantic_scholar",
+        "title": "Saturation-Driven Dataset Generation for LLM Mathematical Reasoning in the TPTP Ecosystem",
+        "authors": [
+          "Valentin Quesnel",
+          "Damien Sileo"
+        ],
+        "year": 2025,
+        "venue": "arXiv.org",
+        "citations": 2,
+        "abstract": "The scarcity of high-quality, logically sound data is a critical bottleneck for advancing the mathematical reasoning of Large Language Models (LLMs). Our work confronts this challenge by turning decades of automated theorem proving research into a scalable data engine. Rather than relying on error-prone LLMs or complex proof-assistant syntax like Lean and Isabelle, our framework leverages E-prover's saturation capabilities on the vast TPTP axiom library to derive a massive, guaranteed-valid corpus of theorems. Our pipeline is principled and simple: saturate axioms, filter for\"interesting\"theor",
+        "arxiv_id": "2509.06809",
+        "doi": "10.48550/arXiv.2509.06809",
+        "openaccess_pdf": "",
+        "local_pdf": "pdfs\\2509.06809.pdf"
+      },
+      {
+        "source": "semantic_scholar",
+        "title": "LLM-Assisted Weak Supervision for Low-Resource Kazakh Sequence Labeling: Synthetic Annotation and CRF-Refined NER/POS Models",
+        "authors": [
+          "A. Aitim"
+        ],
+        "year": 2026,
+        "venue": "Applied Sciences",
+        "citations": 1,
+        "abstract": "Kazakh sequence labeling is constrained by limited annotated resources, while its agglutinative morphology and productive suffixation increase data sparsity and exacerbate label inconsistency in part-of-speech (POS) tagging and named entity recognition (NER). This paper proposes an LLM-assisted weak supervision framework in which a large language model generates synthetic token-level annotations that are subsequently filtered using confidence-based criteria and combined with a smaller manually verified subset to train Transformer-based sequence taggers with Conditional Random Field (CRF) decod",
+        "arxiv_id": null,
+        "doi": "10.3390/app16083632",
+        "openaccess_pdf": ""
+      },
+      {
+        "source": "semantic_scholar",
+        "title": "DS@GT at CheckThat! 2025: A Simple Retrieval-First, LLM-Backed Framework for Claim Normalization",
+        "authors": [
+          "Aleksandar Pramov",
+          "Jian Ma",
+          "Bina Patel"
+        ],
+        "year": 2025,
+        "venue": "Conference and Labs of the Evaluation Forum",
+        "citations": 1,
+        "abstract": "Claim normalization is an integral part of any automatic fact-check verification system. It parses the typically noisy claim data, such as social media posts into normalized claims, which are then fed into downstream veracity classification tasks. The CheckThat! 2025 Task 2 focuses specifically on claim normalization and spans 20 languages under monolingual and zero-shot conditions. Our proposed solution consists of a lightweight \\emph{retrieval-first, LLM-backed} pipeline, in which we either dynamically prompt a GPT-4o-mini with in-context examples, or retrieve the closest normalization from ",
+        "arxiv_id": "2508.17402",
+        "doi": "10.48550/arXiv.2508.17402",
+        "openaccess_pdf": "",
+        "local_pdf": "pdfs\\2508.17402.pdf"
+      },
+      {
+        "source": "semantic_scholar",
+        "title": "BETA-Labeling for Multilingual Dataset Construction in Low-Resource IR",
+        "authors": [
+          "Md Najib Hasan",
+          "M. Ferdous",
+          "Fyad Mohammed",
+          "Nazmul Siddique"
+        ],
+        "year": 2026,
+        "venue": "arXiv.org",
+        "citations": 0,
+        "abstract": "IR in low-resource languages remains limited by the scarcity of high-quality, task-specific annotated datasets. Manual annotation is expensive and difficult to scale, while using large language models (LLMs) as automated annotators introduces concerns about label reliability, bias, and evaluation validity. This work presents a Bangla IR dataset constructed using a BETA-labeling framework involving multiple LLM annotators from diverse model families. The framework incorporates contextual alignment, consistency checks, and majority agreement, followed by human evaluation to verify label quality.",
+        "arxiv_id": "2602.14488",
+        "doi": "10.48550/arXiv.2602.14488",
+        "openaccess_pdf": ""
+      },
+      {
+        "source": "semantic_scholar",
+        "title": "Succeeding at Scale: Automated Dataset Construction and Query-Side Adaptation for Multi-Tenant Search",
+        "authors": [
+          "Prateek Jain",
+          "Shabari S. Nair",
+          "Ritesh Goru",
+          "Prakhar Agarwal",
+          "Ajay Yadav",
+          "Yoga Sri Varshan Varadharajan",
+          "C. Caramanis"
+        ],
+        "year": 2026,
+        "venue": "",
+        "citations": 0,
+        "abstract": "Large-scale multi-tenant retrieval systems generate extensive query logs but lack curated relevance labels for effective domain adaptation, resulting in substantial underutilized\"dark data\". This challenge is compounded by the high cost of model updates, as jointly fine-tuning query and document encoders requires full corpus re-indexing, which is impractical in multi-tenant settings with thousands of isolated indices. We introduce DevRev-Search, a passage retrieval benchmark for technical customer support built via a fully automated pipeline. Candidate generation uses fusion across diverse spa",
+        "arxiv_id": "2601.04646",
+        "doi": null,
+        "openaccess_pdf": "",
+        "local_pdf": "pdfs\\2601.04646.pdf"
+      },
+      {
+        "source": "semantic_scholar",
+        "title": "From Threads to Trajectories: A Multi-LLM Pipeline for Community Knowledge Extraction from GitHub Issue Discussions",
+        "authors": [
+          "Nazia Shehnaz Joynab",
+          "Soneya Binta Hossain"
+        ],
+        "year": 2026,
+        "venue": "",
+        "citations": 0,
+        "abstract": "Resolution of complex post-production issues in large-scale open-source software (OSS) projects requires significant cognitive effort, as developers need to go through long, unstructured and fragmented issue discussion threads before that. In this paper, we present SWE-MIMIC-Bench, an issue trajectory dataset generated from raw GitHub discussions using an automated multi-LLM pipeline. Unlike simple summarization, this pipeline utilizes a group of closed-source LLMs to perform granular tasks: analyzing individual comments with awareness of externally-linked resources, classifying comment analys",
+        "arxiv_id": "2604.25880",
+        "doi": null,
+        "openaccess_pdf": "",
+        "local_pdf": "pdfs\\2604.25880.pdf"
+      },
+      {
+        "source": "arxiv",
+        "title": "ReFeed: Retrieval Feedback-Guided Dataset Construction for Style-Aware Query Rewriting",
+        "authors": [
+          "Jiyoon Myung",
+          "Jungki Son",
+          "Kyungro Lee",
+          "Jihyeon Park",
+          "Joohyung Han"
+        ],
+        "year": 2026,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "Retrieval systems often fail when user queries differ stylistically or semantically from the language used in domain documents. Query rewriting has been proposed to bridge this gap, improving retrieval by reformulating user queries into semantically equivalent forms. However, most existing approaches overlook the stylistic characteristics of target documents-their domain-specific phrasing, tone, and structure-which are crucial for matching real-world data distributions. We introduce a retrieval feedback-driven dataset generation framework that automatically identifies failed retrieval cases, l",
+        "arxiv_id": "2603.01417",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2603.01417v1"
+      },
+      {
+        "source": "arxiv",
+        "title": "RoleRAG: Enhancing LLM Role-Playing via Graph Guided Retrieval",
+        "authors": [
+          "Yongjie Wang",
+          "Jonathan Leung",
+          "Zhiqi Shen"
+        ],
+        "year": 2025,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "Large Language Models (LLMs) have shown promise in character imitation, enabling immersive and engaging conversations. However, they often generate content that is irrelevant or inconsistent with a character's background. We attribute these failures to: (1) the inability to accurately recall character-specific knowledge due to entity ambiguity, and (2) a lack of awareness of the character's cognitive boundaries. To address these issues, we propose RoleRAG, a retrieval-based framework that integrates efficient entity disambiguation for knowledge indexing with a boundary-aware retriever for extr",
+        "arxiv_id": "2505.18541",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2505.18541v1"
+      },
+      {
+        "source": "arxiv",
+        "title": "Towards Better Instruction Following Retrieval Models",
+        "authors": [
+          "Yuchen Zhuang",
+          "Aaron Trinh",
+          "Rushi Qiang",
+          "Haotian Sun",
+          "Chao Zhang",
+          "Hanjun Dai",
+          "Bo Dai"
+        ],
+        "year": 2025,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "Modern information retrieval (IR) models, trained exclusively on standard <query, passage> pairs, struggle to effectively interpret and follow explicit user instructions. We introduce InF-IR, a large-scale, high-quality training corpus tailored for enhancing retrieval models in Instruction-Following IR. InF-IR expands traditional training pairs into over 38,000 expressive <instruction, query, passage> triplets as positive samples. In particular, for each positive triplet, we generate two additional hard negative examples by poisoning both instructions and queries, then rigorously validated by ",
+        "arxiv_id": "2505.21439",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2505.21439v1"
+      },
+      {
+        "source": "arxiv",
+        "title": "How important is Recall for Measuring Retrieval Quality?",
+        "authors": [
+          "Shelly Schwartz",
+          "Oleg Vasilyev",
+          "Randy Sawaya"
+        ],
+        "year": 2025,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "In realistic retrieval settings with large and evolving knowledge bases, the total number of documents relevant to a query is typically unknown, and recall cannot be computed. In this paper, we evaluate several established strategies for handling this limitation by measuring the correlation between retrieval quality metrics and LLM-based judgments of response quality, where responses are generated from the retrieved documents. We conduct experiments across multiple datasets with a relatively low number of relevant documents (2-15). We also introduce a simple retrieval quality measure that perf",
+        "arxiv_id": "2512.20854",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2512.20854v2"
+      },
+      {
+        "source": "arxiv",
+        "title": "The RSNA Abdominal Traumatic Injury CT (RATIC) Dataset",
+        "authors": [
+          "Jeffrey D. Rudie",
+          "Hui-Ming Lin",
+          "Robyn L. Ball",
+          "Sabeena Jalal",
+          "Luciano M. Prevedello",
+          "Savvas Nicolaou",
+          "Brett S. Marinelli",
+          "Adam E. Flanders",
+          "Kirti Magudia",
+          "George Shih",
+          "Melissa A. Davis",
+          "John Mongan",
+          "Peter D. Chang",
+          "Ferco H. Berger",
+          "Sebastiaan Hermans",
+          "Meng Law",
+          "Tyler Richards",
+          "Jan-Peter Grunz",
+          "Andreas Steven Kunz",
+          "Shobhit Mathur",
+          "Sandro Galea-Soler",
+          "Andrew D. Chung",
+          "Saif Afat",
+          "Chin-Chi Kuo",
+          "Layal Aweidah",
+          "Ana Villanueva Campos",
+          "Arjuna Somasundaram",
+          "Felipe Antonio Sanchez Tijmes",
+          "Attaporn Jantarangkoon",
+          "Leonardo Kayat Bittencourt",
+          "Michael Brassil",
+          "Ayoub El Hajjami",
+          "Hakan Dogan",
+          "Muris Becircic",
+          "Agrahara G. Bharatkumar",
+          "Eduardo Moreno Júdice de Mattos Farina",
+          "Dataset Curator Group",
+          "Dataset Contributor Group",
+          "Dataset Annotator Group",
+          "Errol Colak"
+        ],
+        "year": 2024,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "The RSNA Abdominal Traumatic Injury CT (RATIC) dataset is the largest publicly available collection of adult abdominal CT studies annotated for traumatic injuries. This dataset includes 4,274 studies from 23 institutions across 14 countries. The dataset is freely available for non-commercial use via Kaggle at https://www.kaggle.com/competitions/rsna-2023-abdominal-trauma-detection. Created for the RSNA 2023 Abdominal Trauma Detection competition, the dataset encourages the development of advanced machine learning models for detecting abdominal injuries on CT scans. The dataset encompasses dete",
+        "arxiv_id": "2405.19595",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2405.19595v1"
+      },
+      {
+        "source": "arxiv",
+        "title": "RETA-LLM: A Retrieval-Augmented Large Language Model Toolkit",
+        "authors": [
+          "Jiongnan Liu",
+          "Jiajie Jin",
+          "Zihan Wang",
+          "Jiehan Cheng",
+          "Zhicheng Dou",
+          "Ji-Rong Wen"
+        ],
+        "year": 2023,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "Although Large Language Models (LLMs) have demonstrated extraordinary capabilities in many domains, they still have a tendency to hallucinate and generate fictitious responses to user requests. This problem can be alleviated by augmenting LLMs with information retrieval (IR) systems (also known as retrieval-augmented LLMs). Applying this strategy, LLMs can generate more factual texts in response to user input according to the relevant content retrieved by IR systems from external corpora as references. In addition, by incorporating external knowledge, retrieval-augmented LLMs can answer in-dom",
+        "arxiv_id": "2306.05212",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2306.05212v1"
+      },
+      {
+        "source": "arxiv",
+        "title": "LLatrieval: LLM-Verified Retrieval for Verifiable Generation",
+        "authors": [
+          "Xiaonan Li",
+          "Changtai Zhu",
+          "Linyang Li",
+          "Zhangyue Yin",
+          "Tianxiang Sun",
+          "Xipeng Qiu"
+        ],
+        "year": 2023,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "Verifiable generation aims to let the large language model (LLM) generate text with supporting documents, which enables the user to flexibly verify the answer and makes the LLM's output more reliable. Retrieval plays a crucial role in verifiable generation. Specifically, the retrieved documents not only supplement knowledge to help the LLM generate correct answers, but also serve as supporting evidence for the user to verify the LLM's output. However, the widely used retrievers become the bottleneck of the entire pipeline and limit the overall performance. Their capabilities are usually inferi",
+        "arxiv_id": "2311.07838",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2311.07838v3"
+      },
+      {
+        "source": "arxiv",
+        "title": "Overcoming low-utility facets for complex answer retrieval",
+        "authors": [
+          "Sean MacAvaney",
+          "Andrew Yates",
+          "Arman Cohan",
+          "Luca Soldaini",
+          "Kai Hui",
+          "Nazli Goharian",
+          "Ophir Frieder"
+        ],
+        "year": 2018,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "Many questions cannot be answered simply; their answers must include numerous nuanced details and additional context. Complex Answer Retrieval (CAR) is the retrieval of answers to such questions. In their simplest form, these questions are constructed from a topic entity (e.g., `cheese') and a facet (e.g., `health effects'). While topic matching has been thoroughly explored, we observe that some facets use general language that is unlikely to appear verbatim in answers. We call these low-utility facets. In this work, we present an approach to CAR that identifies and addresses low-utility facet",
+        "arxiv_id": "1811.08772",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/1811.08772v1"
+      }
+    ]
+  },
+  {
+    "block": "known_additions",
+    "label": "Manually added references not surfaced by the API search",
+    "ss_query": null,
+    "arxiv_query": null,
+    "papers": [
+      {
+        "source": "manual_known_addition",
+        "title": "DRAGON: Robust Classification for Very Large Collections of Software Repositories",
+        "authors": [
+          "Stefano Balla",
+          "Stefano Zacchiroli",
+          "Thomas Degueule",
+          "Jean-Rémy Falleri",
+          "Romain Robbes"
+        ],
+        "year": 2026,
+        "venue": "arXiv",
+        "citations": null,
+        "abstract": "The ability to automatically classify source code repositories with ''topics'' that reflect their content and purpose is very useful, especially when navigating or searching through large software collections. However, existing approaches often rely heavily on README files and other metadata, which are frequently missing, limiting their applicability in real-world large-scale settings. We present DRAGON, a repository classifier designed for very large and diverse software collections. It operates entirely on lightweight signals commonly stored in version control systems: file and directory nam",
+        "arxiv_id": "2602.09071",
+        "doi": null,
+        "openaccess_pdf": "https://arxiv.org/pdf/2602.09071.pdf",
+        "_why_added": "Largest open GitHub-repo-classification dataset (825K). Critical Related-Work anchor for §2.1.",
+        "local_pdf": "pdfs\\2602.09071.pdf"
+      },
+      {
+        "source": "manual_known_addition",
+        "title": "Snorkel: Rapid Training Data Creation with Weak Supervision",
+        "authors": [
+          "Alexander Ratner",
+          "Stephen H. Bach",
+          "Henry Ehrenberg",
+          "Jason Fries",
+          "Sen Wu",
+          "Christopher Ré"
+        ],
+        "year": 2017,
+        "venue": "Proceedings of the VLDB Endowment",
+        "citations": null,
+        "abstract": "Labeling training data is increasingly the largest bottleneck in deploying machine learning systems. We present Snorkel, a first-of-its-kind system that enables users to train state-of-the-art models without hand labeling any training data. Instead, users write labeling functions that express arbitrary heuristics, which can have unknown accuracies and correlations. Snorkel denoises their outputs without access to ground truth by incorporating the first end-to-end implementation of our recently proposed machine learning paradigm, data programming.",
+        "arxiv_id": "1711.10160",
+        "doi": "10.14778/3157794.3157797",
+        "openaccess_pdf": "https://arxiv.org/pdf/1711.10160.pdf",
+        "_why_added": "Foundational weak-supervision / labeling-functions paper. Anchor citation for §2.2 (LLM-as-labeler is a special case).",
+        "local_pdf": "pdfs\\1711.10160.pdf"
+      },
+      {
+        "source": "manual_known_addition",
+        "title": "Stronger Than You Think: Benchmarking Weak Supervision on Realistic Tasks",
+        "authors": [],
+        "year": 2024,
+        "venue": "NeurIPS 2024 Datasets and Benchmarks Track",
+        "citations": null,
+        "abstract": "A benchmark of weak-supervision pipelines on realistic tasks, comparing handwritten labeling functions, programmatic labeling, and LLM-generated labeling functions. Shows that LLM-LFs can match or exceed handcrafted LFs on several realistic benchmarks; informs the LLM-as-labeler design space.",
+        "arxiv_id": null,
+        "doi": null,
+        "openaccess_pdf": "https://proceedings.neurips.cc/paper_files/paper/2024/file/dd26d03d50af993ed052578c730e9729-Paper-Datasets_and_Benchmarks_Track.pdf",
+        "_why_added": "Closest NeurIPS D&B 2024 paper to ours methodologically. Important precedent for §2.2 and §2.4.",
+        "local_pdf": "pdfs\\stronger_than_you_think_benchmarking_weak_supervision_on_rea.pdf"
+      },
+      {
+        "source": "manual_known_addition",
+        "title": "ChatGPT Outperforms Crowd-Workers for Text-Annotation Tasks",
+        "authors": [
+          "Fabrizio Gilardi",
+          "Meysam Alizadeh",
+          "Maël Kubli"
+        ],
+        "year": 2023,
+        "venue": "Proceedings of the National Academy of Sciences (PNAS)",
+        "citations": null,
+        "abstract": "Many NLP applications require manual data annotations for a variety of tasks, notably to train classifiers or evaluate the performance of unsupervised models. Depending on the size and degree of complexity, the tasks may be conducted by crowd-workers on platforms such as MTurk as well as trained annotators, such as research assistants. Using a sample of 2,382 tweets, we demonstrate that ChatGPT outperforms crowd-workers for several annotation tasks, including relevance, stance, topics, and frames detection. Specifically, the zero-shot accuracy of ChatGPT exceeds that of crowd-workers for four ",
+        "arxiv_id": "2303.15056",
+        "doi": "10.1073/pnas.2305016120",
+        "openaccess_pdf": "https://arxiv.org/pdf/2303.15056.pdf",
+        "_why_added": "Canonical citation for 'LLMs as annotators outperform crowd-workers' — anchors the methodological choice in §3.4.",
+        "local_pdf": "pdfs\\2303.15056.pdf"
+      }
+    ]
+  }
+]

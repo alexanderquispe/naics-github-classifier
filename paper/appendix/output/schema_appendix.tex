@@ -1,0 +1,49 @@
+The released file \texttt{train\_data\_gpt\_ab8\_score\_with\_code.parquet} contains \textbf{6,588 rows} and \textbf{6 columns}. Every cell is non-null. Table~\ref{tab:schema-fields} gives the per-column schema; Table~\ref{tab:schema-stats} gives character-length and uniqueness statistics for the four text columns; the listing at the end shows one full row (with the \texttt{readme\_content} field truncated for readability).
+
+\begin{table}[ht]
+\centering
+\caption{Schema of the released training corpus. The order shown matches the column order in the parquet file.}
+\label{tab:schema-fields}
+\small
+\begin{tabular}{lll}
+\toprule
+Column & Type & Description \\
+\midrule
+\texttt{name\_repo} & string & Repository short name (no owner prefix). \\
+\texttt{description} & string & Repository description from GitHub. \\
+\texttt{topics} & string & Topic tags joined with ``\texttt{;\space}'', empty string if the repository declares no tags. \\
+\texttt{readme\_content} & string & Cleaned README text (Markdown code blocks, HTML tags, and URLs stripped; whitespace normalized). \\
+\texttt{label} & int64 & Integer class encoding, $0\ldots 18$, monotonic in \texttt{code}. \\
+\texttt{code} & string & 2-digit NAICS sector code as a string. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Per-column character-length and uniqueness statistics for the four string columns. Empty strings (length 0) count as present, not missing.}
+\label{tab:schema-stats}
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Column & Min & Median & Mean & Max & Empty rows & Unique \\
+\midrule
+\texttt{name\_repo} & 2 & 14 & 16 & 85 & 0 (0.0\%) & 6,141 \\
+\texttt{description} & 2 & 65 & 88 & 1,626 & 0 (0.0\%) & 6,231 \\
+\texttt{topics} & 0 & 0 & 21 & 384 & 4,533 (68.8\%) & 1,926 \\
+\texttt{readme\_content} & 3 & 1912 & 3387 & 212,122 & 0 (0.0\%) & 6,192 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Example row.}
+One representative row from the released file (the \texttt{readme\_content} field is truncated here to 240 characters for readability; the actual stored value may be much longer).
+
+\begin{Verbatim}[fontsize=\footnotesize,breaklines=true,breakanywhere=true,breakindent=0pt,breaksymbolleft={\textcolor{gray}{\tiny$\hookrightarrow$}},frame=single,framesep=2mm,xleftmargin=0pt,xrightmargin=0pt]
+name_repo:      etn-occurrences
+description:    Acoustic telemetry data
+topics:         lifewatch; oscibio; animal-tracking; data-publication; dataset; biologging; animal-movement; rstats; fish; r
+readme_content: # Acoustic telemetry datasets This repository contains scripts to publish fish tracking data from the [European Tracking Network (ETN)](lifewatch.be (specifically from the [Permanent Belgian Acoustic Receiver Network](lifewatch.be on [GBIF...
+label:          0
+code:           11
+\end{Verbatim}

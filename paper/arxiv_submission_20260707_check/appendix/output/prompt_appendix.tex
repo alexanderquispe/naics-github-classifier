@@ -1,0 +1,91 @@
+This appendix reproduces verbatim the prompt sent to GPT-4.1 for every candidate (repository, NAICS sector) pair. The three placeholders \texttt{\{naics\_code\}}, \texttt{\{readme\_text.strip()\}}, and \texttt{\{sector\_industries.strip()\}} are substituted per row before the request is sent. Source: \texttt{3\_eu\_repo\_gpt\_classif.ipynb} cell 22 (\texttt{build\_prompt} function) and cell 26 (system message and API call). The corresponding Python mirror is \texttt{3\_eu\_repo\_gpt\_classif.py}.
+
+\paragraph{System message.}
+\begin{Verbatim}[fontsize=\footnotesize,breaklines=true,breakanywhere=true,breakindent=0pt,breaksymbolleft={\textcolor{gray}{\tiny$\hookrightarrow$}},frame=single,framesep=2mm,xleftmargin=0pt,xrightmargin=0pt]
+You are a domain expert in economic classification systems with a focus on NAICS industry {naics_code}.
+\end{Verbatim}
+
+\paragraph{User message.}
+\begin{Verbatim}[fontsize=\footnotesize,breaklines=true,breakanywhere=true,breakindent=0pt,breaksymbolleft={\textcolor{gray}{\tiny$\hookrightarrow$}},frame=single,framesep=2mm,xleftmargin=0pt,xrightmargin=0pt]
+TASK: GitHub Repository NAICS Sector Classification
+
+You are a domain expert tasked with classifying GitHub repositories into NAICS industry sectors for GitHub's repository categorization system. Your goal is to determine with high precision whether this repository belongs to NAICS Sector {naics_code}.
+
+REPOSITORY README CONTENT:
+<readme>
+{readme_text.strip()}
+</readme>
+
+TARGET NAICS SECTOR:
+<naics_sector>
+Sector {naics_code}: {sector_industries.strip()}
+</naics_sector>
+
+CLASSIFICATION FRAMEWORK:
+
+A repository should be classified as "Yes" for this sector if it demonstrates CLEAR ALIGNMENT with one or more of these criteria:
+
+1. **Industry-Specific Software**: Applications, tools, or systems designed specifically for use within this industry sector
+   - Example: Farm management software for Agriculture (Sector 11)
+   - Example: Church management systems for Religious Organizations (Sector 81)
+
+2. **Sector-Relevant Functionality**: Code that implements processes, calculations, or workflows specific to this industry
+   - Example: Prayer time calculators for Religious Organizations
+   - Example: Crop yield prediction models for Agriculture
+
+3. **Industry Domain Applications**: Software that directly serves businesses, organizations, or activities within this sector
+   - Example: Restaurant POS systems for Food Services (Sector 72)
+   - Example: Educational platforms for Educational Services (Sector 61)
+
+4. **Sector-Specific Data/Research**: Datasets, analysis tools, or research implementations focused on this industry
+   - Example: Agricultural sensor data analysis
+   - Example: Healthcare outcome prediction models
+
+CLASSIFICATION STANDARDS:
+
+**INCLUDE ("Yes") when:**
+- The repository's primary purpose aligns with the sector
+- The software would be used by businesses/organizations in this sector
+- The code implements sector-specific functionality or processes
+- The project addresses sector-specific problems or use cases
+
+**EXCLUDE ("No") when:**
+- The repository serves multiple sectors equally (generic tools)
+- Industry connection is only tangential or in examples
+- The primary use case is outside this sector
+- No clear business or operational relevance to the sector
+
+SCORING GUIDE:
+- 9-10: Core industry software with direct sector application
+- 7-8: Strong sector relevance with clear industry use cases
+- 5-6: Moderate sector connection with identifiable applications
+- 3-4: Weak sector relevance, mostly tangential
+- 1-2: No meaningful sector connection
+
+ANALYSIS REQUIREMENTS:
+1. Identify the repository's primary purpose and functionality
+2. Assess alignment with the target NAICS sector
+3. Determine the most applicable classification criterion
+4. Consider practical usage within the sector
+
+Provide your response in this exact JSON format:
+{
+    "NAICS {naics_code}": {
+        "rationale": "Concise explanation of classification decision, including primary repository purpose, specific sector alignment criteria met, and justification for inclusion/exclusion",
+        "score": "1-10",
+        "match": "Yes" or "No"
+    }
+}
+
+IMPORTANT: Base your decision on the repository's PRIMARY purpose and DIRECT applicability to the sector. Be precise and consistent in your classifications.
+\end{Verbatim}
+
+\paragraph{API parameters.}
+\begin{itemize}
+  \item \textbf{Endpoint:} \url{https://api-model-lab.githubcopilot.com/chat/completions}
+  \item \textbf{Model alias:} \texttt{gpt-4.1} (resolves to snapshot \texttt{gpt-4.1-2025-04-14} at the GitHub Copilot LLM-lab endpoint).
+  \item \textbf{\texttt{temperature}:} 0
+  \item \textbf{\texttt{max\_tokens} (output):} $\min(3500,\; 128000 - n_{\text{input}})$, where $n_{\text{input}}$ is the token count of the system plus user message under \texttt{tiktoken.encoding\_for\_model(\"gpt-4.1\")}.
+  \item \textbf{Retry policy:} up to 5 attempts on any non-200 response, with linear back-off \texttt{sleep = 5 $\times$ attempt} seconds.
+  \item \textbf{Response parsing:} the model's reply is searched with \texttt{re.search(r'\textbackslash\{[\textbackslash s\textbackslash S]*\textbackslash\}', reply)} and the matched substring passed to \texttt{json.loads}. The expected output is nested under the outer key \texttt{\"NAICS \{code\}\"} with string-valued \texttt{match} (\texttt{\"Yes\"} or \texttt{\"No\"}), string-valued \texttt{score} (\texttt{\"1\"}--\texttt{\"10\"}), and free-form \texttt{rationale}.
+\end{itemize}
